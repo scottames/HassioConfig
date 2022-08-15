@@ -29,6 +29,9 @@ notify:
     platform: pushover
     api_key: !secret pushover_api_key
     user_key: !secret pushover_user_key
+    
+shell_command:
+    commit_and_push_config: bash /config/scripts/commit_and_push.sh
 
 ## --------------------- ##
 # Integrations

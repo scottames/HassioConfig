@@ -8,6 +8,7 @@
 !*.sh
 !*.js*
 !groups/
+!scripts/
 
 .storage
 .cloud
