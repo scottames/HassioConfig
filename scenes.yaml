@@ -1,0 +1,304 @@
+- id: '1636909450719'
+  name: Shower On
+  entities:
+    light.dimmer_dry_contact_relay:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Mirror
+      supported_features: 32
+      state: 'on'
+    switch.dimmer_dry_contact_relay:
+      friendly_name: Under Cabinet
+      state: 'on'
+    sensor.dimmer_dry_contact_relay_node_status:
+      friendly_name: 'Vanity: Node Status'
+      icon: mdi:heart-pulse
+      state: alive
+    light.bathroom:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 255
+      hs_color:
+      - 37.778
+      - 52.941
+      rgb_color:
+      - 255
+      - 205
+      - 120
+      xy_color:
+      - 0.459
+      - 0.408
+      effect: none
+      friendly_name: Under Cabinet
+      supported_features: 63
+      state: 'on'
+    switch.z_wave_plus_700_series_s2_on_off_switch:
+      friendly_name: Shower
+      state: 'on'
+    switch.z_wave_plus_700_series_s2_on_off_switch_2:
+      friendly_name: Fan
+      state: 'on'
+  icon: mdi:shower
+- id: '1637808514850'
+  name: Shower Off
+  entities:
+    light.dimmer_dry_contact_relay:
+      supported_color_modes:
+      - brightness
+      friendly_name: Mirror
+      supported_features: 32
+      state: 'off'
+    switch.dimmer_dry_contact_relay:
+      friendly_name: Under Cabinet
+      state: 'on'
+    sensor.dimmer_dry_contact_relay_node_status:
+      friendly_name: 'Vanity: Node Status'
+      icon: mdi:heart-pulse
+      state: alive
+    light.bathroom:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      supported_color_modes:
+      - color_temp
+      - hs
+      friendly_name: Under Cabinet
+      supported_features: 63
+      state: 'off'
+    switch.z_wave_plus_700_series_s2_on_off_switch:
+      friendly_name: Shower
+      state: 'off'
+    switch.z_wave_plus_700_series_s2_on_off_switch_2:
+      friendly_name: Fan
+      state: 'off'
+  icon: mdi:shower
+- id: '1637811415553'
+  name: Living Room On
+  entities:
+    light.cb2:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 255
+      hs_color:
+      - 38.222
+      - 52.941
+      rgb_color:
+      - 255
+      - 205
+      - 120
+      xy_color:
+      - 0.459
+      - 0.408
+      effect: none
+      friendly_name: CB2
+      supported_features: 63
+      state: 'on'
+    light.hue_color_lamp_1:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 255
+      hs_color:
+      - 38.222
+      - 52.941
+      rgb_color:
+      - 255
+      - 205
+      - 120
+      xy_color:
+      - 0.459
+      - 0.408
+      effect: none
+      friendly_name: Bookshelf
+      supported_features: 63
+      state: 'on'
+    light.tv:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 255
+      hs_color:
+      - 38.222
+      - 52.941
+      rgb_color:
+      - 255
+      - 205
+      - 120
+      xy_color:
+      - 0.459
+      - 0.408
+      effect: none
+      friendly_name: Big Desk
+      supported_features: 63
+      state: 'on'
+    light.hue_white_lamp_1_3:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Little Desk
+      supported_features: 41
+      state: 'on'
+  icon: mdi:seat
+- id: '1637811466107'
+  name: Living Room Off
+  entities:
+    light.cb2:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      supported_color_modes:
+      - color_temp
+      - hs
+      friendly_name: CB2
+      supported_features: 63
+      state: 'off'
+    light.hue_color_lamp_1:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      supported_color_modes:
+      - color_temp
+      - hs
+      friendly_name: Bookshelf
+      supported_features: 63
+      state: 'off'
+    light.tv:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      supported_color_modes:
+      - color_temp
+      - hs
+      friendly_name: Big Desk
+      supported_features: 63
+      state: 'off'
+    light.hue_white_lamp_1_3:
+      supported_color_modes:
+      - brightness
+      friendly_name: Little Desk
+      supported_features: 41
+      state: 'off'
+  icon: mdi:seat-outline
+- id: '1637812052841'
+  name: Kitchen All On
+  entities:
+    light.kitchen_backsplash:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Kitchen Backsplash
+      supported_features: 32
+      state: 'on'
+    light.kitchen_island_3:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Kitchen Island
+      supported_features: 32
+      state: 'on'
+    light.kitchen_overhead_2:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Kitchen Overhead
+      supported_features: 32
+      state: 'on'
+  icon: mdi:fridge
+- id: '1637812103706'
+  name: Kitchen All Off
+  entities:
+    light.kitchen_backsplash:
+      supported_color_modes:
+      - brightness
+      friendly_name: Kitchen Backsplash
+      supported_features: 32
+      state: 'off'
+    light.kitchen_island_3:
+      supported_color_modes:
+      - brightness
+      friendly_name: Kitchen Island
+      supported_features: 32
+      state: 'off'
+    light.kitchen_overhead_2:
+      supported_color_modes:
+      - brightness
+      friendly_name: Kitchen Overhead
+      supported_features: 32
+      state: 'off'
+  icon: mdi:fridge-outline
+- id: '1637812443298'
+  name: Bedroom On
+  entities:
+    light.hue_white_lamp_1:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Toad
+      supported_features: 41
+      state: 'on'
+    light.hue_white_lamp_1_2:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Targét
+      supported_features: 41
+      state: 'on'
+  icon: mdi:bed
+- id: '1637812477397'
+  name: Bedroom Off
+  entities:
+    light.hue_white_lamp_1:
+      supported_color_modes:
+      - brightness
+      friendly_name: Toad
+      supported_features: 41
+      state: 'off'
+    light.hue_white_lamp_1_2:
+      supported_color_modes:
+      - brightness
+      friendly_name: Targét
+      supported_features: 41
+      state: 'off'
+  icon: mdi:bed-outline

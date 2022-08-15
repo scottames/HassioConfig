@@ -1,0 +1,16 @@
+# Ignore
+/*
+
+# No Ignore
+!*.yaml
+!.gitignore
+!*.md
+!*.sh
+!*.js*
+!groups/
+
+.storage
+.cloud
+.google.token 
+home-assistant.log
+secrets.yaml

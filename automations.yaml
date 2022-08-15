@@ -1,0 +1,499 @@
+- id: '1636908946190'
+  alias: Toggle Under Cabinet
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - light.bathroom
+  condition: []
+  action:
+  - type: toggle
+    device_id: 641aec2de478db9b2924d2b8f6230c16
+    entity_id: light.bathroom
+    domain: light
+  mode: single
+- id: '1636909074590'
+  alias: Bedroom Lights On
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 71f0d08aa4b04d0f1f600db5f87509a1
+    entity_id: switch.bedroom_outlet
+    domain: switch
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 241b64b71a7c975218025610de8f4e0d
+    entity_id: light.hue_white_lamp_1_2
+    domain: light
+    brightness_pct: 100
+  - type: turn_on
+    device_id: 9c3fa89d959e11c674bb6e481205e90d
+    entity_id: light.hue_white_lamp_1
+    domain: light
+    brightness_pct: 100
+  mode: single
+- id: '1636909210552'
+  alias: Bedroom Lights Off
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_off
+    device_id: 71f0d08aa4b04d0f1f600db5f87509a1
+    entity_id: switch.bedroom_outlet
+    domain: switch
+  condition: []
+  action:
+  - scene: scene.bedroom_off
+  mode: single
+- id: '1637558005437'
+  alias: Turn off vanity relay
+  description: ''
+  trigger:
+  - platform: device
+    type: changed_states
+    device_id: 641aec2de478db9b2924d2b8f6230c16
+    entity_id: light.bathroom
+    domain: light
+  condition: []
+  action:
+  - type: toggle
+    device_id: 9e06f1a6ff79ebbe2460d7c938cf3f3a
+    entity_id: switch.dimmer_dry_contact_relay
+    domain: switch
+  mode: single
+- id: '1637558065227'
+  alias: Turn on vanity relay
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 641aec2de478db9b2924d2b8f6230c16
+    entity_id: light.bathroom
+    domain: light
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 9e06f1a6ff79ebbe2460d7c938cf3f3a
+    entity_id: switch.dimmer_dry_contact_relay
+    domain: switch
+  mode: single
+- id: '1637706344383'
+  alias: Pushover - HA Start
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition: []
+  action:
+  - service: notify.pushover
+    data:
+      message: Home Assistant Started
+      title: Home Assistant Started
+  mode: single
+- id: '1637706485400'
+  alias: Pushover - HA Shutdown
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: shutdown
+  condition: []
+  action:
+  - service: notify.pushover
+    data:
+      message: Home Assistant shutdown initiated
+      title: Home Assistant Shutdown
+  mode: single
+- id: '1637777786441'
+  alias: Low battery level detection & notification for all battery sensors
+  description: ''
+  use_blueprint:
+    path: sbyx/low-battery-level-detection-notification-for-all-battery-sensors.yaml
+    input:
+      actions:
+      - service: notify.pushover
+        data:
+          message: The battery of the sensor(s) {{sensors}} is low.
+          title: Low battery
+- id: '1637780058510'
+  alias: Pushover - Water Leak in the Kitchen!
+  description: ''
+  trigger:
+  - type: moist
+    platform: device
+    device_id: 122f21419cfe77ab0f80a28c3e58724b
+    entity_id: binary_sensor.water_leak_xs_sensor_water_alarm_water_leak_detected
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: notify.pushover
+    data:
+      title: Water Leak Detected in Kitchen
+      message: Water leak detected in Kitchen!
+  mode: single
+- id: '1637790536996'
+  alias: Pushover - Front Door Open
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 4a2a30dcf87d2e2b375f2438db517e5d
+    entity_id: binary_sensor.open_close_xs_sensor_access_control_window_door_is_open
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: notify.pushover
+    data:
+      title: Front door opened
+      message: Front door opened
+  mode: single
+- id: '1637798513461'
+  alias: Shower Scene On
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 4ce80f8a948ee9f32df5601c36a23594
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    value: 3
+  condition: []
+  action:
+  - scene: scene.new_scene
+  mode: single
+- id: '1637808701687'
+  alias: Shower Scene Off
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 4ce80f8a948ee9f32df5601c36a23594
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    value: 3
+  condition: []
+  action:
+  - scene: scene.shower_off
+  mode: single
+- id: '1637810805250'
+  alias: Pushover - Water Leak in the Laundry!
+  description: ''
+  trigger:
+  - type: moist
+    platform: device
+    device_id: dbafb89a8c6b0b56a7412345e806ca6e
+    entity_id: binary_sensor.water_leak_xs_sensor_water_alarm_water_leak_detected_2
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: notify.pushover
+    data:
+      title: Water Leak Detected in Laundry
+      message: Water leak detected in Laundry!
+  mode: single
+- id: '1637811125957'
+  alias: Pushover - Water Leak in the Bathroom!
+  description: ''
+  trigger:
+  - type: moist
+    platform: device
+    device_id: 3b34d838008a4726d4777a92987bf16c
+    entity_id: binary_sensor.water_leak_xs_sensor_water_alarm_water_leak_detected_3
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: notify.pushover
+    data:
+      title: Water Leak Detected in the Bathroom
+      message: Water leak detected in the Bathroom!
+  mode: single
+- id: '1637811329499'
+  alias: Turn on Living Room Scene
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 2af91ce4d5cb2e4770b2d7dd25868525
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    value: 2
+  condition: []
+  action:
+  - scene: scene.living_room_on
+  mode: single
+- id: '1637811536741'
+  alias: Turn Off Living Room Scene
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 2af91ce4d5cb2e4770b2d7dd25868525
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    value: 2
+  condition: []
+  action:
+  - scene: scene.living_room_off
+  mode: single
+- id: '1637812203505'
+  alias: Turn All Kitchen On
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 05aabd77387682dd721c8fd3aea0880a
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    value: 5
+  condition: []
+  action:
+  - scene: scene.kitchen_all_on
+  mode: single
+- id: '1637812235874'
+  alias: Turn All Kitchen Off
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 05aabd77387682dd721c8fd3aea0880a
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    value: 5
+  condition: []
+  action:
+  - scene: scene.kitchen_all_off
+  mode: single
+- id: '1637812718047'
+  alias: Turn On Condo
+  description: ''
+  trigger:
+  - platform: device
+    device_id: c9c2c18873c1e7ab057326d883ae61e4
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    value: 2
+  condition: []
+  action:
+  - scene: scene.bedroom_on
+  - scene: scene.kitchen_all_on
+  - scene: scene.living_room_on
+  - type: turn_on
+    device_id: b52e157b03fd9b597dcf600fd912f1b5
+    entity_id: light.z_wave_plus_700_series_s2_dimmer_switch_2
+    domain: light
+  mode: single
+- id: '1637812751846'
+  alias: Turn Off Condo
+  description: ''
+  trigger:
+  - platform: device
+    device_id: c9c2c18873c1e7ab057326d883ae61e4
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    value: 2
+  condition: []
+  action:
+  - scene: scene.bedroom_off
+  - scene: scene.kitchen_all_off
+  - scene: scene.living_room_off
+  - type: turn_off
+    device_id: b52e157b03fd9b597dcf600fd912f1b5
+    entity_id: light.z_wave_plus_700_series_s2_dimmer_switch_2
+    domain: light
+  mode: single
+- id: '1637992748536'
+  alias: Turn on hallway when front door opened
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 1fc2159a07139f3b3a020302ded6c20d
+    entity_id: binary_sensor.open_close_xs_sensor_access_control_window_door_is_open
+    domain: binary_sensor
+  condition:
+  - condition: device
+    type: is_off
+    device_id: b52e157b03fd9b597dcf600fd912f1b5
+    entity_id: light.z_wave_plus_700_series_s2_dimmer_switch_2
+    domain: light
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  action:
+  - type: turn_on
+    device_id: b52e157b03fd9b597dcf600fd912f1b5
+    entity_id: light.z_wave_plus_700_series_s2_dimmer_switch_2
+    domain: light
+  mode: single
+- id: '1638162501921'
+  alias: Bedroom Night Mode
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 71f0d08aa4b04d0f1f600db5f87509a1
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    value: 2
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 241b64b71a7c975218025610de8f4e0d
+    entity_id: light.hue_white_lamp_1_2
+    domain: light
+  - type: turn_on
+    device_id: 9c3fa89d959e11c674bb6e481205e90d
+    entity_id: light.hue_white_lamp_1
+    domain: light
+    brightness_pct: 25
+  mode: single
+- id: '1652399676531'
+  alias: At Sunset (brightness adjustments)
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 0
+  condition: []
+  action:
+  - device_id: 6f79a2c9a9b7968780c01735283e6c82
+    domain: zwave_js
+    type: set_config_parameter
+    parameter: 18
+    bitmask:
+    subtype: 18 (Custom Brightness Level)
+    value: 15
+  - device_id: 9e06f1a6ff79ebbe2460d7c938cf3f3a
+    domain: zwave_js
+    type: set_config_parameter
+    parameter: 23
+    bitmask:
+    subtype: 23 (Default Brightness Level On for Dimmer)
+    value: 18
+  - device_id: b52e157b03fd9b597dcf600fd912f1b5
+    domain: zwave_js
+    type: set_config_parameter
+    parameter: 18
+    bitmask:
+    subtype: 18 (Custom Brightness Level)
+    value: 15
+  mode: single
+- id: '1652399743081'
+  alias: At Sunrise (brightness adjustments)
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: 0
+  condition: []
+  action:
+  - device_id: 6f79a2c9a9b7968780c01735283e6c82
+    domain: zwave_js
+    type: set_config_parameter
+    parameter: 18
+    bitmask:
+    subtype: 18 (Custom Brightness Level)
+    value: 99
+  - device_id: 9e06f1a6ff79ebbe2460d7c938cf3f3a
+    domain: zwave_js
+    type: set_config_parameter
+    parameter: 23
+    bitmask:
+    subtype: 23 (Default Brightness Level On for Dimmer)
+    value: 99
+  - device_id: 17b2d7297d2644b202347231fd6a26d6
+    domain: zwave_js
+    type: set_config_parameter
+    parameter: 3
+    bitmask:
+    subtype: 3 (Auto Turn-Off Timer)
+    value: 90
+  - device_id: b52e157b03fd9b597dcf600fd912f1b5
+    domain: zwave_js
+    type: set_config_parameter
+    parameter: 18
+    bitmask:
+    subtype: 18 (Custom Brightness Level)
+    value: 99
+  mode: single
+- id: '1655056424197'
+  alias: At 10:45a
+  description: ''
+  trigger:
+  - platform: time
+    at: '10:45:00'
+  condition: []
+  action:
+  - device_id: 17b2d7297d2644b202347231fd6a26d6
+    domain: zwave_js
+    type: set_config_parameter
+    parameter: 3
+    bitmask:
+    subtype: 3 (Auto Turn-Off Timer)
+    value: 30
+  mode: single
+- id: '1658585159299'
+  alias: Hallway off when no motion
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: 0987c8c633a284fe2c9e2f8dacb1aaf7
+    entity_id: binary_sensor.4_in_1_sensor_home_security_motion_detection
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  condition:
+  - condition: device
+    type: is_on
+    device_id: b52e157b03fd9b597dcf600fd912f1b5
+    entity_id: light.z_wave_plus_700_series_s2_dimmer_switch_2
+    domain: light
+  action:
+  - type: turn_off
+    device_id: b52e157b03fd9b597dcf600fd912f1b5
+    entity_id: light.z_wave_plus_700_series_s2_dimmer_switch_2
+    domain: light
+  mode: single

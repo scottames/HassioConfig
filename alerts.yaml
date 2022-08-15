@@ -1,0 +1,29 @@
+fridge_door:
+    name: Fridge door open
+    done_message: Fridge door closed
+    entity_id: binary_sensor.fridge_freezer_door
+    state: "on"
+    repeat:
+      - 3
+      - 5
+      - 10
+    skip_first: true  # Optional, false is the default
+    notifiers:
+      - pushover
+
+water_sensors_leak_detected:
+    name: Water sensor triggered
+    message: "Water sensor triggered! {{ expand('group.water_sensors') | selectattr('state','eq','on') | map(attribute='name') | list | join(', ') }}"
+    done_message: "Water sensor resolved."
+    entity_id: group.water_sensors
+    state: "on"
+    repeat: 30
+    notifiers:
+      - pushover
+
+pi_cpu_temp_high:
+    name: "HA Pi CPU High"
+    entity_id: pi_cpu_temp.motion_battery_is_low
+    repeat: 30
+    notifiers:
+      - pushover
