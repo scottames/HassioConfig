@@ -5,15 +5,15 @@
     # bath
     - light.bathroom                                   # Under Cabinet
     - light.dimmer_dry_contact_relay                   # Mirror
-    - light.tv                                         # Big Desk
     # living
     - light.cb2                                        # CB2
     - light.hue_color_lamp_1                           # Bookshelf
     - light.hue_white_lamp_1_3                         # Little Desk
+    - light.tv                                         # Big Desk
     # bed
     - light.hue_white_lamp_1                           # Toad
     - light.hue_white_lamp_1_2                         # Targét
-    # - light.z_wave_plus_700_series_s2_dimmer_switch    # Closet
+    ## - light.z_wave_plus_700_series_s2_dimmer_switch    # Closet
     # kitchen
     - light.kitchen_backsplash                         # Kitchen Backsplash
     - light.kitchen_island_3                           # Kitchen Island
@@ -24,6 +24,32 @@
 - platform: group
   name: "Kitchen"
   entities:
-    - light.kitchen_backsplash
-    - light.kitchen_island_3
-    - light.kitchen_overhead_2
+    - light.kitchen_backsplash  # Kitchen Backsplash
+    - light.kitchen_island_3    # Kitchen Island
+    - light.kitchen_overhead_2  # Kitchen Overhead
+
+- platform: group
+  name: "Bedroom"
+  entities:
+    - light.hue_white_lamp_1    # Toad
+    - light.hue_white_lamp_1_2  # Targét
+    # - light.z_wave_plus_700_series_s2_dimmer_switch_2  # Hallway
+
+- platform: group
+  name: "Bathroom"
+  entities:
+    - light.bathroom                    # Under Cabinet
+    - light.dimmer_dry_contact_relay    # Mirror / Vanity
+    - light.shower                      # Shower
+
+- platform: group
+  name: "Living Room"
+  entities:
+    - light.cb2                 # CB2
+    - light.hue_color_lamp_1    # Bookshelf
+    - light.hue_white_lamp_1_3  # Little Desk
+
+- platform: group
+  name: "Entry"
+  entities:
+    - light.z_wave_plus_700_series_s2_dimmer_switch_2  # Hallway
