@@ -416,7 +416,7 @@
     parameter: 18
     bitmask:
     subtype: 18 (Custom Brightness Level)
-    value: 15
+    value: 5
   mode: single
 - id: '1652399743081'
   alias: At Sunrise (brightness adjustments)
@@ -497,10 +497,9 @@
     entity_id: light.z_wave_plus_700_series_s2_dimmer_switch_2
     domain: light
   mode: single
-- id: 'CommitAndPushConfig'
+- id: CommitAndPushConfig
   alias: Commit & push config to GitHub
   trigger:
-  # Everyday at 23:23:23 time
   - at: '23:23:23'
     platform: time
   action:
