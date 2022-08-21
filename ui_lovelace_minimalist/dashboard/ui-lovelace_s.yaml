@@ -1,0 +1,15 @@
+---
+button_card_templates: !include_dir_merge_named "../../custom_components/ui_lovelace_minimalist/__ui_minimalist__/ulm_templates/"
+
+title: "Minimalist"
+background: "var(--background-image)"
+views:
+  - !include views/home_s.yaml
+  - !include views/bathroom.yaml
+  - !include views/bedroom.yaml
+  - !include views/entry.yaml
+  - !include views/homeassistant.yaml
+  - !include views/kitchen.yaml
+  - !include views/lights.yaml
+  - !include views/livingroom.yaml
+  - !include views/spire.yaml

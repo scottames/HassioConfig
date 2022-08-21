@@ -1,0 +1,180 @@
+title: "Kitchen"
+path: "kitchen"
+cards:
+  - type: "custom:button-card"
+    template: chip_back
+    variables:
+        ulm_chip_back_path: home
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Kitchen
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Devices
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.kitchen
+          variables:
+            ulm_card_light_name: All Lights
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.kitchen_overhead_2
+          variables:
+            ulm_card_light_name: Overhead
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.kitchen_backsplash
+          variables:
+            ulm_card_light_name: Backsplash
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.kitchen_island_3
+          variables:
+            ulm_card_light_name: Island
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_media_player
+          entity: media_player.nesthubmax663a
+          variables:
+            ulm_card_media_player_name : Display
+            ulm_card_media_player_icon: mdi:television
+            ulm_card_media_player_enable_art: true
+            ulm_card_media_player_enable_controls: true
+            ulm_card_media_player_enable_volume_slider: true
+            # ulm_card_media_player_collapsible: true
+            ulm_card_media_player_enable_popup: true
+            ulm_card_media_player_more_info: true
+
+        - type: "custom:button-card"
+          template: card_media_player
+          entity: media_player.kitchen_speaker_2
+          variables:
+            ulm_card_media_player_name : Speaker
+            ulm_card_media_player_icon: mdi:speaker
+            ulm_card_media_player_enable_art: true
+            ulm_card_media_player_enable_controls: true
+            ulm_card_media_player_enable_volume_slider: true
+            # ulm_card_media_player_collapsible: true
+            ulm_card_media_player_enable_popup: true
+            ulm_card_media_player_more_info: true
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Sensors
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_graph
+          entity: sensor.kitchen_temperature
+          variables:
+            ulm_card_graph_color: "var(--google-blue)"
+            ulm_card_graph_name: Temperature
+            ulm_card_graph_entity: sensor.kitchen_temperature
+            ulm_card_graph_type: fill
+            ulm_card_graph_hours: 24
+## TODO: fix batter for ecobee sensor (not available today)
+#   - type: horizontal-stack
+#     cards:
+        - type: 'custom:button-card'
+          template: card_binary_sensor
+          variables:
+            ulm_card_binary_sensor_alert: true
+            ulm_show_last_changed: true
+            ulm_card_binary_sensor_icon: mdi:walk
+            ulm_card_binary_sensor_name: Occupied
+          entity: binary_sensor.kitchen_occupancy
+        # - type: 'custom:button-card'
+        #   template: card_battery
+        #   entity: sensor.battery_level
+        #   variables:
+        #      ulm_card_battery_charger_type_entity_id: sensor.battery_level
+        #      ulm_card_battery_battery_level_danger: 30
+        #      ulm_card_battery_battery_level_warning: 80
+        #      ulm_card_battery_name: Ecobee Sensor
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Oven
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_binary_sensor_alert
+          variables:
+            ulm_card_binary_sensor_alert: true
+            ulm_show_last_changed: true
+            ulm_card_binary_sensor_name: Oven Door
+          entity: binary_sensor.oven_door
+        - type: 'custom:button-card'
+          template: card_binary_sensor
+          variables:
+            ulm_card_binary_sensor_alert: true
+            ulm_show_last_changed: true
+            ulm_card_binary_sensor_name: Operation
+          entity: sensor.oven_operation_state
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Fridge
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_binary_sensor_alert
+          variables:
+            ulm_card_binary_sensor_alert: true
+            ulm_show_last_changed: true
+            ulm_card_binary_sensor_alert_name: Door
+          entity: binary_sensor.fridge_freezer_door
+        - type: 'custom:button-card'
+          template: card_binary_sensor
+          variables:
+            ulm_card_binary_sensor_alert: true
+            ulm_show_last_changed: true
+            ulm_card_binary_sensor_name: Power
+          entity: switch.fridge_freezer_power
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Under Sink
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_binary_sensor_alert
+          variables:
+            ulm_card_binary_sensor_alert: true
+            ulm_show_last_changed: true
+            ulm_card_binary_sensor_alert_name: Leak
+          entity: binary_sensor.water_leak_xs_sensor_water_alarm_water_leak_detected
+        - type: 'custom:button-card'
+          template: card_battery
+          entity: sensor.water_leak_xs_sensor_battery_level
+          variables:
+             ulm_card_battery_charger_type_entity_id: sensor.water_leak_xs_sensor_battery_level
+             ulm_card_battery_battery_level_danger: 30
+             ulm_card_battery_battery_level_warning: 80
+             ulm_card_battery_name: Water Sensor

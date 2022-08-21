@@ -12,6 +12,8 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 sensor: !include sensors.yaml
 
+lovelace: !include lovelace.yaml
+
 # Groups
 #  | https://www.home-assistant.io/integrations/group#yaml-configuration
 light: !include groups/lights.yaml

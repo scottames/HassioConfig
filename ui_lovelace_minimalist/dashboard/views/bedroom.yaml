@@ -1,0 +1,99 @@
+title: "Bedroom"
+path: "bedroom"
+cards:
+  - type: "custom:button-card"
+    template: chip_back
+    variables:
+        ulm_chip_back_path: home
+        
+  - type: 'custom:button-card'
+    template: card_title
+    name: Bedroom
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_graph
+          entity: sensor.bedroom_temperature
+          variables:
+            ulm_card_graph_color: "var(--google-blue)"
+            ulm_card_graph_name: Temperature
+            ulm_card_graph_entity: sensor.bedroom_temperature
+            ulm_card_graph_type: fill
+            ulm_card_graph_hours: 24
+
+## TODO: fix batter for ecobee sensor (not available today)
+#   - type: horizontal-stack
+#     cards:
+  - type: 'custom:button-card'
+    template: card_binary_sensor
+    variables:
+        ulm_card_binary_sensor_alert: true
+        ulm_show_last_changed: true
+        ulm_card_binary_sensor_icon: mdi:walk
+        ulm_card_binary_sensor_name: Occupied
+    entity: binary_sensor.bedroom_occupancy
+        # - type: 'custom:button-card'
+        #   template: card_battery
+        #   entity: sensor.battery_level
+        #   variables:
+        #      ulm_card_battery_charger_type_entity_id: sensor.battery_level
+        #      ulm_card_battery_battery_level_danger: 30
+        #      ulm_card_battery_battery_level_warning: 80
+        #      ulm_card_battery_name: Ecobee Sensor
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Devices
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.bedroom_2
+          variables:
+            ulm_card_light_name: All Lights
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.hue_white_lamp_1
+          variables:
+            ulm_card_light_icon: mdi:lamp-outline
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.hue_white_lamp_1_2
+          variables:
+            ulm_card_light_icon: mdi:floor-lamp-outline
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.z_wave_plus_700_series_s2_dimmer_switch
+          variables:
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_media_player
+          entity: media_player.bedroom_speaker
+          variables:
+            ulm_card_media_player_name : Speaker
+            ulm_card_media_player_icon: mdi:speaker
+            ulm_card_media_player_enable_art: true
+            ulm_card_media_player_enable_controls: true
+            ulm_card_media_player_enable_volume_slider: true
+            # ulm_card_media_player_collapsible: true
+            ulm_card_media_player_enable_popup: true
+            ulm_card_media_player_more_info: true

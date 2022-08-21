@@ -1,0 +1,84 @@
+title: "Spire"
+path: "spire"
+cards:
+  - type: "custom:button-card"
+    template: chip_back
+    variables:
+        ulm_chip_back_path: home
+        
+  - type: 'custom:button-card'
+    template: card_title
+    name: Home
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Lights
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.home
+          variables:
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+        - type: custom:button-card
+          template: card_navigate
+          variables:
+            ulm_card_navigate_path: lights
+            ulm_card_navigate_title: All Lights
+            ulm_card_navigate_icon: mdi:arrow-right
+
+  - type: "custom:button-card"
+    template: card_title
+    name: Climate
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_graph
+          entity: sensor.home_temp_avg
+          variables:
+            ulm_card_graph_color: "var(--google-blue)"
+            ulm_card_graph_name: Temperature
+            ulm_card_graph_entity: sensor.home_temp_avg
+            ulm_card_graph_type: fill
+            ulm_card_graph_hours: 24
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_thermostat
+          entity: climate.spire
+          variables:
+            ulm_card_thermostat_enable_collapse: true
+            ulm_card_thermostat_enable_controls: true
+            ulm_card_thermostat_enable_hvac_modes: true
+            ulm_card_thermostat_enable_popup: true
+
+  - type: custom:weather-card
+    entity: weather.home
+    number_of_forecasts: '5'
+
+  - type: "custom:button-card"
+    template: card_title
+    name: Printer
+
+  - type: "custom:button-card"
+    template: "custom_card_sisimomo_printer"
+    entity: sensor.mfc_j870dw_status
+    variables:
+        printer_name: Brother MFC-J870DW
+        cartridges:
+          - label: "BK"
+            entity_id: sensor.mfc_j870dw_black_ink_remaining
+            color: "black"
+          - label: "Y"
+            entity_id: sensor.brother_mfc_j870dw_y
+            color: "rgba(var(--color-yellow), 1)"
+          - label: "M"
+            entity_id: sensor.mfc_j870dw_magenta_ink_remaining
+            color: "#F84B7A"
+          - label: "C"
+            entity_id: sensor.mfc_j870dw_yellow_ink_remaining
+            color: "#427EDE"

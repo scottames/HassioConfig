@@ -1,0 +1,113 @@
+title: "Bathroom"
+path: "bathroom"
+cards:
+  - type: "custom:button-card"
+    template: chip_back
+    variables:
+        ulm_chip_back_path: home
+    
+  - type: 'custom:button-card'
+    template: card_title
+    name: Bathroom
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_graph
+          entity: sensor.bathroom_motion_sensor_temperature
+          variables:
+            ulm_card_graph_color: "var(--google-blue)"
+            ulm_card_graph_name: Temperature
+            ulm_card_graph_entity: sensor.bathroom_motion_sensor_temperature
+            ulm_card_graph_type: fill
+            ulm_card_graph_hours: 24
+        - type: 'custom:button-card'
+          template: card_binary_sensor
+          variables:
+            ulm_card_binary_sensor_alert: true
+            ulm_show_last_changed: true
+            ulm_card_binary_sensor_icon: mdi:walk
+            ulm_card_binary_sensor_name: Occupied
+          entity: binary_sensor.bathroom_motion_sensor_motion
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Devices
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.bathroom_3
+          variables:
+            ulm_card_light_name: All Lights
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+            ulm_card_light_enable_horizontal: true
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.bathroom
+          variables:
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.dimmer_dry_contact_relay
+          variables:
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.shower
+          variables:
+            ulm_card_light_icon: mdi:shower
+            ulm_card_light_enable_slider: false
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+        - type: "custom:button-card"
+          template: card_light
+          entity: switch.z_wave_plus_700_series_s2_on_off_switch_2
+          variables:
+            ulm_card_light_icon: mdi:fan
+            ulm_card_light_enable_slider: false
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Under Sink
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_binary_sensor_alert
+          variables:
+            ulm_card_binary_sensor_alert: true
+            ulm_show_last_changed: true
+            ulm_card_binary_sensor_alert_name: Leak
+          entity: binary_sensor.water_leak_xs_sensor_water_alarm_water_leak_detected_3
+        - type: 'custom:button-card'
+          template: card_battery
+          entity: sensor.water_leak_xs_sensor_battery_level_3
+          variables:
+             ulm_card_battery_charger_type_entity_id: sensor.water_leak_xs_sensor_battery_level_3
+             ulm_card_battery_battery_level_danger: 30
+             ulm_card_battery_battery_level_warning: 80
+             ulm_card_battery_name: Water Sensor
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Neato
+
+  - type: "custom:button-card"
+    template: "card_vacuum"
+    entity: vacuum.neato

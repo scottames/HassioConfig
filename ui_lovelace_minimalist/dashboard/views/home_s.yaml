@@ -1,0 +1,166 @@
+title: "Home"
+path: "home"
+cards:
+  - type: "custom:button-card"
+    template: "card_esh_welcome"
+    triggers_update: "input_boolean.minimalist_home_welcome_dropdown"
+    variables:
+      ulm_card_esh_welcome_collapse: input_boolean.minimalist_home_welcome_dropdown
+      ulm_weather: "weather.home"
+      entity_1:
+        nav: "spire"
+        icon: "mdi:home"
+        name: "Home"
+        color: "grey"
+      entity_2:
+        nav: "lights"
+        icon: "mdi:lightbulb"
+        name: "Lights"
+        color: "yellow"
+    #   entity_3:
+    #     nav: "security"
+    #     icon: "mdi:shield"
+    #     name: Secure
+    #     color: "green"
+    #   entity_4:
+    #     nav: "network"
+    #     icon: "mdi:nas"
+    #     name: Lab
+    #     color: "purple"
+      entity_5:
+        nav: "homeassistant"
+        icon: "mdi:home-assistant"
+        name: HA
+        color: "blue"
+
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
+        template: card_person
+        entity: person.scotty
+        variables:
+          ulm_card_person_entity: person.scotty
+          ulm_card_person_use_entity_picture: true
+          ulm_card_person_icon: mdi:face-man
+      - type: "custom:button-card"
+        template: card_person
+        entity: person.alyssa
+        variables:
+          ulm_card_person_entity: person.alyssa
+          ulm_card_person_use_entity_picture: true
+          ulm_card_person_icon: mdi:face-man
+
+  - type: "custom:button-card"
+    template: card_title
+    name: Rooms
+
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
+        template:
+          - card_esh_room
+          - yellow_on
+        name: Living Room
+        entity: light.living_room_2
+        icon: mdi:sofa-outline
+        tap_action:
+          action: navigate
+          navigation_path: "livingroom"
+        label: '[[[ return states["sensor.smartsensor_temperature"].state + "°F" ]]]'
+        variables:
+            ulm_custom_card_esh_room_light_entity: light.living_room_2
+
+      - type: "custom:button-card"
+        template:
+          - card_esh_room
+          - yellow_on
+        name: Bedroom
+        entity: light.bedroom_2
+        icon: mdi:bed-outline
+        tap_action:
+          action: navigate
+          navigation_path: "bedroom"
+        label: '[[[ return states["sensor.bedroom_temperature"].state + "°F" ]]]'
+        variables:
+            ulm_custom_card_esh_room_light_entity: light.bedroom_2
+
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
+        template:
+          - card_esh_room
+          - yellow_on
+        name: Kitchen
+        entity: light.kitchen
+        icon: mdi:countertop-outline
+        tap_action:
+          action: navigate
+          navigation_path: "kitchen"
+        label: '[[[ return states["sensor.kitchen_temperature"].state + "°F" ]]]'
+        variables:
+            ulm_custom_card_esh_room_light_entity: light.kitchen
+
+      - type: "custom:button-card"
+        template:
+          - card_esh_room
+          - yellow_on
+        name: Bathroom
+        entity: light.bathroom_3
+        icon: mdi:countertop-outline
+        tap_action:
+          action: navigate
+          navigation_path: "bathroom"
+        label: '[[[ return states["sensor.bathroom_motion_sensor_temperature"].state + "°F" ]]]'
+        variables:
+            ulm_custom_card_esh_room_light_entity: light.bathroom_3
+
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
+        template:
+          - card_esh_room
+          - yellow_on
+        name: Entry
+        entity: light.z_wave_plus_700_series_s2_dimmer_switch_2
+        icon: mdi:door-closed
+        tap_action:
+          action: navigate
+          navigation_path: "entry"
+        label: '[[[ return states["sensor.spire_temperature"].state + "°F" ]]]'
+        variables:
+            ulm_custom_card_esh_room_light_entity: light.z_wave_plus_700_series_s2_dimmer_switch_2
+
+      - type: "custom:button-card"
+        template:
+          - card_esh_room
+          - yellow_on
+        name: Home
+        entity: light.home
+        icon: mdi:home-outline
+        tap_action:
+          action: navigate
+          navigation_path: "home"
+        # label: '[[[ return["🌡️"] + states["sensor.home_temp_avg"].state + "°F" ]]]'
+        label: '[[[ return states["sensor.home_temp_avg"].state + ["°F | "] + states["sensor.spire_humidity"].state + ["%"] ]]]'
+        # label: '[[[ return["🌡️"] + states[sensor.home_temp_avge"].state +"°F  💧"+states[sensor.spire_humidity"].state + "%"]]]'
+        variables:
+            ulm_custom_card_esh_room_light_entity: light.home
+
+  - type: "custom:button-card"
+    template: card_title
+    name: Climate
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_thermostat
+          entity: climate.spire
+          variables:
+            ulm_card_thermostat_enable_collapse: true
+            ulm_card_thermostat_enable_controls: true
+            ulm_card_thermostat_enable_hvac_modes: true
+            ulm_card_thermostat_enable_popup: true
+
+  - type: custom:weather-card
+    entity: weather.home
+    number_of_forecasts: '5'

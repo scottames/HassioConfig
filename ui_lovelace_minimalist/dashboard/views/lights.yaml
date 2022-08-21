@@ -1,0 +1,223 @@
+title: "Lights"
+path: "lights"
+cards:
+  - type: "custom:button-card"
+    template: chip_back
+    variables:
+      ulm_chip_back_path: home
+
+  - type: "custom:button-card"
+    template: card_title
+    name: Lights
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Entry
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.z_wave_plus_700_series_s2_dimmer_switch_2
+          variables:
+            ulm_card_light_name: Hallway
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+            ulm_card_light_enable_horizontal: true
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Living Room
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.living_room_2
+          variables:
+            ulm_card_light_name: All Lights
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+            ulm_card_light_enable_horizontal: true
+
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.cb2
+          variables:
+            ulm_card_light_icon: mdi:floor-lamp-outline
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+            ulm_card_light_enable_popup: true
+
+
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.hue_color_lamp_1
+          variables:
+            ulm_card_light_icon: mdi:floor-lamp-outline
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.hue_white_lamp_1_3
+          variables:
+            ulm_card_light_icon: mdi:lamp-outline
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.tv
+          variables:
+            ulm_card_light_icon: mdi:floor-lamp-outline
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Kitchen
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.kitchen
+          variables:
+            ulm_card_light_name: All Lights
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.kitchen_overhead_2
+          variables:
+            ulm_card_light_name: Overhead
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.kitchen_backsplash
+          variables:
+            ulm_card_light_name: Backsplash
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.kitchen_island_3
+          variables:
+            ulm_card_light_name: Island
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Bedroom
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.bedroom_2
+          variables:
+            ulm_card_light_name: All Lights
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.hue_white_lamp_1
+          variables:
+            ulm_card_light_icon: mdi:lamp-outline
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.hue_white_lamp_1_2
+          variables:
+            ulm_card_light_icon: mdi:floor-lamp-outline
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.z_wave_plus_700_series_s2_dimmer_switch
+          variables:
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Bathroom
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.bathroom_3
+          variables:
+            ulm_card_light_name: All Lights
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+            ulm_card_light_enable_horizontal: true
+
+
+  - type: horizontal-stack
+    cards:
+
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.bathroom
+          variables:
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.dimmer_dry_contact_relay
+          variables:
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_light
+          entity: light.shower
+          variables:
+            ulm_card_light_icon: mdi:shower
+            ulm_card_light_enable_slider: false
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true
+        - type: "custom:button-card"
+          template: card_light
+          entity: switch.z_wave_plus_700_series_s2_on_off_switch_2
+          variables:
+            ulm_card_light_icon: mdi:fan
+            ulm_card_light_enable_slider: false
+            ulm_card_light_enable_color: true
+            ulm_card_light_force_background_color: true

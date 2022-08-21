@@ -9,6 +9,7 @@
 !*.js*
 !groups/
 !scripts/
+!ui_lovelace_minimalist/
 
 .storage
 .cloud

@@ -1,0 +1,8 @@
+mode: storage
+dashboards:
+    lovelace-minimalists:
+        mode: yaml
+        title: Minimalists
+        icon: mdi:flower
+        show_in_sidebar: true
+        filename: ui_lovelace_minimalist/dashboard/ui-lovelace_s.yaml
