@@ -10,10 +10,6 @@ cards:
     template: card_title
     name: Home Assistant
 
-  - type: 'custom:button-card'
-    template: card_title
-    name: Foo
-
   - type: "custom:button-card"
     template: card_homeassistant_updates
     variables:
