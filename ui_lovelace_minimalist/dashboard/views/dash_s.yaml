@@ -1,5 +1,5 @@
-title: "Home"
-path: "home"
+title: "Dashboard"
+path: "dash"
 cards:
   - type: "custom:button-card"
     template: "card_esh_welcome"
@@ -8,7 +8,7 @@ cards:
       ulm_card_esh_welcome_collapse: input_boolean.minimalist_home_welcome_dropdown
       ulm_weather: "weather.home"
       entity_1:
-        nav: "spire"
+        nav: "home"
         icon: "mdi:home"
         name: "Home"
         color: "grey"

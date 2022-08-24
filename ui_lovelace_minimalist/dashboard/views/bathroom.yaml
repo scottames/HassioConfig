@@ -4,7 +4,7 @@ cards:
   - type: "custom:button-card"
     template: chip_back
     variables:
-        ulm_chip_back_path: home
+        ulm_chip_back_path: dash
     
   - type: 'custom:button-card'
     template: card_title

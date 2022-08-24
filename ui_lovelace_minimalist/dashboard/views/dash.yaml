@@ -1,0 +1,300 @@
+title: "Dashboard"
+path: "dash"
+cards:
+  - type: "custom:button-card"
+    template: "card_esh_welcome"
+    triggers_update: "input_boolean.minimalist_home_welcome_dropdown"
+    variables:
+      ulm_card_esh_welcome_collapse: input_boolean.minimalist_home_welcome_dropdown
+      ulm_weather: "weather.home"
+      entity_1:
+        nav: "home"
+        icon: "mdi:home"
+        name: "Home"
+        color: "grey"
+      entity_2:
+        nav: "lights"
+        icon: "mdi:lightbulb"
+        name: "Lights"
+        color: "yellow"
+    #   entity_3:
+    #     nav: "security"
+    #     icon: "mdi:shield"
+    #     name: Secure
+    #     color: "green"
+    #   entity_4:
+    #     nav: "network"
+    #     icon: "mdi:nas"
+    #     name: Lab
+    #     color: "purple"
+      entity_5:
+        nav: "homeassistant"
+        icon: "mdi:home-assistant"
+        name: HA
+        color: "blue"
+
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
+        template: card_person
+        entity: person.scotty
+        variables:
+          ulm_card_person_entity: person.scotty
+          ulm_card_person_use_entity_picture: true
+          ulm_card_person_icon: mdi:face-man
+      - type: "custom:button-card"
+        template: card_person
+        entity: person.alyssa
+        variables:
+          ulm_card_person_entity: person.alyssa
+          ulm_card_person_use_entity_picture: true
+          ulm_card_person_icon: mdi:face-man
+
+#   - type: "custom:button-card"
+#     template: card_weather
+#     entity: weather.home
+#     variables:
+#       ulm_card_weather_name: " "
+#       ulm_card_weather_primary_info:
+#         - wind_speed
+#         - precipitation_probability
+#       ulm_card_weather_backdrop:
+#         fade: true
+
+  - type: "custom:button-card"
+    template: card_title
+    name: Rooms
+
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
+        template:
+          - card_room
+          - red_no_state
+        name: Living Room
+        entity: light.living_room_2
+        icon: mdi:sofa-outline
+        tap_action:
+          action: navigate
+          navigation_path: "livingroom"
+        label: '[[[ return states["sensor.smartsensor_temperature"].state + "°F" ]]]'
+        variables:
+          label_use_temperature: false
+          label_use_brightness: true
+          entity_1:
+            entity_id: light.living_room_2
+            templates:
+              - yellow_on
+            tap_action:
+              action: toggle
+          entity_2:
+            entity_id: binary_sensor.smartsensor_occupancy
+            templates:
+              - blue_on
+            tap_action:
+              action: none
+          entity_3:
+            entity_id: media_player.living_room_speaker
+            templates:
+              - green_on
+              - red_off
+            tap_action:
+              action: more-info
+            icon: mdi:speaker
+
+      - type: "custom:button-card"
+        template:
+          - card_room
+          - green_no_state
+        name: Bedroom
+        entity: light.bedroom_2
+        icon: mdi:bed-outline
+        tap_action:
+          action: navigate
+          navigation_path: "bedroom"
+        label: '[[[ return states["sensor.bedroom_temperature"].state + "°F" ]]]'
+        variables:
+          label_use_temperature: false
+          label_use_brightness: true
+          entity_1:
+            entity_id: light.bedroom_2
+            templates:
+              - yellow_on
+            tap_action:
+              action: toggle
+          entity_2:
+            entity_id: binary_sensor.bedroom_occupancy
+            templates:
+              - blue_on
+            tap_action:
+              action: none
+          entity_3:
+            entity_id: media_player.bedroom_speaker
+            templates:
+              - green_on
+              - red_off
+            tap_action:
+              action: more-info
+            icon: mdi:speaker
+
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
+        template:
+          - card_room
+          - yellow_no_state
+        name: Kitchen
+        entity: light.kitchen
+        icon: mdi:countertop-outline
+        tap_action:
+          action: navigate
+          navigation_path: "kitchen"
+        label: '[[[ return states["sensor.kitchen_temperature"].state + "°F" ]]]'
+        variables:
+          label_use_temperature: false
+          label_use_brightness: true
+          entity_1:
+            entity_id: light.kitchen
+            templates:
+              - yellow_on
+            tap_action:
+              action: toggle
+          entity_2:
+            entity_id: binary_sensor.kitchen_occupancy
+            templates:
+              - blue_on
+            tap_action:
+              action: none
+          entity_3:
+            entity_id: media_player.nesthubmax663a
+            templates:
+              - green_on
+              - red_off
+            tap_action:
+              action: more-info
+            icon: mdi:speaker
+      - type: "custom:button-card"
+        template:
+          - card_room
+          - blue_no_state
+        name: Bathroom
+        entity: light.bathroom_3
+        icon: mdi:countertop-outline
+        tap_action:
+          action: navigate
+          navigation_path: "bathroom"
+        label: '[[[ return states["sensor.bathroom_motion_sensor_temperature"].state + "°F" ]]]'
+        variables:
+          label_use_temperature: false
+          label_use_brightness: true
+          entity_1:
+            entity_id: light.bathroom_3
+            templates:
+              - yellow_on
+            tap_action:
+              action: toggle
+          entity_2:
+            entity_id: binary_sensor.bathroom_motion_sensor_motion
+            templates:
+              - blue_on
+            tap_action:
+              action: none
+          entity_3:
+            entity_id: media_player.bathroom
+            templates:
+              - green_on
+            tap_action:
+              action: more-info
+            icon: mdi:speaker
+
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
+        template:
+          - card_room
+          - grey_no_state
+        name: Entry
+        entity: light.z_wave_plus_700_series_s2_dimmer_switch_2
+        icon: mdi:door-closed
+        tap_action:
+          action: navigate
+          navigation_path: "entry"
+        label: '[[[ return states["sensor.spire_temperature"].state + "°F" ]]]'
+        variables:
+          label_use_temperature: false
+          label_use_brightness: true
+          entity_1:
+            entity_id: light.z_wave_plus_700_series_s2_dimmer_switch_2
+            templates:
+              - yellow_on
+            tap_action:
+              action: toggle
+          entity_2:
+            entity_id: binary_sensor.4_in_1_sensor_home_security_motion_detection
+            templates:
+              - blue_on
+            tap_action:
+              action: none
+
+      - type: "custom:button-card"
+        template:
+          - card_room
+          - grey_no_state
+        name: Home
+        entity: light.home
+        icon: mdi:home-outline
+        tap_action:
+          action: navigate
+          navigation_path: "home"
+        # label: '[[[ return["🌡️"] + states["sensor.home_temp_avg"].state + "°F" ]]]'
+        label: '[[[ return states["sensor.home_temp_avg"].state + ["°F <br/>"] + states["sensor.spire_humidity"].state + ["%"] ]]]'
+        # label: '[[[ return["🌡️"] + states[sensor.home_temp_avge"].state +"°F  💧"+states[sensor.spire_humidity"].state + "%"]]]'
+        variables:
+          label_use_temperature: false
+          label_use_brightness: true
+          entity_1:
+            entity_id: light.home
+            templates:
+              - yellow_on
+            tap_action:
+              action: toggle
+          entity_2:
+            entity_id: binary_sensor.smartsensor_occupancy # TODO: new sensor - max occupancy (or everyone home)
+            templates:
+              - blue_on
+            tap_action:
+              action: none
+          entity_3:
+            entity_id: media_player.fill_the_apartment_3
+            templates:
+              - green_on
+              - red_off
+            tap_action:
+              action: more-info
+            icon: mdi:speaker
+          entity_4:
+            entity_id: climate.spire
+            templates:
+              - blue_on
+            tap_action:
+              action: navigate
+              navigation_path: "thermostat"
+
+  - type: "custom:button-card"
+    template: card_title
+    name: Thermostat
+
+  - type: horizontal-stack
+    cards:
+        - type: "custom:button-card"
+          template: card_thermostat
+          entity: climate.spire
+          variables:
+            ulm_card_thermostat_enable_collapse: true
+            ulm_card_thermostat_enable_controls: true
+            ulm_card_thermostat_enable_hvac_modes: true
+            ulm_card_thermostat_enable_popup: true
+
+  - type: custom:weather-card
+    entity: weather.home
+    number_of_forecasts: '5'

@@ -4,7 +4,7 @@ button_card_templates: !include_dir_merge_named "../../custom_components/ui_love
 title: "Minimalist"
 background: "var(--background-image)"
 views:
-  - !include views/home_s.yaml
+  - !include views/dash_s.yaml
   - !include views/bathroom.yaml
   - !include views/bedroom.yaml
   - !include views/entry.yaml
@@ -12,4 +12,4 @@ views:
   - !include views/kitchen.yaml
   - !include views/lights.yaml
   - !include views/livingroom.yaml
-  - !include views/spire.yaml
+  - !include views/home.yaml

@@ -4,19 +4,11 @@ cards:
   - type: "custom:button-card"
     template: chip_back
     variables:
-        ulm_chip_back_path: home
+        ulm_chip_back_path: dash
 
   - type: 'custom:button-card'
     template: card_title
     name: Home Assistant
-
-  - type: "custom:button-card"
-    template: card_homeassistant_updates
-    variables:
-        ulm_card_homeassistant_entity: "binary_sensor.updates"
-        ulm_card_homeassistant_core: "sensor.core_updates"
-        ulm_card_homeassistant_supervisor: "sensor.supervisor_updates"
-        ulm_card_homeassistant_os: "sensor.os_updates"
 
   - type: entities
     entities:
