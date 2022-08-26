@@ -6,6 +6,7 @@ background: "var(--background-image)"
 views:
   - !include views/dash_s.yaml
   - !include views/bathroom.yaml
+  - !include views/battery.yaml
   - !include views/bedroom.yaml
   - !include views/entry.yaml
   - !include views/homeassistant.yaml

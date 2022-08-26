@@ -1,0 +1,118 @@
+title: "Battery Status"
+path: "battery"
+cards:
+  - type: "custom:button-card"
+    template: chip_back
+    variables:
+        ulm_chip_back_path: dash
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Bathroom
+
+  - type: 'custom:button-card'
+    template: card_title
+    label: 'Personal'
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_battery
+          entity: sensor.pixel_5_battery_level
+          variables:
+             ulm_card_battery_charger_type_entity_id: sensor.pixel_5_battery_level
+             ulm_card_battery_battery_level_danger: 10
+             ulm_card_battery_battery_level_warning: 15
+             ulm_card_battery_name: S Pixel 5
+        - type: 'custom:button-card'
+          template: card_battery
+          entity: sensor.alyssa_s_iphone_battery_level
+          variables:
+             ulm_card_battery_charger_type_entity_id: sensor.alyssa_s_iphone_battery_level
+             ulm_card_battery_battery_level_danger: 10
+             ulm_card_battery_battery_level_warning: 15
+             ulm_card_battery_name: A iPhone
+
+  - type: 'custom:button-card'
+    template: card_title
+    label: 'Entry'
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_battery
+          entity: sensor.4_in_1_sensor_battery_level
+          variables:
+             ulm_card_battery_charger_type_entity_id: sensor.4_in_1_sensor_battery_level
+             ulm_card_battery_battery_level_danger: 20
+             ulm_card_battery_battery_level_warning: 30
+             ulm_card_battery_name: Hallway 4in1
+        - type: 'custom:button-card'
+          template: card_battery
+          entity: sensor.open_close_xs_sensor_battery_level
+          variables:
+             ulm_card_battery_charger_type_entity_id: sensor.open_close_xs_sensor_battery_level
+             ulm_card_battery_battery_level_danger: 20
+             ulm_card_battery_battery_level_warning: 30
+             ulm_card_battery_name: Front Door
+
+  - type: 'custom:button-card'
+    template: card_title
+    label: 'Bathroom'
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_battery
+          entity: sensor.bathroom_motion_sensor_battery
+          variables:
+             ulm_card_battery_charger_type_entity_id: sensor.bathroom_motion_sensor_battery
+             ulm_card_battery_battery_level_danger: 20
+             ulm_card_battery_battery_level_warning: 30
+             ulm_card_battery_name: Hue
+        - type: 'custom:button-card'
+          template: card_battery
+          entity: sensor.neato_battery
+          variables:
+             ulm_card_battery_charger_type_entity_id: sensor.neato_battery
+             ulm_card_battery_battery_level_danger: 20
+             ulm_card_battery_battery_level_warning: 30
+             ulm_card_battery_name: Neato
+
+  - type: 'custom:button-card'
+    template: card_title
+    label: 'Leak Sensors'
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_battery
+          entity: sensor.water_leak_xs_sensor_battery_level_3
+          variables:
+             ulm_card_battery_charger_type_entity_id: sensor.water_leak_xs_sensor_battery_level_3
+             ulm_card_battery_battery_level_danger: 20
+             ulm_card_battery_battery_level_warning: 30
+             ulm_card_battery_name: Bathroom
+        - type: 'custom:button-card'
+          template: card_battery
+          entity: sensor.water_leak_xs_sensor_battery_level
+          variables:
+             ulm_card_battery_charger_type_entity_id: sensor.water_leak_xs_sensor_battery_level
+             ulm_card_battery_battery_level_danger: 20
+             ulm_card_battery_battery_level_warning: 30
+             ulm_card_battery_name: Kitchen
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_battery
+          entity: sensor.water_leak_xs_sensor_battery_level_2
+          variables:
+             ulm_card_battery_charger_type_entity_id: sensor.water_leak_xs_sensor_battery_level_2
+             ulm_card_battery_battery_level_danger: 20
+             ulm_card_battery_battery_level_warning: 30
+             ulm_card_battery_name: Laundry
+
+ # bathroom water
+   # kitchen water
+ # laundry water

@@ -45,6 +45,7 @@
 - platform: group
   name: "Living Room"
   entities:
+    - light.tv                  # Big Desk
     - light.cb2                 # CB2
     - light.hue_color_lamp_1    # Bookshelf
     - light.hue_white_lamp_1_3  # Little Desk
