@@ -52,6 +52,30 @@ cards:
 
   - type: "custom:button-card"
     template: card_title
+    name: Days until...
+
+  - type: horizontal-stack
+    cards:
+      - type: 'custom:button-card'
+        template: card_generic
+        variables: 
+            ulm_card_generic_name: Wedding Anniversary 🥰🥳
+        entity: sensor.anniversary_wedanniversary
+  - type: horizontal-stack
+    cards:
+      - type: 'custom:button-card'
+        template: card_generic
+        variables: 
+            ulm_card_generic_name: Y 🚗
+        entity: sensor.anniversary_y
+      - type: 'custom:button-card'
+        template: card_generic
+        variables: 
+            ulm_card_generic_name: Tahiti 🌴😎
+        entity: sensor.anniversary_tahiti
+
+  - type: "custom:button-card"
+    template: card_title
     name: Rooms
 
   - type: horizontal-stack
@@ -152,10 +176,10 @@ cards:
 
   - type: horizontal-stack
     cards:
-        - type: "custom:button-card"
-          template: card_thermostat
-          entity: climate.spire
-          variables:
+      - type: "custom:button-card"
+        template: card_thermostat
+        entity: climate.spire
+        variables:
             ulm_card_thermostat_enable_collapse: true
             ulm_card_thermostat_enable_controls: true
             ulm_card_thermostat_enable_hvac_modes: true

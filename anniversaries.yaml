@@ -1,0 +1,5 @@
+sensors:
+  - name: Y
+    date: '2022-10-29'
+  - name: Tahiti
+    date: '2023-1-18'
