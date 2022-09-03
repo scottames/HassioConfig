@@ -78,3 +78,19 @@ cards:
              ulm_card_battery_battery_level_danger: 30
              ulm_card_battery_battery_level_warning: 80
              ulm_card_battery_name: Battery
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Vacuum
+
+
+  - type: 'custom:button-card'
+    template: card_script
+    variables:
+        ulm_card_script_title: Vacuum Entryway
+        ulm_card_script_icon: 'mdi:robot-vacuum-variant'
+    tap_action:
+        action: call-service
+        service: script.neato_entryway
+        service_data:
+          entity_id: vacuum.neato

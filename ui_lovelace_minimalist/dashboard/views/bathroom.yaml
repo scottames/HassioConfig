@@ -109,5 +109,56 @@ cards:
     label: Neato
 
   - type: "custom:button-card"
-    template: "card_vacuum"
     entity: vacuum.neato
+    template: "card_vacuum"
+    variables:
+        ulm_card_vacuum_room: script.neato_bathroom
+        # ulm_card_vacuum_room_icon: "mdi:table-chair"
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_script
+          variables:
+            ulm_card_script_title: Bathroom
+            ulm_card_script_icon: 'mdi:toilet'
+          tap_action:
+            action: call-service
+            service: script.neato_bathroom
+            service_data:
+              entity_id: vacuum.neato
+        - type: 'custom:button-card'
+          template: card_script
+          variables:
+            ulm_card_script_title: Hallway
+            ulm_card_script_icon: 'mdi:mirror-rectangle'
+          tap_action:
+            action: call-service
+            service: script.neato_hallway
+            service_data:
+              entity_id: vacuum.neato
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_script
+          variables:
+            ulm_card_script_title: Kitty Large
+            ulm_card_script_icon: 'mdi:cat'
+          tap_action:
+            action: call-service
+            service: script.neato_kitty_large
+            service_data:
+              entity_id: vacuum.neato
+        - type: 'custom:button-card'
+          template: card_script
+          variables:
+            ulm_card_script_title: Kitty Small
+            ulm_card_script_icon: 'mdi:cat'
+          tap_action:
+            action: call-service
+            service: script.neato_kitty_small
+            service_data:
+              entity_id: vacuum.neato
+
+

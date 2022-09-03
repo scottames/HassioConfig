@@ -80,6 +80,34 @@ cards:
             ulm_card_media_player_enable_popup: true
             ulm_card_media_player_more_info: true
 
+  - type: "custom:button-card"
+    template: card_title
+    label: Vacuum
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_script
+          variables:
+            ulm_card_script_title: Kitchen
+            ulm_card_script_icon: 'mdi:robot-vacuum-variant'
+          tap_action:
+            action: call-service
+            service: script.neato_kitchen
+            service_data:
+              entity_id: vacuum.neato
+
+        - type: 'custom:button-card'
+          template: card_script
+          variables:
+            ulm_card_script_title: Hallway
+            ulm_card_script_icon: 'mdi:mirror-rectangle'
+          tap_action:
+            action: call-service
+            service: script.neato_hallway
+            service_data:
+              entity_id: vacuum.neato
+
   - type: 'custom:button-card'
     template: card_title
     name: Sensors

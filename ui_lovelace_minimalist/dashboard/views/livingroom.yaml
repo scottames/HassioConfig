@@ -125,3 +125,38 @@ cards:
             # ulm_card_media_player_collapsible: true
             ulm_card_media_player_enable_popup: true
             ulm_card_media_player_more_info: true
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Vacuum
+
+  - type: 'custom:button-card'
+    template: card_script
+    variables:
+        ulm_card_script_title: Vacuum Inner Living Room
+        ulm_card_script_icon: 'mdi:island'
+    tap_action:
+        action: call-service
+        service: script.neato_living_inner
+        service_data:
+          entity_id: vacuum.neato
+  - type: 'custom:button-card'
+    template: card_script
+    variables:
+        ulm_card_script_title: Vacuum Outer Living Room
+        ulm_card_script_icon: 'mdi:sofa-outline'
+    tap_action:
+        action: call-service
+        service: script.neato_living_outer
+        service_data:
+          entity_id: vacuum.neato
+  - type: 'custom:button-card'
+    template: card_script
+    variables:
+        ulm_card_script_title: Vacuum All of Living Room
+        ulm_card_script_icon: 'mdi:sofa-outline'
+    tap_action:
+        action: call-service
+        service: script.neato_living
+        service_data:
+          entity_id: vacuum.neato

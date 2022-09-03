@@ -97,3 +97,30 @@ cards:
             # ulm_card_media_player_collapsible: true
             ulm_card_media_player_enable_popup: true
             ulm_card_media_player_more_info: true
+
+  - type: "custom:button-card"
+    template: card_title
+    label: Vacuum
+
+  - type: horizontal-stack
+    cards:
+      - type: 'custom:button-card'
+        template: card_script
+        variables:
+            ulm_card_script_title: Bedroom
+            ulm_card_script_icon: 'mdi:bed-outline'
+        tap_action:
+            action: call-service
+            service: script.neato_bedroom
+            service_data:
+              entity_id: vacuum.neato
+      - type: 'custom:button-card'
+        template: card_script
+        variables:
+            ulm_card_script_title: Closet
+            ulm_card_script_icon: 'mdi:wardrobe-outline'
+        tap_action:
+            action: call-service
+            service: script.neato_closet
+            service_data:
+              entity_id: vacuum.neato
