@@ -75,8 +75,8 @@ cards:
           entity: sensor.open_close_xs_sensor_battery_level
           variables:
              ulm_card_battery_charger_type_entity_id: sensor.open_close_xs_sensor_battery_level
-             ulm_card_battery_battery_level_danger: 30
-             ulm_card_battery_battery_level_warning: 80
+             ulm_card_battery_battery_level_danger: 20
+             ulm_card_battery_battery_level_warning: 30
              ulm_card_battery_name: Battery
 
   - type: "custom:button-card"

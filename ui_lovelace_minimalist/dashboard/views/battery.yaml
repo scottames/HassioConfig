@@ -8,7 +8,7 @@ cards:
 
   - type: 'custom:button-card'
     template: card_title
-    name: Bathroom
+    name: Battery Status
 
   - type: 'custom:button-card'
     template: card_title
