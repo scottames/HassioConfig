@@ -26,12 +26,6 @@ http:
   ssl_certificate: certs/ames.lol/srv.crt
   ssl_key: certs/ames.lol/srv.key
 
-notify:
-  - name: pushover
-    platform: pushover
-    api_key: !secret pushover_api_key
-    user_key: !secret pushover_user_key
-    
 shell_command:
     commit_and_push_config: /config/scripts/commit_and_push.sh
 
@@ -42,15 +36,5 @@ shell_command:
 neato:
   client_id: !secret neato_client_id
   client_secret: !secret neato_client_secret
-
-# https://www.home-assistant.io/integrations/nest/
-nest:
-  # GCP Oauth Client
-  client_id: !secret nest_client_id
-  client_secret: !secret nest_client_secret
-  # "Nest Project ID" in the Device Access Console
-  project_id: !secret nest_project_id
-  # Provide the full path exactly as shown under "Subscription name" in Google Cloud Console
-  subscriber_id: !secret nest_subscriber_id
 
 anniversaries: !include anniversaries.yaml
