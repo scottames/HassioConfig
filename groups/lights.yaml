@@ -38,9 +38,9 @@
 - platform: group
   name: "Bathroom"
   entities:
-    - light.bathroom                    # Under Cabinet
-    - light.dimmer_dry_contact_relay    # Mirror / Vanity
-    - light.shower                      # Shower
+    - light.bathroom                                       # Under Cabinet
+    - light.dimmer_dry_contact_relay                       # Mirror / Vanity
+    - light.z_wave_plus_700_series_s2_on_off_switch  # Shower
 
 - platform: group
   name: "Living Room"

@@ -67,12 +67,13 @@ cards:
     cards:
         - type: "custom:button-card"
           template: card_light
-          entity: light.shower
+          entity: light.z_wave_plus_700_series_s2_on_off_switch
           variables:
             ulm_card_light_icon: mdi:shower
             ulm_card_light_enable_slider: false
             ulm_card_light_enable_color: true
             ulm_card_light_force_background_color: true
+            ulm_card_light_name: shower
         - type: "custom:button-card"
           template: card_light
           entity: switch.z_wave_plus_700_series_s2_on_off_switch_2
