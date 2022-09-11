@@ -38,3 +38,6 @@ neato:
   client_secret: !secret neato_client_secret
 
 anniversaries: !include anniversaries.yaml
+
+withings:
+  use_webhook: true
