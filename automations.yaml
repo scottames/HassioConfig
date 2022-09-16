@@ -19,7 +19,7 @@
   - platform: device
     type: turned_on
     device_id: 71f0d08aa4b04d0f1f600db5f87509a1
-    entity_id: switch.bedroom_outlet
+    entity_id: switch.z_wave_plus_700_series_s2_on_off_switch_4
     domain: switch
   condition: []
   action:
@@ -41,7 +41,7 @@
   - platform: device
     type: turned_off
     device_id: 71f0d08aa4b04d0f1f600db5f87509a1
-    entity_id: switch.bedroom_outlet
+    entity_id: switch.z_wave_plus_700_series_s2_on_off_switch_4
     domain: switch
   condition: []
   action:
