@@ -4,7 +4,14 @@
   trigger:
   - platform: state
     entity_id:
-    - light.bathroom
+    - switch.dimmer_dry_contact_relay_2
+    from: 'on'
+    to: 'off'
+  - platform: state
+    entity_id:
+    - switch.dimmer_dry_contact_relay_2
+    from: 'off'
+    to: 'on'
   condition: []
   action:
   - type: toggle
