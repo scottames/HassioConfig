@@ -82,6 +82,7 @@ cards:
             ulm_card_light_enable_slider: true
             ulm_card_light_enable_color: true
             ulm_card_light_force_background_color: true
+            ulm_card_light_name: Closet
 
   - type: horizontal-stack
     cards:
