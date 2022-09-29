@@ -10,6 +10,7 @@
 !groups/
 !scripts/
 !ui_lovelace_minimalist/
+!mqtt/
 
 .storage
 .cloud

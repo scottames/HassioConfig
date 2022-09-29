@@ -1,0 +1,11 @@
+- platform: template
+  sensors:
+    tesla_park_brake:
+      friendly_name: Parking Brake
+      icon_template: mdi:car-brake-parking
+      value_template: >-
+        {% if is_state('sensor.tesla_shift_state', 'P') %}
+          ON
+        {% else %}
+          OFF
+        {% endif %}

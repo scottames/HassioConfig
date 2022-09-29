@@ -6,13 +6,14 @@ default_config:
 tts:
   - platform: google_translate
 
-alert: !include alerts.yaml
-automation: !include automations.yaml
-script: !include scripts.yaml
-scene: !include scenes.yaml
-sensor: !include sensors.yaml
-
-lovelace: !include lovelace.yaml
+alert:         !include alerts.yaml
+automation:    !include automations.yaml
+binary_sensor: !include binary_sensors.yaml
+lovelace:      !include lovelace.yaml
+proximity:     !include proximity.yaml
+script:        !include scripts.yaml
+scene:         !include scenes.yaml
+sensor:        !include sensors.yaml
 
 # Groups
 #  | https://www.home-assistant.io/integrations/group#yaml-configuration
@@ -32,6 +33,10 @@ shell_command:
 ## --------------------- ##
 # Integrations
 ## --------------------- ##
+
+mqtt:
+  sensor: !include mqtt/sensor.tesla.yaml
+  binary_sensor: !include mqtt/binary_sensor.tesla.yaml
 
 neato:
   client_id: !secret neato_client_id
