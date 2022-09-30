@@ -72,18 +72,18 @@ cards:
         variables: 
             ulm_card_generic_name: Wedding Anniversary 🥰🥳
         entity: sensor.anniversary_wedanniversary
-  - type: horizontal-stack
-    cards:
-      - type: 'custom:button-card'
-        template: card_generic
-        variables: 
-            ulm_card_generic_name: Y 🚗
-        entity: sensor.anniversary_y
       - type: 'custom:button-card'
         template: card_generic
         variables: 
             ulm_card_generic_name: Tahiti 🌴😎
         entity: sensor.anniversary_tahiti
+  - type: horizontal-stack
+    cards:
+      - type: 'custom:button-card'
+        template: card_generic
+        variables: 
+            ulm_card_generic_name: Change Air Filter
+        entity: sensor.anniversary_condo_air_filter
 
   - type: "custom:button-card"
     template: card_title
