@@ -22,11 +22,11 @@ cards:
         icon: "mdi:battery-charging"
         name: Battery
         color: "green"
-    #   entity_4:
-    #     nav: "network"
-    #     icon: "mdi:nas"
-    #     name: Lab
-    #     color: "purple"
+      entity_4:
+        nav: "car"
+        icon: "mdi:car-electric-outline"
+        name: Evee
+        color: "red"
       entity_5:
         nav: "homeassistant"
         icon: "mdi:home-assistant"

@@ -9,6 +9,7 @@ tts:
 alert:         !include alerts.yaml
 automation:    !include automations.yaml
 binary_sensor: !include binary_sensors.yaml
+input_boolean: !include input_booleans.yaml
 lovelace:      !include lovelace.yaml
 proximity:     !include proximity.yaml
 script:        !include scripts.yaml

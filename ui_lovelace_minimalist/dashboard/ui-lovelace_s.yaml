@@ -9,6 +9,7 @@ views:
   - !include views/bathroom.yaml
   - !include views/battery.yaml
   - !include views/bedroom.yaml
+  - !include views/car.yaml
   - !include views/entry.yaml
   - !include views/homeassistant.yaml
   - !include views/kitchen.yaml

@@ -1,0 +1,318 @@
+title: "Evee"
+path: "car"
+cards:
+  - type: "custom:button-card"
+    template: chip_back
+    variables:
+        ulm_chip_back_path: dash
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Evee
+
+  # https://www.reddit.com/r/homeassistant/comments/stk6vs/tesla_v2_card
+  # https://www.reddit.com/r/homeassistant/comments/xpsgr2/i_managed_to_fit_29_sensors_16_lights_6_cameras_3/
+  - type: vertical-stack
+    cards:
+      - type: conditional
+        conditions:
+          - entity: input_boolean.eveedrawer
+            state: 'off'
+        card:
+          type: custom:stack-in-card
+          cards:
+            - type: picture-elements
+              elements:
+                - type: state-label
+                  entity: sensor.tesla_est_battery_range_mi
+                  style:
+                    top: 70%
+                    left: 1%
+                    transform: none
+                - type: state-label
+                  entity: sensor.tesla_battery_level
+                  style:
+                    top: 70%
+                    left: 88%
+                    transform: none
+                - type: conditional
+                  conditions:
+                    - entity: device_tracker.tesla_location
+                      state: not_home
+                  elements:
+                    - type: state-icon
+                      entity: device_tracker.tesla_location
+                      icon: mdi:home-export-outline
+                      style:
+                        top: 1%
+                        left: 91%
+                        transform: none
+                - type: conditional
+                  conditions:
+                    - entity: device_tracker.tesla_location
+                      state: Store
+                  elements:
+                    - type: state-icon
+                      entity: device_tracker.tesla_location
+                      icon: mdi:store
+                      style:
+                        top: 1%
+                        left: 91%
+                        transform: none
+                - type: conditional
+                  conditions:
+                    - entity: device_tracker.tesla_location
+                      state: home
+                  elements:
+                    - type: state-icon
+                      entity: device_tracker.tesla_location
+                      icon: mdi:home
+                      style:
+                        top: 1%
+                        left: 91%
+                        transform: none
+                - type: conditional
+                  conditions:
+                    - entity: sensor.tesla_state
+                      state: suspended
+                  elements:
+                    - type: state-icon
+                      entity: sensor.tesla_state
+                      icon: mdi:sleep
+                      style:
+                        top: 1%
+                        left: 1%
+                        transform: none
+                - type: conditional
+                  conditions:
+                    - entity: sensor.tesla_state
+                      state: asleep
+                  elements:
+                    - type: state-icon
+                      entity: sensor.tesla_state
+                      icon: mdi:power-sleep
+                      style:
+                        top: 1%
+                        left: 1%
+                        transform: none
+                - type: conditional
+                  conditions:
+                    - entity: sensor.tesla_state
+                      state: driving
+                  elements:
+                    - type: state-icon
+                      entity: sensor.tesla_state
+                      icon: mdi:road-variant
+                      style:
+                        top: 1%
+                        left: 1%
+                        transform: none
+                - type: conditional
+                  conditions:
+                    - entity: sensor.tesla_state
+                      state: online
+                  elements:
+                    - type: state-icon
+                      entity: sensor.tesla_state
+                      icon: mdi:car-connected
+                      style:
+                        top: 1%
+                        left: 1%
+                        transform: none
+                - type: conditional
+                  conditions:
+                    - entity: sensor.tesla_state
+                      state: charging
+                  elements:
+                    - type: state-icon
+                      entity: sensor.tesla_state
+                      icon: mdi:battery-charging
+                      style:
+                        top: 1%
+                        left: 1%
+                        transform: none
+                - type: conditional
+                  conditions:
+                    - entity: sensor.tesla_state
+                      state: updating
+                  elements:
+                    - type: state-icon
+                      entity: sensor.tesla_state
+                      icon: mdi:download
+                      style:
+                        top: 1%
+                        left: 1%
+                        transform: none
+                - type: conditional
+                  conditions:
+                    - entity: sensor.tesla_state
+                      state: offline
+                  elements:
+                    - type: state-icon
+                      entity: sensor.tesla_state
+                      icon: mdi:signal-off
+                      style:
+                        top: 1%
+                        left: 1%
+                        transform: none
+              image: /local/evee_wide.png
+            - type: custom:bar-card
+              entities:
+                - entity: sensor.tesla_battery_level
+              columns: '0'
+              entity_row: true
+              positions:
+                icon: 'off'
+                indicator: 'off'
+                name: 'off'
+                minmax: 'off'
+                value: 'off'
+              color: '#03fd73'
+              severity:
+                - from: '0'
+                  to: '19'
+                  color: '#db1414'
+                - from: '20'
+                  to: '25'
+                  color: '#fcca03'
+                - from: '80'
+                  to: '100'
+                  color: '#54cfff'
+              height: 5px
+            - type: button
+              tap_action:
+                action: toggle
+              entity: input_boolean.eveedrawer
+              show_state: false
+              show_icon: true
+              show_name: false
+              icon: mdi:arrow-down
+              icon_height: 15px
+      - type: conditional
+        conditions:
+          - entity: input_boolean.eveedrawer
+            state: 'on'
+        card:
+          type: custom:stack-in-card
+          cards:
+            - type: custom:mini-graph-card
+              entities:
+                - entity: sensor.tesla_battery_level
+                  name: Evee
+                  show_line: true
+              hours_to_show: 72
+              points_per_hour: 2
+              line_width: 2
+              animate: true
+              color_thresholds:
+                - value: 20
+                  color: '#db1414'
+                - value: 30
+                  color: '#fcca03'
+                - value: 40
+                  color: '#03fd73'
+                - value: 80
+                  color: '#03fd73'
+                - value: 90
+                  color: '#2398f7'
+              show:
+                name: true
+                icon: false
+                state: true
+                legend: false
+                extrema: false
+                labels: true
+                labels_secondary: true
+            - type: horizontal-stack
+              cards:
+                - type: button
+                  tap_action:
+                    action: more-info
+                  entity: sensor.tesla_state
+                  show_state: true
+                  show_icon: false
+                  name: Status
+                - type: button
+                  tap_action:
+                    action: more-info
+                  entity: sensor.tesla_battery_level
+                  show_state: true
+                  show_icon: false
+                  name: Battery
+                - type: button
+                  tap_action:
+                    action: more-info
+                  entity: sensor.tesla_est_battery_range_mi
+                  show_state: true
+                  show_icon: false
+                  name: Range Est.
+                - type: button
+                  tap_action:
+                    action: more-info
+                  entity: sensor.tesla_state  # FIXME - correct?
+                  show_state: true
+                  show_icon: false
+                  name: Online
+            - type: horizontal-stack
+              cards:
+                - type: button
+                  tap_action:
+                    action: more-info
+                  entity: sensor.tesla_odometer_mi
+                  show_state: true
+                  show_icon: false
+                  name: Odometer
+                - type: button
+                  tap_action:
+                    action: toggle
+                  entity: device_tracker.tesla_location
+                  show_state: true
+                  show_icon: false
+                  name: Location
+            - type: horizontal-stack
+              cards:
+                - type: button
+                  tap_action:
+                    action: more-info
+                  entity: sensor.tesla_charger_power
+                  show_state: true
+                  show_icon: false
+                  name: Charge Power
+                - type: button
+                  tap_action:
+                    action: more-info
+                  entity: binary_sensor.tesla_plugged_in
+                  show_icon: false
+                  show_state: true
+                  name: Plugged In
+                - type: button
+                  tap_action:
+                    action: more-info
+                  entity: sensor.tesla_charger_actual_current
+                  show_icon: false
+                  show_state: true
+                  name: Charge Rate
+                - type: button
+                  tap_action:
+                    action: more-info
+                  entity: sensor.tesla_charge_energy_added
+                  name: Energy Added
+                  show_icon: false
+                  show_state: true
+                  show_name: true
+            - type: button
+              tap_action:
+                action: toggle
+              entity: input_boolean.eveedrawer
+              show_state: false
+              show_icon: true
+              show_name: false
+              icon: mdi:arrow-up
+              icon_height: 20px
+
+  - type: vertical-stack
+    cards:
+      - type: map
+        entities:
+          - entity: device_tracker.tesla_location
+        title: Location(s)
