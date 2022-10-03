@@ -511,24 +511,67 @@
     platform: time
   action:
     service: shell_command.commit_and_push_config
-
-## --------------------- ##
-# TeslaMate
-## --------------------- ##
-
 - alias: Update Tesla location as MQTT location updates
-  initial_state: on
+  initial_state: true
   trigger:
-    - platform: mqtt
-      topic: teslamate/cars/1/latitude
-    - platform: mqtt
-      topic: teslamate/cars/1/longitude
+  - platform: mqtt
+    topic: teslamate/cars/1/latitude
+  - platform: mqtt
+    topic: teslamate/cars/1/longitude
   action:
-    - service: device_tracker.see
-      data_template:
-        dev_id: tesla_location
-        gps:
-          [
-            "{{ states.sensor.tesla_latitude.state }}",
-            "{{ states.sensor.tesla_longitude.state }}",
-          ]
+  - service: device_tracker.see
+    data_template:
+      dev_id: tesla_location
+      gps:
+      - '{{ states.sensor.tesla_latitude.state }}'
+      - '{{ states.sensor.tesla_longitude.state }}'
+  id: eae0518472f142eda154afbc5a3ff4eb
+- id: '1664732237511'
+  alias: Evee offline >= 7d | notify
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.tesla_state
+    to: offline
+    for:
+      hours: 168
+      minutes: 0
+      seconds: 0
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: device_tracker.tesla_location
+      state: home
+    alias: If Evee is home
+  action:
+  - service: notify.mobile_app_pixel_5
+    data:
+      message: Evee offline for 7 days. Give her some attention by taking her for
+        a drive or charging her up!
+      title: Give Evee ♥️
+  - service: notify.mobile_app_iphone
+    data:
+      title: Give Evee ♥️
+      message: Evee offline for 7 days. Give her some attention by taking her for
+        a drive or charging her up!
+  mode: single
+- id: '1664759345743'
+  alias: When Away
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - person.scotty
+    attribute: home
+    for:
+      hours: 6
+      minutes: 5
+      seconds: 0
+  condition: []
+  action:
+  - service: notify.pushover
+    data:
+      message: Scotty away!
+  mode: single

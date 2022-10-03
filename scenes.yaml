@@ -302,3 +302,16 @@
       supported_features: 41
       state: 'off'
   icon: mdi:bed-outline
+- name: All Lights Off
+  icon: mdi:lightbulb-multiple-outline
+  entities:
+    light.entry:
+      state: 'off'
+    light.kitchen:
+      state: 'off'
+    light.living_room_2:
+      state: 'off'
+    light.bedroom_2:
+      state: 'off'
+    light.bathroom_3:
+      state: 'off'

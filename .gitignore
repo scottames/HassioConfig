@@ -17,3 +17,4 @@
 .google.token 
 home-assistant.log
 secrets.yaml
+*.json
