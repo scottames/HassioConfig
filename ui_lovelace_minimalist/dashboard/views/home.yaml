@@ -55,6 +55,36 @@ cards:
             ulm_card_graph_entity: sensor.home_temp_avg
             ulm_card_graph_type: fill
             ulm_card_graph_hours: 24
+        - type: 'custom:button-card'
+          template: card_graph
+          entity: sensor.spire_humidity
+          variables:
+            ulm_card_graph_color: "var(--google-blue)"
+            ulm_card_graph_name: Humidity
+            ulm_card_graph_entity: sensor.spire_humidity
+            ulm_card_graph_type: fill
+            ulm_card_graph_hours: 24
+
+  - type: horizontal-stack
+    cards:
+        - type: 'custom:button-card'
+          template: card_graph
+          entity: sensor.home_air_quality_index
+          variables:
+            ulm_card_graph_color: "var(--google-yellow)"
+            ulm_card_graph_name: AQI
+            ulm_card_graph_entity: sensor.home_air_quality_index
+            ulm_card_graph_type: fill
+            ulm_card_graph_hours: 24
+        - type: 'custom:button-card'
+          template: card_graph
+          entity: sensor.home_co2
+          variables:
+            ulm_card_graph_color: "var(--google-red)"
+            ulm_card_graph_name: Co2
+            ulm_card_graph_entity: sensor.home_co2
+            ulm_card_graph_type: fill
+            ulm_card_graph_hours: 24
 
   - type: custom:weather-card
     entity: weather.home
