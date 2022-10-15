@@ -19,6 +19,7 @@ sensor:        !include sensors.yaml
 # Groups
 #  | https://www.home-assistant.io/integrations/group#yaml-configuration
 light: !include groups/lights.yaml
+group: !include groups/groups.yaml
 
 # HACS Frontend
 frontend:

@@ -1,0 +1,5 @@
+fam:
+  name: fam
+  entities:
+    - person.scotty
+    - person.alyssa
