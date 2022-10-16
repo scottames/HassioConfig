@@ -98,6 +98,7 @@ cards:
     entities:
       - entity: person.scotty
       - entity: person.alyssa
+      - entity: device_tracker.tesla_location
     title: Location(s)
 
   - type: "custom:button-card"
