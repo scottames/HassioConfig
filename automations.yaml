@@ -496,12 +496,12 @@
   - condition: device
     type: is_on
     device_id: b52e157b03fd9b597dcf600fd912f1b5
-    entity_id: light.z_wave_plus_700_series_s2_dimmer_switch_2
+    entity_id: light.hallway_2
     domain: light
   action:
   - type: turn_off
     device_id: b52e157b03fd9b597dcf600fd912f1b5
-    entity_id: light.z_wave_plus_700_series_s2_dimmer_switch_2
+    entity_id: light.hallway_2
     domain: light
   mode: single
 - id: CommitAndPushConfig
