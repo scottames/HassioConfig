@@ -207,7 +207,7 @@ cards:
     cards:
         - type: "custom:button-card"
           template: card_light
-          entity: light.shower
+          entity: switch.z_wave_plus_700_series_s2_on_off_switch
           variables:
             ulm_card_light_icon: mdi:shower
             ulm_card_light_enable_slider: false
@@ -215,7 +215,7 @@ cards:
             ulm_card_light_force_background_color: true
         - type: "custom:button-card"
           template: card_light
-          entity: switch.z_wave_plus_700_series_s2_on_off_switch_2
+          entity: switch.shower_fan_2
           variables:
             ulm_card_light_icon: mdi:fan
             ulm_card_light_enable_slider: false
