@@ -58,6 +58,48 @@
             {{ lights | selectattr('state','eq','on') | list | count }}
 
 ## --------------------- ##
+# Switchbot
+## --------------------- ##
+
+- platform: rest
+  name: 'Bedroom E2 Curtain Position'
+  resource: !secret switchbot_curtain_bedroom_e2_status_url
+  method: GET
+  scan_interval: 600
+  headers:
+      Authorization: !secret switchbot_token
+      Content-Type: 'application/json'
+  value_template: '{{ value_json.body.slidePosition }}'
+  json_attributes_path: "$.body"
+  json_attributes:
+    - deviceId
+    - deviceType
+    - hubDeviceId
+    - calibrate
+    - group
+    - moving
+    - slidePosition
+
+- platform: rest
+  name: 'Bedroom 85 Curtain Position'
+  resource: !secret switchbot_curtain_bedroom_85_status_url
+  method: GET
+  scan_interval: 600
+  headers:
+      Authorization: !secret switchbot_token
+      Content-Type: 'application/json'
+  value_template: '{{ value_json.body.slidePosition }}'
+  json_attributes_path: "$.body"
+  json_attributes:
+    - deviceId
+    - deviceType
+    - hubDeviceId
+    - calibrate
+    - group
+    - moving
+    - slidePosition
+
+## --------------------- ##
 # TeslaMate
 ## --------------------- ##
 

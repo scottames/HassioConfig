@@ -1,0 +1,7 @@
+switchbot_device_command:
+    url: 'https://api.switch-bot.com/v1.0/devices/{{ deviceId }}/commands'
+    method: post
+    content_type: 'application/json'
+    headers:
+      Authorization: !secret switchbot_token
+    payload: '{"command": "{{ command }}","parameter": "{{ parameter }}"}'
