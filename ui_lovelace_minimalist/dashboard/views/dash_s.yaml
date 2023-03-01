@@ -61,11 +61,7 @@ cards:
         variables: 
             ulm_card_generic_name: Wedding Anniversary 🥰🥳
         entity: sensor.anniversary_wedanniversary
-      - type: 'custom:button-card'
-        template: card_generic
-        variables: 
-            ulm_card_generic_name: Tahiti 🌴😎
-        entity: sensor.anniversary_tahiti
+
   - type: horizontal-stack
     cards:
       - type: 'custom:button-card'
