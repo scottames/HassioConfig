@@ -53,4 +53,4 @@
 - platform: group
   name: "Entry"
   entities:
-    - light.z_wave_plus_700_series_s2_dimmer_switch_2  # Hallway
+    - light.hallway  # Hallway
