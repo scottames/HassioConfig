@@ -141,14 +141,14 @@ cards:
           - card_esh_room
           - yellow_on
         name: Entry
-        entity: light.z_wave_plus_700_series_s2_dimmer_switch_2
+        entity: light.hallway # light.z_wave_plus_700_series_s2_dimmer_switch_2
         icon: mdi:door-closed
         tap_action:
           action: navigate
           navigation_path: "entry"
         label: '[[[ return states["sensor.spire_temperature"].state + "°F" ]]]'
         variables:
-            ulm_custom_card_esh_room_light_entity: light.z_wave_plus_700_series_s2_dimmer_switch_2
+            ulm_custom_card_esh_room_light_entity: light.hallway
 
       - type: "custom:button-card"
         template:

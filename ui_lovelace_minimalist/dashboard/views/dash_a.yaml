@@ -234,7 +234,7 @@ cards:
           - card_room
           - grey_no_state
         name: Entry
-        entity: light.z_wave_plus_700_series_s2_dimmer_switch_2
+        entity: light.hallway
         icon: mdi:door-closed
         tap_action:
           action: navigate
@@ -244,7 +244,7 @@ cards:
           label_use_temperature: false
           label_use_brightness: true
           entity_1:
-            entity_id: light.z_wave_plus_700_series_s2_dimmer_switch_2
+            entity_id: light.hallway
             templates:
               - yellow_on
             tap_action:
