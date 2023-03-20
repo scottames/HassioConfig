@@ -356,7 +356,7 @@
   - condition: device
     type: is_off
     device_id: b52e157b03fd9b597dcf600fd912f1b5
-    entity_id: light.hallway_2
+    entity_id: light.hallway
     domain: light
     for:
       hours: 0
@@ -365,8 +365,9 @@
   action:
   - type: turn_on
     device_id: b52e157b03fd9b597dcf600fd912f1b5
-    entity_id: light.hallway_2
+    entity_id: light.hallway
     domain: light
+    brightness_pct: 100
   mode: single
 - id: '1638162501921'
   alias: Bedroom Night Mode
@@ -496,12 +497,12 @@
   - condition: device
     type: is_on
     device_id: b52e157b03fd9b597dcf600fd912f1b5
-    entity_id: light.hallway_2
+    entity_id: light.hallway
     domain: light
   action:
   - type: turn_off
     device_id: b52e157b03fd9b597dcf600fd912f1b5
-    entity_id: light.hallway_2
+    entity_id: light.hallway
     domain: light
   mode: single
 - id: CommitAndPushConfig
