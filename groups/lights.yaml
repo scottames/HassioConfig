@@ -8,12 +8,12 @@
     # living
     - light.cb2                                        # CB2
     - light.hue_color_lamp_1                           # Bookshelf
-    - light.hue_white_lamp_1_3                         # Little Desk
+    - light.hue_white_lamp_1_3                         # Block
     - light.tv                                         # Big Desk
     # bed
     - light.hue_white_lamp_1                           # Toad
     - light.hue_white_lamp_1_2                         # Targét
-    ## - light.z_wave_plus_700_series_s2_dimmer_switch    # Closet
+    ## - light.z_wave_plus_700_series_s2_dimmer_switch # Closet
     # kitchen
     - light.kitchen_backsplash                         # Kitchen Backsplash
     - light.kitchen_island_3                           # Kitchen Island
@@ -32,7 +32,7 @@
   name: "Bedroom"
   entities:
     - light.hue_white_lamp_1    # Toad
-    - light.hue_white_lamp_1_2  # Targét
+    - light.hue_white_lamp_1_3  # Block
     # - light.z_wave_plus_700_series_s2_dimmer_switch_2  # Hallway
 
 - platform: group
@@ -48,7 +48,7 @@
     - light.tv                  # Big Desk
     - light.cb2                 # CB2
     - light.hue_color_lamp_1    # Bookshelf
-    - light.hue_white_lamp_1_3  # Little Desk
+    - light.hue_white_lamp_1_2  # Targét
 
 - platform: group
   name: "Entry"

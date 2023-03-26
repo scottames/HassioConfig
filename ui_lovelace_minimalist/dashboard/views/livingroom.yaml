@@ -83,7 +83,7 @@ cards:
     cards:
         - type: "custom:button-card"
           template: card_light
-          entity: light.hue_white_lamp_1_3
+          entity: light.hue_white_lamp_1_2 # Target
           variables:
             ulm_card_light_icon: mdi:lamp-outline
             ulm_card_light_enable_slider: true

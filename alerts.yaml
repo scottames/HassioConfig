@@ -27,3 +27,11 @@ pi_cpu_temp_high:
     repeat: 30
     notifiers:
       - pushover
+
+backups_stale:
+    name: "Backups went stale"
+    entity_id: binary_sensor.backups_stale
+    state: "on"
+    repeat: 1440
+    notifiers:
+      - pushover
