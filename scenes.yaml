@@ -272,36 +272,44 @@
     light.hue_white_lamp_1:
       supported_color_modes:
       - brightness
+      mode: normal
+      dynamics: none
+      friendly_name: Toad
+      supported_features: 40
       color_mode: brightness
       brightness: 255
-      friendly_name: Toad
-      supported_features: 41
       state: 'on'
-    light.hue_white_lamp_1_2:
+    light.hue_white_lamp_1_3:
       supported_color_modes:
       - brightness
-      color_mode: brightness
-      brightness: 255
-      friendly_name: Targét
-      supported_features: 41
-      state: 'on'
+      mode: normal
+      dynamics: none
+      friendly_name: Block
+      supported_features: 40
+      state: 'off'
   icon: mdi:bed
+  metadata: {}
 - id: '1637812477397'
   name: Bedroom Off
   entities:
-    light.hue_white_lamp_1:
-      supported_color_modes:
-      - brightness
-      friendly_name: Toad
-      supported_features: 41
-      state: 'off'
     light.hue_white_lamp_1_2:
       supported_color_modes:
       - brightness
+      mode: normal
+      dynamics: none
       friendly_name: Targét
-      supported_features: 41
+      supported_features: 40
+      state: 'off'
+    light.hue_white_lamp_1_3:
+      supported_color_modes:
+      - brightness
+      mode: normal
+      dynamics: none
+      friendly_name: Block
+      supported_features: 40
       state: 'off'
   icon: mdi:bed-outline
+  metadata: {}
 - name: All Lights Off
   icon: mdi:lightbulb-multiple-outline
   entities:
@@ -315,3 +323,4 @@
       state: 'off'
     light.bathroom_3:
       state: 'off'
+  id: 31fb181039a24e64addc44e9043c855a

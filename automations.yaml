@@ -31,8 +31,8 @@
   condition: []
   action:
   - type: turn_on
-    device_id: 241b64b71a7c975218025610de8f4e0d
-    entity_id: light.hue_white_lamp_1_2
+    device_id: 782393b150de6e3027be3e516fdb3e5f
+    entity_id: light.hue_white_lamp_1_3
     domain: light
     brightness_pct: 100
   - type: turn_on
@@ -385,10 +385,11 @@
     value: 2
   condition: []
   action:
-  - type: turn_off
-    device_id: 241b64b71a7c975218025610de8f4e0d
-    entity_id: light.hue_white_lamp_1_2
+  - type: turn_on
+    device_id: 782393b150de6e3027be3e516fdb3e5f
+    entity_id: light.hue_white_lamp_1_3
     domain: light
+    brightness_pct: 15
   - type: turn_on
     device_id: 9c3fa89d959e11c674bb6e481205e90d
     entity_id: light.hue_white_lamp_1
