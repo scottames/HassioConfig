@@ -286,26 +286,28 @@
       dynamics: none
       friendly_name: Block
       supported_features: 40
-      state: 'off'
+      color_mode: brightness
+      brightness: 255
+      state: 'on'
   icon: mdi:bed
   metadata: {}
 - id: '1637812477397'
   name: Bedroom Off
   entities:
-    light.hue_white_lamp_1_2:
-      supported_color_modes:
-      - brightness
-      mode: normal
-      dynamics: none
-      friendly_name: Targét
-      supported_features: 40
-      state: 'off'
     light.hue_white_lamp_1_3:
       supported_color_modes:
       - brightness
       mode: normal
       dynamics: none
       friendly_name: Block
+      supported_features: 40
+      state: 'off'
+    light.hue_white_lamp_1:
+      supported_color_modes:
+      - brightness
+      mode: normal
+      dynamics: none
+      friendly_name: Toad
       supported_features: 40
       state: 'off'
   icon: mdi:bed-outline
