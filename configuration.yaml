@@ -17,6 +17,7 @@ rest_command:  !include rest_commands.yaml
 script:        !include scripts.yaml
 scene:         !include scenes.yaml
 sensor:        !include sensors.yaml
+command_line:  !include command_line.yaml
 
 # Groups
 #  | https://www.home-assistant.io/integrations/group#yaml-configuration
