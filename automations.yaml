@@ -405,24 +405,27 @@
   - device_id: 6f79a2c9a9b7968780c01735283e6c82
     domain: zwave_js
     type: set_config_parameter
-    parameter: 18
+    endpoint: 0
+    parameter: 11
     bitmask:
-    subtype: 18 (Custom Brightness Level)
-    value: 15
+    subtype: 11 (Maximum Brightness) on endpoint 0
+    value: 18
   - device_id: 9e06f1a6ff79ebbe2460d7c938cf3f3a
     domain: zwave_js
     type: set_config_parameter
-    parameter: 23
+    endpoint: 0
+    parameter: 15
     bitmask:
-    subtype: 23 (Default Brightness Level On for Dimmer)
+    subtype: 15 (Maximum Brightness) on endpoint 0
     value: 18
   - device_id: b52e157b03fd9b597dcf600fd912f1b5
     domain: zwave_js
     type: set_config_parameter
-    parameter: 18
+    endpoint: 0
+    parameter: 11
     bitmask:
-    subtype: 18 (Custom Brightness Level)
-    value: 5
+    subtype: 11 (Maximum Brightness) on endpoint 0
+    value: 18
   mode: single
 - id: '1652399743081'
   alias: At Sunrise (brightness adjustments)
@@ -431,35 +434,41 @@
   - platform: sun
     event: sunrise
     offset: 0
+  - platform: time
+    at: 06:00:00
   condition: []
   action:
   - device_id: 6f79a2c9a9b7968780c01735283e6c82
     domain: zwave_js
     type: set_config_parameter
-    parameter: 18
+    endpoint: 0
+    parameter: 11
     bitmask:
-    subtype: 18 (Custom Brightness Level)
+    subtype: 11 (Maximum Brightness) on endpoint 0
     value: 99
   - device_id: 9e06f1a6ff79ebbe2460d7c938cf3f3a
     domain: zwave_js
     type: set_config_parameter
-    parameter: 23
+    endpoint: 0
+    parameter: 15
     bitmask:
-    subtype: 23 (Default Brightness Level On for Dimmer)
+    subtype: 15 (Maximum Brightness) on endpoint 0
     value: 99
   - device_id: 17b2d7297d2644b202347231fd6a26d6
     domain: zwave_js
     type: set_config_parameter
+    endpoint: 0
     parameter: 3
     bitmask:
-    subtype: 3 (Auto Turn-Off Timer)
-    value: 90
+    subtype: 3 (Auto Turn-Off Timer) on endpoint 0
+    value: 99
   - device_id: b52e157b03fd9b597dcf600fd912f1b5
     domain: zwave_js
     type: set_config_parameter
-    parameter: 18
+    endpoint: 0
+    parameter: 11
     bitmask:
-    subtype: 18 (Custom Brightness Level)
+    subtype: 11 (Maximum Brightness) on endpoint 0
     value: 99
   mode: single
 - id: '1655056424197'
@@ -473,9 +482,10 @@
   - device_id: 17b2d7297d2644b202347231fd6a26d6
     domain: zwave_js
     type: set_config_parameter
-    parameter: 3
+    endpoint: 0
+    parameter: 5
     bitmask:
-    subtype: 3 (Auto Turn-Off Timer)
+    subtype: 5 (Auto Turn-On Timer) on endpoint 0
     value: 30
   mode: single
 - id: '1658585159299'
