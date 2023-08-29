@@ -142,8 +142,8 @@
   trigger:
   - type: opened
     platform: device
-    device_id: 4a2a30dcf87d2e2b375f2438db517e5d
-    entity_id: binary_sensor.open_close_xs_sensor_access_control_window_door_is_open
+    device_id: 1fc2159a07139f3b3a020302ded6c20d
+    entity_id: c64770f0b5118fdfed9987465c05541f
     domain: binary_sensor
   condition: []
   action:
@@ -446,6 +446,7 @@
     bitmask:
     subtype: 11 (Maximum Brightness) on endpoint 0
     value: 99
+    continue_on_error: true
   - device_id: 9e06f1a6ff79ebbe2460d7c938cf3f3a
     domain: zwave_js
     type: set_config_parameter
@@ -454,6 +455,7 @@
     bitmask:
     subtype: 15 (Maximum Brightness) on endpoint 0
     value: 99
+    continue_on_error: true
   - device_id: 17b2d7297d2644b202347231fd6a26d6
     domain: zwave_js
     type: set_config_parameter
@@ -462,6 +464,7 @@
     bitmask:
     subtype: 3 (Auto Turn-Off Timer) on endpoint 0
     value: 99
+    continue_on_error: true
   - device_id: b52e157b03fd9b597dcf600fd912f1b5
     domain: zwave_js
     type: set_config_parameter
@@ -470,6 +473,7 @@
     bitmask:
     subtype: 11 (Maximum Brightness) on endpoint 0
     value: 99
+    continue_on_error: true
   mode: single
 - id: '1655056424197'
   alias: At 10:45a
