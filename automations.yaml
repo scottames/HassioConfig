@@ -487,9 +487,9 @@
     domain: zwave_js
     type: set_config_parameter
     endpoint: 0
-    parameter: 5
+    parameter: 3
     bitmask:
-    subtype: 5 (Auto Turn-On Timer) on endpoint 0
+    subtype: 3 (Auto Turn-Off Timer) on endpoint 0
     value: 30
   mode: single
 - id: '1658585159299'
