@@ -446,7 +446,6 @@
     bitmask:
     subtype: 11 (Maximum Brightness) on endpoint 0
     value: 99
-    continue_on_error: true
   - device_id: 9e06f1a6ff79ebbe2460d7c938cf3f3a
     domain: zwave_js
     type: set_config_parameter
@@ -455,7 +454,6 @@
     bitmask:
     subtype: 15 (Maximum Brightness) on endpoint 0
     value: 99
-    continue_on_error: true
   - device_id: 17b2d7297d2644b202347231fd6a26d6
     domain: zwave_js
     type: set_config_parameter
@@ -463,8 +461,7 @@
     parameter: 3
     bitmask:
     subtype: 3 (Auto Turn-Off Timer) on endpoint 0
-    value: 99
-    continue_on_error: true
+    value: 30
   - device_id: b52e157b03fd9b597dcf600fd912f1b5
     domain: zwave_js
     type: set_config_parameter
@@ -473,7 +470,6 @@
     bitmask:
     subtype: 11 (Maximum Brightness) on endpoint 0
     value: 99
-    continue_on_error: true
   mode: single
 - id: '1655056424197'
   alias: At 10:45a
