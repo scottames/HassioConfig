@@ -45,9 +45,6 @@ mqtt:
 
 anniversaries: !include anniversaries.yaml
 
-withings:
-  use_webhook: true
-
 feedreader:
   urls:
     - https://rpilocator.com/feed/?country=US
