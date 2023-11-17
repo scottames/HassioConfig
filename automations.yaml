@@ -359,6 +359,17 @@
       hours: 0
       minutes: 1
       seconds: 0
+  - condition: time
+    after: 06:00:00
+    before: '21:15:00'
+    weekday:
+    - sat
+    - fri
+    - thu
+    - wed
+    - tue
+    - mon
+    - sun
   action:
   - type: turn_on
     device_id: b52e157b03fd9b597dcf600fd912f1b5
