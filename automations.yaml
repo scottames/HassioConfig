@@ -120,6 +120,7 @@
         data:
           message: The battery of the sensor(s) {{sensors}} is low.
           title: Low battery
+      threshold: 15
 - id: '1637780058510'
   alias: Pushover - Water Leak in the Kitchen!
   description: ''
