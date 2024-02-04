@@ -7,6 +7,7 @@ tts:
   - platform: google_translate
 
 alert:         !include alerts.yaml
+anniversaries: !include anniversaries.yaml
 automation:    !include automations.yaml
 binary_sensor: !include binary_sensors.yaml
 # cover:         !include convers.yaml # TODO
@@ -43,8 +44,9 @@ mqtt:
   sensor: !include mqtt/sensor.tesla.yaml
   binary_sensor: !include mqtt/binary_sensor.tesla.yaml
 
-anniversaries: !include anniversaries.yaml
-
 feedreader:
   urls:
     - https://rpilocator.com/feed/?country=US
+
+device_tracker:
+  - platform: bluetooth_tracker
