@@ -13,7 +13,6 @@ binary_sensor: !include binary_sensors.yaml
 # cover:         !include convers.yaml # TODO
 input_boolean: !include input_booleans.yaml
 lovelace:      !include lovelace.yaml
-proximity:     !include proximity.yaml
 rest_command:  !include rest_commands.yaml
 script:        !include scripts.yaml
 scene:         !include scenes.yaml
@@ -47,6 +46,3 @@ mqtt:
 feedreader:
   urls:
     - https://rpilocator.com/feed/?country=US
-
-device_tracker:
-  - platform: bluetooth_tracker
