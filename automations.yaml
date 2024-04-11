@@ -514,14 +514,6 @@
     bitmask:
     subtype: 23 (Default Brightness Level On for Dimmer) on endpoint 0
     value: 99
-  - device_id: 6f79a2c9a9b7968780c01735283e6c82
-    domain: zwave_js
-    type: set_config_parameter
-    endpoint: 0
-    parameter: 18
-    bitmask:
-    subtype: 18 (Custom Brightness Level) on endpoint 0
-    value: 99
   - device_id: b52e157b03fd9b597dcf600fd912f1b5
     domain: zwave_js
     type: set_config_parameter
