@@ -42,7 +42,3 @@ shell_command:
 mqtt:
   sensor: !include mqtt/sensor.tesla.yaml
   binary_sensor: !include mqtt/binary_sensor.tesla.yaml
-
-feedreader:
-  urls:
-    - https://rpilocator.com/feed/?country=US
