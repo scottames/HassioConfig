@@ -2,120 +2,61 @@ neato_bathroom:
   alias: Vacuum the Bathroom
   mode: single
   sequence:
-  - service: neato.custom_cleaning
+  - action: dreame_vacuum.vacuum_clean_segment
     data:
-      zone: Bathroom
+      segments:
+      - 2
+      - 4
     target:
-      entity_id: vacuum.neato
-  - service: script.neato_bathroom
-    data: {}
-neato_kitty_large:
-  alias: Vacuum the Kitty Large
-  mode: single
-  sequence:
-  - service: neato.custom_cleaning
-    data:
-      zone: KittyLarge
-    target:
-      entity_id: vacuum.neato
-  - service: script.neato_kitty_large
-    data: {}
-neato_kitty_small:
-  alias: Vacuum the Kitty Small
-  mode: single
-  sequence:
-  - service: neato.custom_cleaning
-    data:
-      zone: KittySmall
-    target:
-      entity_id: vacuum.neato
-  - service: script.neato_kitty_small
-    data: {}
+      entity_id: vacuum.x40_ultra
 neato_kitchen:
   alias: Vacuum the Kitchen
   mode: single
   sequence:
-  - service: neato.custom_cleaning
+  - action: dreame_vacuum.vacuum_clean_segment
     data:
-      zone: Kitchen
+      segments:
+      - 3
     target:
-      entity_id: vacuum.neato
-  - service: script.neato_kitchen
-    data: {}
+      entity_id: vacuum.x40_ultra
 neato_hallway:
   alias: Vacuum the Hallway
   mode: single
   sequence:
-  - service: neato.custom_cleaning
+  - action: dreame_vacuum.vacuum_clean_segment
     data:
-      zone: Hallway
+      segments:
+      - 2
     target:
-      entity_id: vacuum.neato
-  - service: script.neato_hallway
-    data: {}
+      entity_id: vacuum.x40_ultra
 neato_entryway:
   alias: Vacuum the Entryway
   mode: single
   sequence:
-  - service: neato.custom_cleaning
+  - action: dreame_vacuum.vacuum_clean_segment
     data:
-      zone: Entryway
+      segments:
+      - 5
     target:
-      entity_id: vacuum.neato
-  - service: script.neato_entryway
-    data: {}
+      entity_id: vacuum.x40_ultra
 neato_bedroom:
   alias: Vacuum the Bedroom
   mode: single
   sequence:
-  - service: neato.custom_cleaning
+  - action: dreame_vacuum.vacuum_clean_segment
     data:
-      zone: Bedroom
+      segments:
+      - 7
     target:
-      entity_id: vacuum.neato
-  - service: script.neato_bedroom
-    data: {}
-neato_closet:
-  alias: Vacuum the Closet
-  mode: single
-  sequence:
-  - service: neato.custom_cleaning
-    data:
-      zone: Closet
-    target:
-      entity_id: vacuum.neato
-  - service: script.neato_closet
-    data: {}
+      entity_id: vacuum.x40_ultra
 neato_living:
   alias: Vacuum the Living Room
   mode: single
   sequence:
-  - service: neato.custom_cleaning
+  - action: dreame_vacuum.vacuum_clean_segment
     data:
-      zone: Living
+      segments:
+      - 6
     target:
-      entity_id: vacuum.neato
-  - service: script.neato_living
-    data: {}
-neato_living_inner:
-  alias: Vacuum the Living Room Inner
-  mode: single
-  sequence:
-  - service: neato.custom_cleaning
-    data:
-      zone: LivingInner
-    target:
-      entity_id: vacuum.neato
-  - service: script.neato_living_inner
-    data: {}
-neato_living_outer:
-  alias: Vacuum the Living Room Outer
-  mode: single
-  sequence:
-  - service: neato.custom_cleaning
-    data:
-      zone: LivingOuter
-    target:
-      entity_id: vacuum.neato
-  - service: script.neato_living_outer
+      entity_id: vacuum.x40_ultra
     data: {}

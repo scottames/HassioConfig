@@ -32,6 +32,11 @@ cards:
         icon: "mdi:home-assistant"
         name: HA
         color: "blue"
+      # entity_6:
+      #   nav: "vacuum"
+      #   icon: "mdi:robot-vacuum"
+      #   name: Vacuum
+      #   color: "orange"
 
   - type: horizontal-stack
     cards:
@@ -184,3 +189,75 @@ cards:
   - type: custom:weather-card
     entity: weather.home
     number_of_forecasts: '5'
+
+  - type: custom:vacuum-card
+    entity: vacuum.x40_ultra
+    map: camera.x40_ultra_map
+    map_refresh: 1
+    stats:
+      default:
+        - attribute: filter_left
+          unit: '%'
+          subtitle: Filter
+        - attribute: side_brush_left
+          unit: '%'
+          subtitle: Side brush
+        - attribute: main_brush_left
+          unit: '%'
+          subtitle: Main brush
+        - attribute: sensor_dirty_left
+          unit: '%'
+          subtitle: Sensors
+      cleaning:
+        - attribute: cleaned_area
+          unit: m²
+          subtitle: Cleaned area
+        - attribute: cleaning_time
+          unit: min
+          subtitle: Cleaning time
+    shortcuts:
+      - name: Clean Living Room (6)
+        service: dreame_vacuum.vacuum_clean_segment
+        service_data:
+          entity_id: vacuum.x40_ultra
+          segments: 6
+        icon: mdi:sofa
+      - name: Clean Bedroom (7)
+        service: dreame_vacuum.vacuum_clean_segment
+        service_data:
+          entity_id: vacuum.x40_ultra
+          segments: 7
+        icon: mdi:bed-empty
+      - name: Clean Kitchen (3)
+        service: dreame_vacuum.vacuum_clean_segment
+        service_data:
+          entity_id: vacuum.x40_ultra
+          segments: 3
+        icon: mdi:silverware-fork-knife
+        badges: []
+      - name: Clean Bathroom (4)
+        service: dreame_vacuum.vacuum_clean_segment
+        service_data:
+          entity_id: vacuum.x40_ultra
+          segments: 4
+        icon: mdi:toilet
+      - name: Clean Hallway (2)
+        service: dreame_vacuum.vacuum_clean_segment
+        service_data:
+          entity_id: vacuum.x40_ultra
+          segments: 2
+        icon: mdi:square-outline
+      - name: Clean Entryway (5)
+        service: dreame_vacuum.vacuum_clean_segment
+        service_data:
+          entity_id: vacuum.x40_ultra
+          segments: 5
+        icon: mdi:door
+      - name: Clean Cat (2,4)
+        service: dreame_vacuum.vacuum_clean_segment
+        service_data:
+          entity_id: vacuum.x40_ultra
+          segments:
+            - 2
+            - 4
+        icon: mdi:cat
