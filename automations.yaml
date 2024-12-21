@@ -646,3 +646,15 @@
       message: RPi In-Stock - {{ as_timestamp(now()) | timestamp_custom('%I:%M:%S
         %p %d%b%Y', true) }}
   mode: single
+- alias: Washer - Remote Start
+  description: ""
+  trigger: []
+  condition: []
+  action:
+    - wait_template: "{{ is_state('binary_sensor.cheap-sensor', 'on') }}"
+      continue_on_timeout: true
+    - service: smartthinq_sensors.remote_start
+      data: {}
+      target:
+        device_id: 18514f4a7677f4c8488c8b21b3788eda
+  mode: single

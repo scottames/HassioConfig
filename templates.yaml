@@ -1,0 +1,12 @@
+- sensor:
+    - name: "Washing Remain Percent"
+      unique_id: "washing_percent"
+      state: >-
+        {% if state_attr('sensor.washer', 'remain_time') == '0:00:00' %}
+
+          0
+        {% else %} {%- set start = state_attr('sensor.washer', 'initial_time') -%} {%- set end = state_attr('sensor.washer', 'remain_time') -%}
+
+        {%- set start_h = as_timestamp(strptime(start, '%H:%M:%S', '00:00:00')) | timestamp_custom("%H") | multiply(60) | round() -%} {%- set start_m = as_timestamp(strptime(start, '%H:%M:%S', '00:00:00')) | timestamp_custom("%M") | round() -%} {%- set start_s = ((as_timestamp(strptime(start, '%H:%M:%S', '00:00:00')) | timestamp_custom("%S") | int) / 60) | round(1) -%} {%- set end_h = as_timestamp(strptime(end, '%H:%M:%S', '00:00:00')) | timestamp_custom("%H") | multiply(60) | round() -%} {%- set end_m = as_timestamp(strptime(end, '%H:%M:%S', '00:00:00')) | timestamp_custom("%M") | round() -%} {%- set end_s = ((as_timestamp(strptime(end, '%H:%M:%S', '00:00:00')) | timestamp_custom("%S") | int) / 60) | round(1) -%} {%- set initial = start_h + start_m + start_s -%} {%- set consumed = initial -(end_h + end_m + end_s) -%}
+
+        {{ 100 - ((consumed/initial)*100) | round() }} {% endif %}
