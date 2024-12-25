@@ -140,18 +140,28 @@
 - id: '1637790536996'
   alias: Pushover - Front Door Open
   description: ''
-  trigger:
+  triggers:
   - type: opened
-    platform: device
+    device_id: a367bae547e482da63ee577669afa61d
+    entity_id: 0806236edbd6832695e6909fbfa384a3
+    domain: binary_sensor
+    trigger: device
+  - type: opened
+    device_id: f19e91dc39c2b91a017d8fe4eeeb2b66
+    entity_id: 4dddbe7e1db84e65097c919f8edd66d3
+    domain: binary_sensor
+    trigger: device
+  - type: opened
     device_id: 1fc2159a07139f3b3a020302ded6c20d
     entity_id: c64770f0b5118fdfed9987465c05541f
     domain: binary_sensor
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
-      title: Front door opened
-      message: Front door opened
+    trigger: device
+  conditions: []
+  actions:
+  - data:
+      title: '{{ trigger.from_state.attributes.friendly_name }}'
+      message: '{{ trigger.from_state.attributes.friendly_name }}'
+    action: notify.pushover
   mode: single
 - id: '1637798513461'
   alias: Shower Scene On
@@ -611,24 +621,6 @@
         a drive or charging her up!
       title: Give Evee ♥️
   mode: single
-- id: '1664759345743'
-  alias: When Away
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - person.scotty
-    attribute: home
-    for:
-      hours: 6
-      minutes: 5
-      seconds: 0
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
-      message: Scotty away!
-  mode: single
 - id: '1674759441259'
   alias: RPi Stock Notification
   description: ''
@@ -647,14 +639,15 @@
         %p %d%b%Y', true) }}
   mode: single
 - alias: Washer - Remote Start
-  description: ""
+  description: ''
   trigger: []
   condition: []
   action:
-    - wait_template: "{{ is_state('binary_sensor.cheap-sensor', 'on') }}"
-      continue_on_timeout: true
-    - service: smartthinq_sensors.remote_start
-      data: {}
-      target:
-        device_id: 18514f4a7677f4c8488c8b21b3788eda
+  - wait_template: '{{ is_state(''binary_sensor.cheap-sensor'', ''on'') }}'
+    continue_on_timeout: true
+  - service: smartthinq_sensors.remote_start
+    data: {}
+    target:
+      device_id: 18514f4a7677f4c8488c8b21b3788eda
   mode: single
+  id: 0449660297d74f0dbe6421c43bffee20
