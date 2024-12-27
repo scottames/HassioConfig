@@ -138,7 +138,7 @@
       message: Water leak detected in Kitchen!
   mode: single
 - id: '1637790536996'
-  alias: Pushover - Front Door Open
+  alias: Pushover - Door Opened
   description: ''
   triggers:
   - type: opened
@@ -159,8 +159,8 @@
   conditions: []
   actions:
   - data:
-      title: '{{ trigger.from_state.attributes.friendly_name }}'
-      message: '{{ trigger.from_state.attributes.friendly_name }}'
+      title: '{{ trigger.from_state.attributes.friendly_name }}ed'
+      message: '{{ trigger.from_state.attributes.friendly_name }}ed'
     action: notify.pushover
   mode: single
 - id: '1637798513461'
@@ -651,3 +651,18 @@
       device_id: 18514f4a7677f4c8488c8b21b3788eda
   mode: single
   id: 0449660297d74f0dbe6421c43bffee20
+- id: '1735273750075'
+  alias: Pushover - car arriving
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: c5f21287a845e2f8c520854fef6381bb
+    entity_id: 6498b32c7f4efd359776203c68fea7af
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - data:
+      message: Car arriving
+    action: notify.pushover
+  mode: single
