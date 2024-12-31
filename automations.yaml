@@ -666,3 +666,22 @@
       message: Car arriving
     action: notify.pushover
   mode: single
+- id: '1735607074779'
+  alias: Dishwasher has finished
+  description: ''
+  use_blueprint:
+    path: sbyx/notify-or-do-something-when-an-appliance-like-a-dishwasher-or-washing-machine-finishes.yaml
+    input:
+      power_sensor: sensor.indoor_smart_plug_electric_consumption_w
+      actions:
+      - action: notify.pushover
+        metadata: {}
+        data:
+          message: Dishwasher
+          title: Dishwasher
+      pre_actions:
+      - action: notify.pushover
+        metadata: {}
+        data:
+          message: Dishwasher?
+          title: Dishwasher?
