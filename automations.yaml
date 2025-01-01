@@ -651,21 +651,6 @@
       device_id: 18514f4a7677f4c8488c8b21b3788eda
   mode: single
   id: 0449660297d74f0dbe6421c43bffee20
-- id: '1735273750075'
-  alias: Pushover - car arriving
-  description: ''
-  triggers:
-  - type: turned_on
-    device_id: c5f21287a845e2f8c520854fef6381bb
-    entity_id: 6498b32c7f4efd359776203c68fea7af
-    domain: binary_sensor
-    trigger: device
-  conditions: []
-  actions:
-  - data:
-      message: Car arriving
-    action: notify.pushover
-  mode: single
 - id: '1735607074779'
   alias: Dishwasher has finished
   description: ''
@@ -685,3 +670,20 @@
         data:
           message: Dishwasher?
           title: Dishwasher?
+- id: '1735701322875'
+  alias: Vehicle Arriving
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: c5f21287a845e2f8c520854fef6381bb
+    entity_id: 6498b32c7f4efd359776203c68fea7af
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: notify.pushover
+    metadata: {}
+    data:
+      message: Vehicle arriving!
+      title: Vehicle arriving!
+  mode: single
