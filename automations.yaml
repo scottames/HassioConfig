@@ -687,3 +687,51 @@
       message: Vehicle arriving!
       title: Vehicle arriving!
   mode: single
+- id: '1735857023139'
+  alias: Bambu Lab H2D Google Alert Notify Discord
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: feedreader
+    event_data:
+      feed_url: https://www.google.com/alerts/feeds/01630421403940089818/14089162079937781971
+  conditions: []
+  actions:
+  - action: notify.cupway_home_assistant
+    metadata: {}
+    data:
+      message: '{{ trigger.event.data.content }}'
+  mode: single
+- alias: Test RSS Notify Discord
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: feedreader
+    event_data:
+      feed_url: https://lorem-rss.herokuapp.com/feed?unit=second&interval=30
+  conditions: []
+  actions:
+  - action: notify.discord
+    data:
+      message: '[{{ trigger.event.data.title }}]({{ trigger.event.data.content }})'
+      target:
+      - '1324499257948110899'
+  mode: single
+  id: 89ce6a96188d4080956bfc8b8a6f692b
+- id: '1735857575308'
+  alias: Test RSS Notify Discord
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: feedreader
+    event_data:
+      feed_url: https://www.reddit.com/r/unixporn/.rss
+  conditions: []
+  actions:
+  - action: notify.cupway_home_assistant
+    metadata: {}
+    data:
+      message: '[{{ trigger.event.data.title }}]({{ trigger.event.data.content }})'
+      target:
+      - '1324499257948110899'
+  mode: single
