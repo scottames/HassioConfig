@@ -702,24 +702,8 @@
     data:
       message: '{{ trigger.event.data.content }}'
   mode: single
-- alias: Test RSS Notify Discord
-  description: ''
-  triggers:
-  - trigger: event
-    event_type: feedreader
-    event_data:
-      feed_url: https://lorem-rss.herokuapp.com/feed?unit=second&interval=30
-  conditions: []
-  actions:
-  - action: notify.discord
-    data:
-      message: '[{{ trigger.event.data.title }}]({{ trigger.event.data.content }})'
-      target:
-      - '1324499257948110899'
-  mode: single
-  id: 89ce6a96188d4080956bfc8b8a6f692b
-- id: '1735857575308'
-  alias: Test RSS Notify Discord
+- id: 89ce6a96188d4080956bfc8b8a6f692b
+  alias: Test RSS Notify
   description: ''
   triggers:
   - trigger: event
@@ -728,10 +712,7 @@
       feed_url: https://www.reddit.com/r/unixporn/.rss
   conditions: []
   actions:
-  - action: notify.cupway_home_assistant
+  - action: notify.pushover
     metadata: {}
     data:
-      message: '[{{ trigger.event.data.title }}]({{ trigger.event.data.content }})'
-      target:
-      - '1324499257948110899'
-  mode: single
+      message: '{{ trigger.event.data.title }}'
