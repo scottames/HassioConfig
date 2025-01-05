@@ -715,4 +715,10 @@
   - action: notify.pushover
     metadata: {}
     data:
-      message: '{{ trigger.event.data.title }}'
+      message: '{{ trigger.event.data.link }}'
+  - action: notify.cupway_home_assistant
+    metadata: {}
+    data:
+      message: '{{ trigger.event.data.link }}'
+      target:
+      - '1324499257948110899'
