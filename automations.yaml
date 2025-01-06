@@ -688,7 +688,7 @@
       title: Vehicle arriving!
   mode: single
 - id: '1735857023139'
-  alias: Bambu Lab H2D Google Alert Notify Discord
+  alias: Notify Discord | Bambu Lab H2D Google Alert
   description: ''
   triggers:
   - trigger: event
@@ -700,10 +700,12 @@
   - action: notify.cupway_home_assistant
     metadata: {}
     data:
-      message: '{{ trigger.event.data.content }}'
+      message: '{{ trigger.event.data.link }}'
+      target:
+      - '1324499257948110899'
   mode: single
 - id: 89ce6a96188d4080956bfc8b8a6f692b
-  alias: Test RSS Notify
+  alias: Notify Test | RSS
   description: ''
   triggers:
   - trigger: event
