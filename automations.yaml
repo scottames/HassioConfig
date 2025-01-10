@@ -724,3 +724,19 @@
       message: '{{ trigger.event.data.link }}'
       target:
       - '1324499257948110899'
+- id: '1736444785585'
+  alias: Litter Boxed Used
+  description: ''
+  triggers:
+  - type: tampered
+    device_id: 1cc3864a9f9820f76aabb23e15cd81c9
+    entity_id: e80efde7843ea14fe174d05dfbb385f3
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: notify.mobile_app_pixel_9_pro
+    metadata: {}
+    data:
+      message: Litter boxed used
+  mode: single
