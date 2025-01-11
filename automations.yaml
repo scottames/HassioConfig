@@ -156,6 +156,11 @@
     entity_id: c64770f0b5118fdfed9987465c05541f
     domain: binary_sensor
     trigger: device
+  - type: opened
+    device_id: f9fe224571c549f08f2b743ad564db7b
+    entity_id: c5d5291a7153bba0cfd032661d96daf6
+    domain: binary_sensor
+    trigger: device
   conditions: []
   actions:
   - data:
@@ -739,4 +744,20 @@
     metadata: {}
     data:
       message: Litter boxed used
+  mode: single
+- id: '1736569620949'
+  alias: Patio Door Opened > Turn On Lights
+  description: ''
+  triggers:
+  - type: opened
+    device_id: f9fe224571c549f08f2b743ad564db7b
+    entity_id: ef90c3eb64f616252f084199d6d30332
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - type: turn_on
+    device_id: 45a68b765f8b862f5125e5447b507240
+    entity_id: f7948fa8d63e74d52a754682c58b00e1
+    domain: light
   mode: single
