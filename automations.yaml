@@ -207,18 +207,23 @@
 - id: '1637810805250'
   alias: Pushover - Water Leak in the Laundry!
   description: ''
-  trigger:
+  triggers:
   - type: moist
-    platform: device
     device_id: dbafb89a8c6b0b56a7412345e806ca6e
     entity_id: binary_sensor.water_leak_xs_sensor_water_alarm_water_leak_detected_2
     domain: binary_sensor
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
+    trigger: device
+  - type: moist
+    device_id: 7e12fb9ff72fb97b059f8b458807c546
+    entity_id: aff06ab1cd86d2f32cc80a6b2b676576
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - data:
       title: Water Leak Detected in Laundry
       message: Water leak detected in Laundry!
+    action: notify.pushover
   mode: single
 - id: '1637811125957'
   alias: Pushover - Water Leak in the Bathroom!
