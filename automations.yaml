@@ -124,18 +124,28 @@
 - id: '1637780058510'
   alias: Pushover - Water Leak in the Kitchen!
   description: ''
-  trigger:
+  triggers:
   - type: moist
-    platform: device
     device_id: 122f21419cfe77ab0f80a28c3e58724b
     entity_id: binary_sensor.water_leak_xs_sensor_water_alarm_water_leak_detected
     domain: binary_sensor
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
+    trigger: device
+  - type: moist
+    device_id: 3b34d838008a4726d4777a92987bf16c
+    entity_id: a27e63b84975ab0b58abb681c7ccf740
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - data:
       title: Water Leak Detected in Kitchen
       message: Water leak detected in Kitchen!
+      data:
+        priority: 2
+        sound: siren
+        expire: 600
+        retry: 30
+    action: notify.pushover
   mode: single
 - id: '1637790536996'
   alias: Pushover - Door Opened
@@ -223,23 +233,33 @@
   - data:
       title: Water Leak Detected in Laundry
       message: Water leak detected in Laundry!
+      data:
+        priority: 2
+        sound: siren
+        expire: 600
+        retry: 30
     action: notify.pushover
   mode: single
 - id: '1637811125957'
-  alias: Pushover - Water Leak in the Bathroom!
+  alias: Pushover - Water Leak Detected in P.Bathroom
   description: ''
-  trigger:
+  triggers:
   - type: moist
-    platform: device
-    device_id: 3b34d838008a4726d4777a92987bf16c
-    entity_id: binary_sensor.water_leak_xs_sensor_water_alarm_water_leak_detected_3
+    device_id: 5a790b38085fa7450ae150a068dc5bb1
+    entity_id: 76168eed9421ffec5b4bb365ad3227fd
     domain: binary_sensor
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
-      title: Water Leak Detected in the Bathroom
-      message: Water leak detected in the Bathroom!
+    trigger: device
+  conditions: []
+  actions:
+  - data:
+      title: Water Leak Detected in P.Bathroom
+      message: Water leak detected in the Primary Bathroom!
+      data:
+        priority: 2
+        sound: siren
+        expire: 600
+        retry: 30
+    action: notify.pushover
   mode: single
 - id: '1637811329499'
   alias: Turn on Living Room Scene
@@ -765,4 +785,25 @@
     device_id: 45a68b765f8b862f5125e5447b507240
     entity_id: f7948fa8d63e74d52a754682c58b00e1
     domain: light
+  mode: single
+- id: '1737437946925'
+  alias: Test1
+  description: ''
+  triggers:
+  - type: motion
+    device_id: 390faaa3c796699d7b55e1e32f7c99a4
+    entity_id: a8421e8fb38519ed84136cdfc3d064a9
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: notify.pushover
+    metadata: {}
+    data:
+      message: Test!
+      data:
+        priority: 2
+        sound: siren
+        expire: 300
+        retry: 30
   mode: single
