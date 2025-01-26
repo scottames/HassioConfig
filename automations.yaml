@@ -125,16 +125,16 @@
   alias: Pushover - Water Leak in the Kitchen!
   description: ''
   triggers:
-  - type: moist
-    device_id: 122f21419cfe77ab0f80a28c3e58724b
-    entity_id: binary_sensor.water_leak_xs_sensor_water_alarm_water_leak_detected
-    domain: binary_sensor
-    trigger: device
-  - type: moist
-    device_id: 3b34d838008a4726d4777a92987bf16c
-    entity_id: a27e63b84975ab0b58abb681c7ccf740
-    domain: binary_sensor
-    trigger: device
+  - trigger: state
+    entity_id:
+    - binary_sensor.water_leak_xs_sensor_water_alarm_water_leak_detected_3
+    from: 'off'
+    to: 'on'
+  - trigger: state
+    entity_id:
+    - binary_sensor.water_leak_xs_sensor_water_alarm_water_leak_detected
+    from: 'off'
+    to: 'on'
   conditions: []
   actions:
   - data:
@@ -218,16 +218,16 @@
   alias: Pushover - Water Leak in the Laundry!
   description: ''
   triggers:
-  - type: moist
-    device_id: dbafb89a8c6b0b56a7412345e806ca6e
-    entity_id: binary_sensor.water_leak_xs_sensor_water_alarm_water_leak_detected_2
-    domain: binary_sensor
-    trigger: device
-  - type: moist
-    device_id: 7e12fb9ff72fb97b059f8b458807c546
-    entity_id: aff06ab1cd86d2f32cc80a6b2b676576
-    domain: binary_sensor
-    trigger: device
+  - trigger: state
+    entity_id:
+    - binary_sensor.water_leak_xs_sensor_water_alarm_water_leak_detected_2
+    from: 'off'
+    to: 'on'
+  - trigger: state
+    entity_id:
+    - binary_sensor.water_leak_xs_sensor_water_leak_detected_2
+    from: 'off'
+    to: 'on'
   conditions: []
   actions:
   - data:
@@ -244,11 +244,11 @@
   alias: Pushover - Water Leak Detected in P.Bathroom
   description: ''
   triggers:
-  - type: moist
-    device_id: 5a790b38085fa7450ae150a068dc5bb1
-    entity_id: 76168eed9421ffec5b4bb365ad3227fd
-    domain: binary_sensor
-    trigger: device
+  - trigger: state
+    entity_id:
+    - binary_sensor.water_leak_xs_sensor_water_leak_detected
+    from: 'off'
+    to: 'on'
   conditions: []
   actions:
   - data:
@@ -806,4 +806,25 @@
         sound: siren
         expire: 300
         retry: 30
+  mode: single
+- id: '1737844800222'
+  alias: Pushover - Water Leak Detected in Garage closet!
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.water_heater_closet_flood_freeze_water_leak_detected
+    from: 'off'
+    to: 'on'
+  conditions: []
+  actions:
+  - data:
+      title: Water Leak Detected in Garage closet!
+      message: Water leak detected in Garage closet! (water heater)
+      data:
+        priority: 2
+        sound: siren
+        expire: 600
+        retry: 30
+    action: notify.pushover
   mode: single
