@@ -19,38 +19,6 @@
     entity_id: light.bathroom
     domain: light
   mode: single
-- id: '1636909074590'
-  alias: Bedroom Lights On
-  description: ''
-  trigger:
-  - platform: device
-    type: turned_on
-    device_id: 71f0d08aa4b04d0f1f600db5f87509a1
-    entity_id: switch.z_wave_plus_700_series_s2_on_off_switch_4
-    domain: switch
-  condition: []
-  action:
-  - service: scene.turn_on
-    target:
-      entity_id: scene.bedroom_on
-    metadata: {}
-  mode: single
-- id: '1636909210552'
-  alias: Bedroom Lights Off
-  description: ''
-  trigger:
-  - platform: device
-    type: turned_off
-    device_id: 71f0d08aa4b04d0f1f600db5f87509a1
-    entity_id: switch.z_wave_plus_700_series_s2_on_off_switch_4
-    domain: switch
-  condition: []
-  action:
-  - service: scene.turn_on
-    target:
-      entity_id: scene.bedroom_off
-    metadata: {}
-  mode: single
 - id: '1637558005437'
   alias: Turn off vanity relay
   description: ''
@@ -63,22 +31,6 @@
   condition: []
   action:
   - type: toggle
-    device_id: 9e06f1a6ff79ebbe2460d7c938cf3f3a
-    entity_id: switch.dimmer_dry_contact_relay
-    domain: switch
-  mode: single
-- id: '1637558065227'
-  alias: Turn on vanity relay
-  description: ''
-  trigger:
-  - platform: device
-    type: turned_on
-    device_id: 641aec2de478db9b2924d2b8f6230c16
-    entity_id: light.bathroom
-    domain: light
-  condition: []
-  action:
-  - type: turn_off
     device_id: 9e06f1a6ff79ebbe2460d7c938cf3f3a
     entity_id: switch.dimmer_dry_contact_relay
     domain: switch
@@ -110,16 +62,16 @@
       title: Home Assistant Shutdown
   mode: single
 - id: '1637777786441'
-  alias: Low battery level detection & notification for all battery sensors
+  alias: Pushover - Low battery level detection & notification for all battery sensors
   description: ''
   use_blueprint:
     path: sbyx/low-battery-level-detection-notification-for-all-battery-sensors.yaml
     input:
       actions:
-      - service: notify.pushover
-        data:
+      - data:
           message: The battery of the sensor(s) {{sensors}} is low.
           title: Low battery
+        action: notify.pushover
       threshold: 15
 - id: '1637780058510'
   alias: Pushover - Water Leak in the Kitchen!
@@ -573,31 +525,6 @@
     value: 30
     alias: Set Bathroom Fan Auto-off 30min
   mode: single
-- id: '1658585159299'
-  alias: Hallway off when no motion
-  description: ''
-  trigger:
-  - type: no_motion
-    platform: device
-    device_id: 0987c8c633a284fe2c9e2f8dacb1aaf7
-    entity_id: binary_sensor.4_in_1_sensor_home_security_motion_detection
-    domain: binary_sensor
-    for:
-      hours: 0
-      minutes: 5
-      seconds: 0
-  condition:
-  - condition: device
-    type: is_on
-    device_id: b52e157b03fd9b597dcf600fd912f1b5
-    entity_id: light.hallway
-    domain: light
-  action:
-  - type: turn_off
-    device_id: b52e157b03fd9b597dcf600fd912f1b5
-    entity_id: light.hallway
-    domain: light
-  mode: single
 - id: CommitAndPushConfig
   alias: Commit & push config to GitHub
   trigger:
@@ -623,33 +550,30 @@
 - id: '1664732237511'
   alias: Evee offline >= 7d | notify
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - sensor.tesla_state
     to: offline
     for:
       hours: 168
       minutes: 0
       seconds: 0
-  condition:
+    trigger: state
+  conditions:
   - condition: and
     conditions:
     - condition: state
       entity_id: device_tracker.tesla_location
       state: home
     alias: If Evee is home
-  action:
-  - service: notify.mobile_app_pixel_7_pro
-    data:
+  actions:
+  - action: notify.mobile_app_pixel_9_pro
+    data: {}
+  - data:
       message: Evee offline for 7 days. Give her some attention by taking her for
         a drive or charging her up!
       title: Give Evee ♥️
-  - service: notify.mobile_app_alyssa_s_iphone
-    data:
-      message: Evee offline for 7 days. Give her some attention by taking her for
-        a drive or charging her up!
-      title: Give Evee ♥️
+    action: notify.mobile_app_alyssa_s_iphone
   mode: single
 - id: '1674759441259'
   alias: RPi Stock Notification
@@ -682,7 +606,7 @@
   mode: single
   id: 0449660297d74f0dbe6421c43bffee20
 - id: '1735607074779'
-  alias: Dishwasher has finished
+  alias: Dishwasher Plug (Blueprint)
   description: ''
   use_blueprint:
     path: sbyx/notify-or-do-something-when-an-appliance-like-a-dishwasher-or-washing-machine-finishes.yaml
@@ -701,7 +625,7 @@
           message: Dishwasher?
           title: Dishwasher?
 - id: '1735701322875'
-  alias: Vehicle Arriving
+  alias: Pushover - Vehicle Arriving
   description: ''
   triggers:
   - type: turned_on
@@ -827,4 +751,205 @@
         expire: 600
         retry: 30
     action: notify.pushover
+  mode: single
+- id: '1737921233821'
+  alias: Dishwasher Active (>5W)
+  description: ''
+  triggers:
+  - entity_id: sensor.indoor_smart_plug_electric_consumption_w
+    above: 7
+    for: 00:03:00
+    trigger: numeric_state
+  conditions:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: input_select.dishwasher_state
+      state: Active
+  actions:
+  - data:
+      entity_id: input_select.dishwasher_state
+      option: Active
+    action: input_select.select_option
+  mode: single
+- id: '1737921340155'
+  alias: Dishwasher Finished (4.3W)
+  description: ''
+  triggers:
+  - entity_id:
+    - sensor.indoor_smart_plug_electric_consumption_w
+    above: 4
+    below: 7
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    trigger: numeric_state
+  conditions:
+  - condition: state
+    entity_id: input_select.dishwasher_state
+    state: Active
+  actions:
+  - data:
+      entity_id: input_select.dishwasher_state
+      option: Finished
+    action: input_select.select_option
+  mode: single
+- id: '1737921360730'
+  alias: Dishwasher Off
+  description: ''
+  triggers:
+  - entity_id: sensor.indoor_smart_plug_electric_consumption_w
+    below: 0.1
+    for: 00:03:00
+    trigger: numeric_state
+  conditions:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: input_select.dishwasher_state
+      state: 'Off'
+  actions:
+  - data:
+      entity_id: input_select.dishwasher_state
+      option: 'Off'
+    action: input_select.select_option
+  mode: single
+- id: '1737921371558'
+  alias: Dishwasher Standby (4.3W)
+  description: ''
+  triggers:
+  - entity_id: sensor.indoor_smart_plug_electric_consumption_w
+    above: 4
+    below: 7
+    for: 00:01:00
+    trigger: numeric_state
+  conditions:
+  - condition: state
+    entity_id: input_select.dishwasher_state
+    state: 'Off'
+  actions:
+  - data:
+      entity_id: input_select.dishwasher_state
+      option: Standby
+    action: input_select.select_option
+  mode: single
+- id: '1737922698268'
+  alias: Pushover - Dishwasher Off
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id: input_select.dishwasher_state
+    to: 'Off'
+  conditions: []
+  actions:
+  - data:
+      message: Dishwasher Off (input)
+      title: Dishwasher Off
+    action: notify.pushover
+  mode: single
+- id: '1737922711900'
+  alias: Pushover - Dishwasher Finished
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id: input_select.dishwasher_state
+    from: Active
+    to: Finished
+  - trigger: state
+    entity_id: input_select.dishwasher_state
+    from: Active
+    to: 'Off'
+  conditions: []
+  actions:
+  - data:
+      message: Dishwasher Finished (input)
+      title: Dishwasher Finished
+    action: notify.pushover
+  mode: single
+- id: '1737948905959'
+  alias: Spaceship -  Closet Motion Lights On
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.hue_motion_sensor_spaceship_closet_motion
+    to: 'on'
+    from: 'off'
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: sun
+        before: sunrise
+        after: sunset
+      sequence:
+      - type: turn_on
+        device_id: 641aec2de478db9b2924d2b8f6230c16
+        entity_id: 8e2381f3aaacff89286a28147838f98b
+        domain: light
+        brightness_pct: 15
+      - type: turn_on
+        device_id: e40586f7262fe6856ab91a844da8fd6f
+        entity_id: 3a56612821d823cb8e4484697d7ff516
+        domain: light
+        brightness_pct: 15
+    - conditions:
+      - condition: sun
+        before: sunset
+        after: sunrise
+      sequence:
+      - type: turn_on
+        device_id: 641aec2de478db9b2924d2b8f6230c16
+        entity_id: 8e2381f3aaacff89286a28147838f98b
+        domain: light
+        brightness_pct: 100
+      - type: turn_on
+        device_id: e40586f7262fe6856ab91a844da8fd6f
+        entity_id: 3a56612821d823cb8e4484697d7ff516
+        domain: light
+        brightness_pct: 100
+  mode: single
+- id: '1737949714461'
+  alias: Patio Door Closed for 10 min Lights Off
+  description: ''
+  triggers:
+  - type: not_opened
+    device_id: f9fe224571c549f08f2b743ad564db7b
+    entity_id: ef90c3eb64f616252f084199d6d30332
+    domain: binary_sensor
+    trigger: device
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 45a68b765f8b862f5125e5447b507240
+    entity_id: f7948fa8d63e74d52a754682c58b00e1
+    domain: light
+  mode: single
+- id: '1737958665121'
+  alias: Spaceship - Closet No Motion Lights Off
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.hue_motion_sensor_spaceship_closet_motion
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 641aec2de478db9b2924d2b8f6230c16
+    entity_id: 8e2381f3aaacff89286a28147838f98b
+    domain: light
+  - type: turn_off
+    device_id: e40586f7262fe6856ab91a844da8fd6f
+    entity_id: 3a56612821d823cb8e4484697d7ff516
+    domain: light
   mode: single

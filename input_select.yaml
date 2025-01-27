@@ -1,0 +1,9 @@
+dishwasher_state:
+  name: Dishwasher State
+  icon: mdi:dishwasher
+  options:
+    - "Off"
+    - "Standby"
+    - "Running"
+    - "Complete"
+  initial: "Off"

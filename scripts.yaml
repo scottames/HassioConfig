@@ -54,9 +54,17 @@ neato_living:
   mode: single
   sequence:
   - action: dreame_vacuum.vacuum_clean_segment
-    data:
-      segments:
-      - 6
+    data: {}
     target:
       entity_id: vacuum.x40_ultra
-    data: {}
+neato_clean_kitty_zone:
+  sequence:
+  - action: neato.custom_cleaning
+    metadata: {}
+    data:
+      mode: 2
+      navigation: 1
+      category: 4
+      zone: Kitty
+  alias: Neato - Clean Kitty Zone
+  description: ''
