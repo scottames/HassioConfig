@@ -768,12 +768,13 @@
       state: Active
   actions:
   - data:
-      entity_id: input_select.dishwasher_state
-      option: Active
+      option: Running
     action: input_select.select_option
+    target:
+      entity_id: input_select.dishwasher_state
   mode: single
 - id: '1737921340155'
-  alias: Dishwasher Finished (4.3W)
+  alias: Dishwasher Complete (4.3W)
   description: ''
   triggers:
   - entity_id:
@@ -791,9 +792,10 @@
     state: Active
   actions:
   - data:
-      entity_id: input_select.dishwasher_state
-      option: Finished
+      option: Complete
     action: input_select.select_option
+    target:
+      entity_id: input_select.dishwasher_state
   mode: single
 - id: '1737921360730'
   alias: Dishwasher Off
@@ -876,7 +878,19 @@
     - binary_sensor.hue_motion_sensor_spaceship_closet_motion
     to: 'on'
     from: 'off'
-  conditions: []
+  conditions:
+  - condition: and
+    conditions:
+    - condition: device
+      type: is_off
+      device_id: e40586f7262fe6856ab91a844da8fd6f
+      entity_id: 3a56612821d823cb8e4484697d7ff516
+      domain: light
+    - condition: device
+      type: is_off
+      device_id: 641aec2de478db9b2924d2b8f6230c16
+      entity_id: 8e2381f3aaacff89286a28147838f98b
+      domain: light
   actions:
   - choose:
     - conditions:
@@ -940,7 +954,7 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 10
+      minutes: 5
       seconds: 0
   conditions: []
   actions:
@@ -952,4 +966,59 @@
     device_id: e40586f7262fe6856ab91a844da8fd6f
     entity_id: 3a56612821d823cb8e4484697d7ff516
     domain: light
+  mode: single
+- id: '1738048118852'
+  alias: Sunset - Close Shades
+  description: ''
+  triggers:
+  - trigger: sun
+    event: sunset
+    offset: 0
+  conditions: []
+  actions:
+  - action: cover.close_cover
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - cover.node_62
+      - cover.node_63
+  - action: cover.set_cover_position
+    metadata: {}
+    data:
+      position: 25
+    target:
+      device_id: 4e9b91181ea1552037e3ccc092922d60
+  - action: cover.set_cover_position
+    metadata: {}
+    data:
+      position: 25
+    target:
+      device_id: 7234836ee69f83101bc8cc9a8f40d8a5
+  mode: single
+- id: '1738048776318'
+  alias: In Bed - Shut down the horse
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.withings_in_bed_scotty
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  conditions:
+  - condition: time
+    after: '20:00:00'
+    weekday:
+    - sun
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+  actions: []
   mode: single
