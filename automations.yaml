@@ -753,7 +753,7 @@
     action: notify.pushover
   mode: single
 - id: '1737921233821'
-  alias: Dishwasher Active (>5W)
+  alias: Dishwasher Running (>5W)
   description: ''
   triggers:
   - entity_id: sensor.indoor_smart_plug_electric_consumption_w
@@ -765,7 +765,7 @@
     conditions:
     - condition: state
       entity_id: input_select.dishwasher_state
-      state: Active
+      state: Running
   actions:
   - data:
       option: Running
@@ -774,12 +774,12 @@
       entity_id: input_select.dishwasher_state
   mode: single
 - id: '1737921340155'
-  alias: Dishwasher Complete (4.3W)
+  alias: Dishwasher Complete (2W)
   description: ''
   triggers:
   - entity_id:
     - sensor.indoor_smart_plug_electric_consumption_w
-    above: 4
+    above: 2
     below: 7
     for:
       hours: 0
@@ -789,7 +789,7 @@
   conditions:
   - condition: state
     entity_id: input_select.dishwasher_state
-    state: Active
+    state: Running
   actions:
   - data:
       option: Complete
@@ -801,9 +801,14 @@
   alias: Dishwasher Off
   description: ''
   triggers:
-  - entity_id: sensor.indoor_smart_plug_electric_consumption_w
-    below: 0.1
-    for: 00:03:00
+  - entity_id:
+    - sensor.indoor_smart_plug_electric_consumption_w
+    below: 0.75
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 0
+      milliseconds: 0
     trigger: numeric_state
   conditions:
   - condition: not
@@ -818,13 +823,18 @@
     action: input_select.select_option
   mode: single
 - id: '1737921371558'
-  alias: Dishwasher Standby (4.3W)
+  alias: Dishwasher Standby (2W)
   description: ''
   triggers:
-  - entity_id: sensor.indoor_smart_plug_electric_consumption_w
-    above: 4
+  - entity_id:
+    - sensor.indoor_smart_plug_electric_consumption_w
+    above: 2
     below: 7
-    for: 00:01:00
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
     trigger: numeric_state
   conditions:
   - condition: state
