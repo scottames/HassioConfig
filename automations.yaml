@@ -753,7 +753,7 @@
     action: notify.pushover
   mode: single
 - id: '1737921233821'
-  alias: Dishwasher Running (>5W)
+  alias: Dishwasher Running
   description: ''
   triggers:
   - entity_id: sensor.indoor_smart_plug_electric_consumption_w
@@ -780,7 +780,7 @@
   - entity_id:
     - sensor.indoor_smart_plug_electric_consumption_w
     above: 2
-    below: 7
+    below: 4
     for:
       hours: 0
       minutes: 1
@@ -823,7 +823,7 @@
     action: input_select.select_option
   mode: single
 - id: '1737921371558'
-  alias: Dishwasher Standby (2W)
+  alias: Dishwasher Standby
   description: ''
   triggers:
   - entity_id:
@@ -996,7 +996,7 @@
   - action: cover.set_cover_position
     metadata: {}
     data:
-      position: 25
+      position: 0
     target:
       device_id: 4e9b91181ea1552037e3ccc092922d60
   - action: cover.set_cover_position
