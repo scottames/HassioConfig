@@ -851,9 +851,15 @@
   description: ''
   triggers:
   - trigger: state
-    entity_id: input_select.dishwasher_state
+    entity_id:
+    - input_select.dishwasher_state
     to: 'Off'
-  conditions: []
+  conditions:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: input_select.dishwasher_state
+      state: 'Off'
   actions:
   - data:
       message: Dishwasher Off (input)
@@ -861,13 +867,14 @@
     action: notify.pushover
   mode: single
 - id: '1737922711900'
-  alias: Pushover - Dishwasher Finished
+  alias: Pushover - Dishwasher Complete
   description: ''
   triggers:
   - trigger: state
-    entity_id: input_select.dishwasher_state
-    from: Active
-    to: Finished
+    entity_id:
+    - input_select.dishwasher_state
+    to: Complete
+    from: Running
   - trigger: state
     entity_id: input_select.dishwasher_state
     from: Active
@@ -875,8 +882,8 @@
   conditions: []
   actions:
   - data:
-      message: Dishwasher Finished (input)
-      title: Dishwasher Finished
+      message: Dishwasher Complete (input)
+      title: Dishwasher Complete
     action: notify.pushover
   mode: single
 - id: '1737948905959'
@@ -1031,4 +1038,33 @@
     - fri
     - sat
   actions: []
+  mode: single
+- id: '1738276537475'
+  alias: Kitchen Motion > Under Cabinet On
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.kitchen_motion_home_security_motion_detection
+    from: 'off'
+    to: 'on'
+  conditions:
+  - condition: sun
+    before: sunrise
+    after: sunset
+  - condition: state
+    entity_id: binary_sensor.kitchen_motion_home_security_motion_detection
+    state: 'off'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  - condition: state
+    entity_id: switch.patio_double_switch_under_cabinet
+    state: 'off'
+  actions:
+  - type: turn_on
+    device_id: 45a68b765f8b862f5125e5447b507240
+    entity_id: c780dd63fc3688194e6c26ef55edba20
+    domain: switch
   mode: single
