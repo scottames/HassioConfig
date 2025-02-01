@@ -1,40 +1,3 @@
-- id: '1636908946190'
-  alias: Toggle Under Cabinet
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - switch.dimmer_dry_contact_relay_2
-    from: 'on'
-    to: 'off'
-  - platform: state
-    entity_id:
-    - switch.dimmer_dry_contact_relay_2
-    from: 'off'
-    to: 'on'
-  condition: []
-  action:
-  - type: toggle
-    device_id: 641aec2de478db9b2924d2b8f6230c16
-    entity_id: light.bathroom
-    domain: light
-  mode: single
-- id: '1637558005437'
-  alias: Turn off vanity relay
-  description: ''
-  trigger:
-  - platform: device
-    type: changed_states
-    device_id: 641aec2de478db9b2924d2b8f6230c16
-    entity_id: light.bathroom
-    domain: light
-  condition: []
-  action:
-  - type: toggle
-    device_id: 9e06f1a6ff79ebbe2460d7c938cf3f3a
-    entity_id: switch.dimmer_dry_contact_relay
-    domain: switch
-  mode: single
 - id: '1637706344383'
   alias: Pushover - HA Start
   description: ''
@@ -130,42 +93,6 @@
       message: '{{ trigger.from_state.attributes.friendly_name }}ed'
     action: notify.pushover
   mode: single
-- id: '1637798513461'
-  alias: Shower Scene On
-  description: ''
-  trigger:
-  - platform: device
-    device_id: 4ce80f8a948ee9f32df5601c36a23594
-    domain: zwave_js
-    type: event.value_notification.central_scene
-    property: scene
-    property_key: '001'
-    endpoint: 0
-    command_class: 91
-    subtype: Endpoint 0 Scene 001
-    value: 3
-  condition: []
-  action:
-  - scene: scene.new_scene
-  mode: single
-- id: '1637808701687'
-  alias: Shower Scene Off
-  description: ''
-  trigger:
-  - platform: device
-    device_id: 4ce80f8a948ee9f32df5601c36a23594
-    domain: zwave_js
-    type: event.value_notification.central_scene
-    property: scene
-    property_key: '002'
-    endpoint: 0
-    command_class: 91
-    subtype: Endpoint 0 Scene 002
-    value: 3
-  condition: []
-  action:
-  - scene: scene.shower_off
-  mode: single
 - id: '1637810805250'
   alias: Pushover - Water Leak in the Laundry!
   description: ''
@@ -212,163 +139,6 @@
         expire: 600
         retry: 30
     action: notify.pushover
-  mode: single
-- id: '1637811329499'
-  alias: Turn on Living Room Scene
-  description: ''
-  trigger:
-  - platform: device
-    device_id: 2af91ce4d5cb2e4770b2d7dd25868525
-    domain: zwave_js
-    type: event.value_notification.central_scene
-    property: scene
-    property_key: '001'
-    endpoint: 0
-    command_class: 91
-    subtype: Endpoint 0 Scene 001
-    value: 2
-  condition: []
-  action:
-  - scene: scene.living_room_on
-  mode: single
-- id: '1637811536741'
-  alias: Turn Off Living Room Scene
-  description: ''
-  trigger:
-  - platform: device
-    device_id: 2af91ce4d5cb2e4770b2d7dd25868525
-    domain: zwave_js
-    type: event.value_notification.central_scene
-    property: scene
-    property_key: '002'
-    endpoint: 0
-    command_class: 91
-    subtype: Endpoint 0 Scene 002
-    value: 2
-  condition: []
-  action:
-  - scene: scene.living_room_off
-  mode: single
-- id: '1637812203505'
-  alias: Turn All Kitchen On
-  description: ''
-  trigger:
-  - platform: device
-    device_id: 05aabd77387682dd721c8fd3aea0880a
-    domain: zwave_js
-    type: event.value_notification.central_scene
-    property: scene
-    property_key: '001'
-    endpoint: 0
-    command_class: 91
-    subtype: Endpoint 0 Scene 001
-    value: 5
-  condition: []
-  action:
-  - scene: scene.kitchen_all_on
-  mode: single
-- id: '1637812235874'
-  alias: Turn All Kitchen Off
-  description: ''
-  trigger:
-  - platform: device
-    device_id: 05aabd77387682dd721c8fd3aea0880a
-    domain: zwave_js
-    type: event.value_notification.central_scene
-    property: scene
-    property_key: '002'
-    endpoint: 0
-    command_class: 91
-    subtype: Endpoint 0 Scene 002
-    value: 5
-  condition: []
-  action:
-  - scene: scene.kitchen_all_off
-  mode: single
-- id: '1637812718047'
-  alias: Turn On Condo
-  description: ''
-  trigger:
-  - platform: device
-    device_id: c9c2c18873c1e7ab057326d883ae61e4
-    domain: zwave_js
-    type: event.value_notification.central_scene
-    property: scene
-    property_key: '001'
-    endpoint: 0
-    command_class: 91
-    subtype: Endpoint 0 Scene 001
-    value: 2
-  condition: []
-  action:
-  - scene: scene.bedroom_on
-  - scene: scene.kitchen_all_on
-  - scene: scene.living_room_on
-  - type: turn_on
-    device_id: b52e157b03fd9b597dcf600fd912f1b5
-    entity_id: light.z_wave_plus_700_series_s2_dimmer_switch_2
-    domain: light
-  mode: single
-- id: '1637812751846'
-  alias: Turn Off Condo
-  description: ''
-  trigger:
-  - platform: device
-    device_id: c9c2c18873c1e7ab057326d883ae61e4
-    domain: zwave_js
-    type: event.value_notification.central_scene
-    property: scene
-    property_key: '001'
-    endpoint: 0
-    command_class: 91
-    subtype: Endpoint 0 Scene 001
-    value: 2
-  condition: []
-  action:
-  - scene: scene.bedroom_off
-  - scene: scene.kitchen_all_off
-  - scene: scene.living_room_off
-  - type: turn_off
-    device_id: b52e157b03fd9b597dcf600fd912f1b5
-    entity_id: light.z_wave_plus_700_series_s2_dimmer_switch_2
-    domain: light
-  mode: single
-- id: '1637992748536'
-  alias: Turn on hallway when front door opened
-  description: ''
-  trigger:
-  - type: opened
-    platform: device
-    device_id: 1fc2159a07139f3b3a020302ded6c20d
-    entity_id: binary_sensor.open_close_xs_sensor_access_control_window_door_is_open
-    domain: binary_sensor
-  condition:
-  - condition: device
-    type: is_off
-    device_id: b52e157b03fd9b597dcf600fd912f1b5
-    entity_id: light.hallway
-    domain: light
-    for:
-      hours: 0
-      minutes: 1
-      seconds: 0
-  - condition: time
-    after: 07:00:00
-    before: '21:15:00'
-    weekday:
-    - sat
-    - fri
-    - thu
-    - wed
-    - tue
-    - mon
-    - sun
-  action:
-  - type: turn_on
-    device_id: b52e157b03fd9b597dcf600fd912f1b5
-    entity_id: light.hallway
-    domain: light
-    brightness_pct: 100
   mode: single
 - id: '1638162501921'
   alias: Bedroom Night Mode
@@ -710,27 +480,6 @@
     entity_id: f7948fa8d63e74d52a754682c58b00e1
     domain: light
   mode: single
-- id: '1737437946925'
-  alias: Test1
-  description: ''
-  triggers:
-  - type: motion
-    device_id: 390faaa3c796699d7b55e1e32f7c99a4
-    entity_id: a8421e8fb38519ed84136cdfc3d064a9
-    domain: binary_sensor
-    trigger: device
-  conditions: []
-  actions:
-  - action: notify.pushover
-    metadata: {}
-    data:
-      message: Test!
-      data:
-        priority: 2
-        sound: siren
-        expire: 300
-        retry: 30
-  mode: single
 - id: '1737844800222'
   alias: Pushover - Water Leak Detected in Garage closet!
   description: ''
@@ -1014,7 +763,7 @@
       device_id: 7234836ee69f83101bc8cc9a8f40d8a5
   mode: single
 - id: '1738048776318'
-  alias: In Bed - Shut down the horse
+  alias: In Bed
   description: ''
   triggers:
   - trigger: state
@@ -1037,34 +786,66 @@
     - thu
     - fri
     - sat
-  actions: []
+  actions:
+  - action: notify.mobile_app_pixel_9_pro
+    metadata: {}
+    data:
+      message: Sleep tight
+      title: Goodnight!
   mode: single
 - id: '1738276537475'
-  alias: Kitchen Motion > Under Cabinet On
+  alias: Kitchen Motion
   description: ''
   triggers:
   - trigger: state
     entity_id:
-    - binary_sensor.kitchen_motion_home_security_motion_detection
+    - binary_sensor.kitchen_motion_motion_detection
     from: 'off'
     to: 'on'
+    id: kitchen_motion_detected
+  - trigger: state
+    entity_id:
+    - binary_sensor.kitchen_motion_motion_detection
+    id: kitchen_motion_clear
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
   conditions:
+  - condition: state
+    entity_id: input_boolean.automation_kitchen_motion
+    state: 'off'
   - condition: sun
     before: sunrise
     after: sunset
-  - condition: state
-    entity_id: binary_sensor.kitchen_motion_home_security_motion_detection
-    state: 'off'
-    for:
-      hours: 0
-      minutes: 1
-      seconds: 0
-  - condition: state
-    entity_id: switch.patio_double_switch_under_cabinet
-    state: 'off'
+    after_offset: '-30'
+    before_offset: '30'
   actions:
-  - type: turn_on
-    device_id: 45a68b765f8b862f5125e5447b507240
-    entity_id: c780dd63fc3688194e6c26ef55edba20
-    domain: switch
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - kitchen_motion_detected
+      - condition: state
+        entity_id: switch.patio_double_switch_under_cabinet
+        state: 'off'
+        for:
+          hours: 0
+          minutes: 1
+          seconds: 0
+      sequence:
+      - type: turn_on
+        device_id: 45a68b765f8b862f5125e5447b507240
+        entity_id: c780dd63fc3688194e6c26ef55edba20
+        domain: switch
+    - conditions:
+      - condition: trigger
+        id:
+        - kitchen_motion_clear
+      sequence:
+      - type: turn_off
+        device_id: 45a68b765f8b862f5125e5447b507240
+        entity_id: c780dd63fc3688194e6c26ef55edba20
+        domain: switch
   mode: single
