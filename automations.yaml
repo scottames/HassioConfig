@@ -99,12 +99,12 @@
   triggers:
   - trigger: state
     entity_id:
-    - binary_sensor.water_leak_xs_sensor_water_alarm_water_leak_detected_2
+    - binary_sensor.leak_laundry_dryer_water_leak_detected
     from: 'off'
     to: 'on'
   - trigger: state
     entity_id:
-    - binary_sensor.water_leak_xs_sensor_water_leak_detected_2
+    - binary_sensor.leak_laundry_washer_water_leak_detected
     from: 'off'
     to: 'on'
   conditions: []
@@ -125,7 +125,12 @@
   triggers:
   - trigger: state
     entity_id:
-    - binary_sensor.water_leak_xs_sensor_water_leak_detected
+    - binary_sensor.leak_primary_bath_l_water_leak_detected
+    from: 'off'
+    to: 'on'
+  - trigger: state
+    entity_id:
+    - binary_sensor.leak_primary_bath_r_water_leak_detected
     from: 'off'
     to: 'on'
   conditions: []
@@ -452,11 +457,11 @@
   alias: Litter Boxed Used
   description: ''
   triggers:
-  - type: tampered
-    device_id: 1cc3864a9f9820f76aabb23e15cd81c9
-    entity_id: e80efde7843ea14fe174d05dfbb385f3
-    domain: binary_sensor
-    trigger: device
+  - trigger: state
+    entity_id:
+    - binary_sensor.tilt_litter_box_tampering_product_cover_removed
+    to: 'on'
+    from: 'off'
   conditions: []
   actions:
   - action: notify.mobile_app_pixel_9_pro
@@ -465,20 +470,45 @@
       message: Litter boxed used
   mode: single
 - id: '1736569620949'
-  alias: Patio Door Opened > Turn On Lights
+  alias: Patio Lights
   description: ''
   triggers:
-  - type: opened
-    device_id: f9fe224571c549f08f2b743ad564db7b
-    entity_id: ef90c3eb64f616252f084199d6d30332
-    domain: binary_sensor
-    trigger: device
+  - trigger: state
+    entity_id:
+    - binary_sensor.open_close_patio_door_window_door_is_open
+    from: 'off'
+    to: 'on'
+    id: door opened
+  - trigger: state
+    entity_id:
+    - binary_sensor.open_close_patio_door_window_door_is_open
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    id: door closed for 10 min
   conditions: []
   actions:
-  - type: turn_on
-    device_id: 45a68b765f8b862f5125e5447b507240
-    entity_id: f7948fa8d63e74d52a754682c58b00e1
-    domain: light
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - door opened
+      sequence:
+      - type: turn_on
+        device_id: 08a9d9067c0616f564e45e9fe02a35a3
+        entity_id: bae443432164d39b9d3e273baeb780b8
+        domain: light
+    - conditions:
+      - condition: trigger
+        id:
+        - door closed for 10 min
+      sequence:
+      - type: turn_off
+        device_id: 08a9d9067c0616f564e45e9fe02a35a3
+        entity_id: bae443432164d39b9d3e273baeb780b8
+        domain: light
   mode: single
 - id: '1737844800222'
   alias: Pushover - Water Leak Detected in Garage closet!
@@ -486,7 +516,7 @@
   triggers:
   - trigger: state
     entity_id:
-    - binary_sensor.water_heater_closet_flood_freeze_water_leak_detected
+    - binary_sensor.leak_water_heater_water_leak_detected
     from: 'off'
     to: 'on'
   conditions: []
@@ -690,26 +720,6 @@
         domain: light
         brightness_pct: 100
   mode: single
-- id: '1737949714461'
-  alias: Patio Door Closed for 10 min Lights Off
-  description: ''
-  triggers:
-  - type: not_opened
-    device_id: f9fe224571c549f08f2b743ad564db7b
-    entity_id: ef90c3eb64f616252f084199d6d30332
-    domain: binary_sensor
-    trigger: device
-    for:
-      hours: 0
-      minutes: 10
-      seconds: 0
-  conditions: []
-  actions:
-  - type: turn_off
-    device_id: 45a68b765f8b862f5125e5447b507240
-    entity_id: f7948fa8d63e74d52a754682c58b00e1
-    domain: light
-  mode: single
 - id: '1737958665121'
   alias: Spaceship - Closet No Motion Lights Off
   description: ''
@@ -749,18 +759,13 @@
       entity_id:
       - cover.node_62
       - cover.node_63
-  - action: cover.set_cover_position
-    metadata: {}
-    data:
-      position: 0
-    target:
-      device_id: 4e9b91181ea1552037e3ccc092922d60
+      - cover.shade_living_room_left
   - action: cover.set_cover_position
     metadata: {}
     data:
       position: 25
     target:
-      device_id: 7234836ee69f83101bc8cc9a8f40d8a5
+      entity_id: cover.shade_living_room_right
   mode: single
 - id: '1738048776318'
   alias: In Bed
@@ -827,17 +832,19 @@
       - condition: trigger
         id:
         - kitchen_motion_detected
-      - condition: state
-        entity_id: switch.patio_double_switch_under_cabinet
-        state: 'off'
+      - condition: device
+        type: is_off
+        device_id: 08a9d9067c0616f564e45e9fe02a35a3
+        entity_id: ed3dde7110acc5f8bf1a1bf3abeff341
+        domain: switch
         for:
           hours: 0
           minutes: 1
           seconds: 0
       sequence:
       - type: turn_on
-        device_id: 45a68b765f8b862f5125e5447b507240
-        entity_id: c780dd63fc3688194e6c26ef55edba20
+        device_id: 08a9d9067c0616f564e45e9fe02a35a3
+        entity_id: ed3dde7110acc5f8bf1a1bf3abeff341
         domain: switch
     - conditions:
       - condition: trigger
@@ -845,7 +852,22 @@
         - kitchen_motion_clear
       sequence:
       - type: turn_off
-        device_id: 45a68b765f8b862f5125e5447b507240
-        entity_id: c780dd63fc3688194e6c26ef55edba20
+        device_id: 08a9d9067c0616f564e45e9fe02a35a3
+        entity_id: ed3dde7110acc5f8bf1a1bf3abeff341
         domain: switch
+  mode: single
+- id: '1738463341178'
+  alias: test2
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.kitchen_motion_motion_detection
+    to: 'on'
+  conditions: []
+  actions:
+  - action: notify.mobile_app_pixel_9_pro
+    metadata: {}
+    data:
+      title: test2
   mode: single
