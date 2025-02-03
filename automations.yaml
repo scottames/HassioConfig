@@ -66,26 +66,21 @@
   alias: Pushover - Door Opened
   description: ''
   triggers:
-  - type: opened
-    device_id: a367bae547e482da63ee577669afa61d
-    entity_id: 0806236edbd6832695e6909fbfa384a3
-    domain: binary_sensor
-    trigger: device
-  - type: opened
-    device_id: f19e91dc39c2b91a017d8fe4eeeb2b66
-    entity_id: 4dddbe7e1db84e65097c919f8edd66d3
-    domain: binary_sensor
-    trigger: device
-  - type: opened
-    device_id: 1fc2159a07139f3b3a020302ded6c20d
-    entity_id: c64770f0b5118fdfed9987465c05541f
-    domain: binary_sensor
-    trigger: device
-  - type: opened
-    device_id: f9fe224571c549f08f2b743ad564db7b
-    entity_id: c5d5291a7153bba0cfd032661d96daf6
-    domain: binary_sensor
-    trigger: device
+  - trigger: state
+    entity_id:
+    - binary_sensor.front_door_lock_window_door_is_open
+    to: 'on'
+    from: 'off'
+  - trigger: state
+    entity_id:
+    - binary_sensor.garage_door_lock_window_door_is_open
+    from: 'off'
+    to: 'on'
+  - trigger: state
+    entity_id:
+    - binary_sensor.open_close_patio_door_window_door_is_open
+    from: 'off'
+    to: 'on'
   conditions: []
   actions:
   - data:
@@ -535,9 +530,14 @@
   alias: Dishwasher Running
   description: ''
   triggers:
-  - entity_id: sensor.indoor_smart_plug_electric_consumption_w
+  - entity_id:
+    - sensor.kitchen_plug_dishwasher_electric_consumption_w
     above: 7
-    for: 00:03:00
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 0
+      milliseconds: 0
     trigger: numeric_state
   conditions:
   - condition: not
@@ -557,7 +557,7 @@
   description: ''
   triggers:
   - entity_id:
-    - sensor.indoor_smart_plug_electric_consumption_w
+    - sensor.kitchen_plug_dishwasher_electric_consumption_w
     above: 2
     below: 4
     for:
@@ -581,7 +581,7 @@
   description: ''
   triggers:
   - entity_id:
-    - sensor.indoor_smart_plug_electric_consumption_w
+    - sensor.kitchen_plug_dishwasher_electric_consumption_w
     below: 0.75
     for:
       hours: 0
@@ -606,7 +606,7 @@
   description: ''
   triggers:
   - entity_id:
-    - sensor.indoor_smart_plug_electric_consumption_w
+    - sensor.kitchen_plug_dishwasher_electric_consumption_w
     above: 2
     below: 7
     for:
@@ -703,7 +703,7 @@
         device_id: e40586f7262fe6856ab91a844da8fd6f
         entity_id: 3a56612821d823cb8e4484697d7ff516
         domain: light
-        brightness_pct: 15
+        brightness_pct: 50
     - conditions:
       - condition: sun
         before: sunset
@@ -757,9 +757,9 @@
     data: {}
     target:
       entity_id:
-      - cover.node_62
-      - cover.node_63
       - cover.shade_living_room_left
+      - cover.shade_kitchen_window
+      - cover.shade_patio_door
   - action: cover.set_cover_position
     metadata: {}
     data:
