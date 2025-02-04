@@ -73,12 +73,12 @@
     from: 'off'
   - trigger: state
     entity_id:
-    - binary_sensor.garage_door_lock_window_door_is_open
+    - binary_sensor.open_close_patio_door_window_door_is_open
     from: 'off'
     to: 'on'
   - trigger: state
     entity_id:
-    - binary_sensor.open_close_patio_door_window_door_is_open
+    - binary_sensor.entryway_lock_garage_window_door_is_open
     from: 'off'
     to: 'on'
   conditions: []
@@ -820,7 +820,7 @@
   conditions:
   - condition: state
     entity_id: input_boolean.automation_kitchen_motion
-    state: 'off'
+    state: 'on'
   - condition: sun
     before: sunrise
     after: sunset
