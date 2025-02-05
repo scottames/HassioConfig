@@ -68,3 +68,35 @@ neato_clean_kitty_zone:
       zone: Kitty
   alias: Neato - Clean Kitty Zone
   description: ''
+notify_cleanup_litter_box:
+  use_blueprint:
+    path: homeassistant/confirmable_notification.yaml
+    input:
+      confirm_action:
+      - action: script.neato_clean_kitty_zone
+        metadata: {}
+        data: {}
+      title: Litter Box Used
+      message: Cleanup?
+      notify_device: 4d52c749bed662a955feaf60fc7c4218
+  alias: 'Notify: Cleanup Litter Box?'
+  description: ''
+close_shades:
+  sequence:
+  - action: cover.close_cover
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - cover.shade_living_room_left
+      - cover.shade_kitchen_window
+      - cover.shade_patio_door
+  - action: cover.set_cover_position
+    metadata: {}
+    data:
+      position: 25
+    target:
+      entity_id: cover.shade_living_room_right
+  mode: single
+  alias: Close Shades
+  description: ''

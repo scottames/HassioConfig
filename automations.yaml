@@ -459,10 +459,9 @@
     from: 'off'
   conditions: []
   actions:
-  - action: notify.mobile_app_pixel_9_pro
+  - action: script.notify_cleanup_litter_box
     metadata: {}
-    data:
-      message: Litter boxed used
+    data: {}
   mode: single
 - id: '1736569620949'
   alias: Patio Lights
