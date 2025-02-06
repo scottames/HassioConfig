@@ -100,3 +100,50 @@ close_shades:
   mode: single
   alias: Close Shades
   description: ''
+spaceship_closet_off:
+  sequence:
+  - type: turn_off
+    device_id: 641aec2de478db9b2924d2b8f6230c16
+    entity_id: 8e2381f3aaacff89286a28147838f98b
+    domain: light
+  - type: turn_off
+    device_id: e40586f7262fe6856ab91a844da8fd6f
+    entity_id: 3a56612821d823cb8e4484697d7ff516
+    domain: light
+  alias: Spaceship Closet Off
+  description: ''
+spaceship_closet_on:
+  sequence:
+  - choose:
+    - conditions:
+      - condition: sun
+        before: sunrise
+        after: sunset
+      sequence:
+      - type: turn_on
+        device_id: 641aec2de478db9b2924d2b8f6230c16
+        entity_id: 8e2381f3aaacff89286a28147838f98b
+        domain: light
+        brightness_pct: 15
+      - type: turn_on
+        device_id: e40586f7262fe6856ab91a844da8fd6f
+        entity_id: 3a56612821d823cb8e4484697d7ff516
+        domain: light
+        brightness_pct: 50
+    - conditions:
+      - condition: sun
+        before: sunset
+        after: sunrise
+      sequence:
+      - type: turn_on
+        device_id: 641aec2de478db9b2924d2b8f6230c16
+        entity_id: 8e2381f3aaacff89286a28147838f98b
+        domain: light
+        brightness_pct: 100
+      - type: turn_on
+        device_id: e40586f7262fe6856ab91a844da8fd6f
+        entity_id: 3a56612821d823cb8e4484697d7ff516
+        domain: light
+        brightness_pct: 100
+  alias: Spaceship Closet On
+  description: ''

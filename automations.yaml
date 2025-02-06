@@ -140,161 +140,6 @@
         retry: 30
     action: notify.pushover
   mode: single
-- id: '1638162501921'
-  alias: Bedroom Night Mode
-  description: ''
-  trigger:
-  - platform: device
-    device_id: 71f0d08aa4b04d0f1f600db5f87509a1
-    domain: zwave_js
-    type: event.value_notification.central_scene
-    property: scene
-    property_key: '002'
-    endpoint: 0
-    command_class: 91
-    subtype: Endpoint 0 Scene 002
-    value: 2
-  condition: []
-  action:
-  - type: turn_on
-    device_id: 782393b150de6e3027be3e516fdb3e5f
-    entity_id: light.hue_white_lamp_1_3
-    domain: light
-    brightness_pct: 15
-  - type: turn_on
-    device_id: 9c3fa89d959e11c674bb6e481205e90d
-    entity_id: light.hue_white_lamp_1
-    domain: light
-    brightness_pct: 25
-  mode: single
-- id: '1652399676531'
-  alias: At Sunset (brightness adjustments)
-  description: ''
-  trigger:
-  - platform: sun
-    event: sunset
-    offset: 0
-  condition: []
-  action:
-  - device_id: 6f79a2c9a9b7968780c01735283e6c82
-    domain: zwave_js
-    type: set_config_parameter
-    endpoint: 0
-    parameter: 11
-    bitmask:
-    subtype: 11 (Maximum Brightness) on endpoint 0
-    value: 18
-  - device_id: 9e06f1a6ff79ebbe2460d7c938cf3f3a
-    domain: zwave_js
-    type: set_config_parameter
-    endpoint: 0
-    parameter: 15
-    bitmask:
-    subtype: 15 (Maximum Brightness) on endpoint 0
-    value: 18
-  - device_id: b52e157b03fd9b597dcf600fd912f1b5
-    domain: zwave_js
-    type: set_config_parameter
-    endpoint: 0
-    parameter: 11
-    bitmask:
-    subtype: 11 (Maximum Brightness) on endpoint 0
-    value: 18
-  - device_id: 6f79a2c9a9b7968780c01735283e6c82
-    domain: zwave_js
-    type: set_config_parameter
-    endpoint: 0
-    parameter: 18
-    bitmask:
-    subtype: 18 (Custom Brightness Level) on endpoint 0
-    value: 15
-  - device_id: b52e157b03fd9b597dcf600fd912f1b5
-    domain: zwave_js
-    type: set_config_parameter
-    endpoint: 0
-    parameter: 18
-    bitmask:
-    subtype: 18 (Custom Brightness Level) on endpoint 0
-    value: 15
-  - device_id: 9e06f1a6ff79ebbe2460d7c938cf3f3a
-    domain: zwave_js
-    type: set_config_parameter
-    endpoint: 0
-    parameter: 23
-    bitmask:
-    subtype: 23 (Default Brightness Level On for Dimmer) on endpoint 0
-    value: 15
-  mode: single
-- id: '1652399743081'
-  alias: At Sunrise (brightness adjustments)
-  description: ''
-  trigger:
-  - platform: sun
-    event: sunrise
-    offset: 0
-  - platform: time
-    at: 06:00:00
-  condition: []
-  action:
-  - device_id: 9e06f1a6ff79ebbe2460d7c938cf3f3a
-    domain: zwave_js
-    type: set_config_parameter
-    endpoint: 0
-    parameter: 15
-    bitmask:
-    subtype: 15 (Maximum Brightness) on endpoint 0
-    value: 99
-  - device_id: 17b2d7297d2644b202347231fd6a26d6
-    domain: zwave_js
-    type: set_config_parameter
-    endpoint: 0
-    parameter: 3
-    bitmask:
-    subtype: 3 (Auto Turn-Off Timer) on endpoint 0
-    value: 120
-  - device_id: b52e157b03fd9b597dcf600fd912f1b5
-    domain: zwave_js
-    type: set_config_parameter
-    endpoint: 0
-    parameter: 11
-    bitmask:
-    subtype: 11 (Maximum Brightness) on endpoint 0
-    value: 99
-  - device_id: b52e157b03fd9b597dcf600fd912f1b5
-    domain: zwave_js
-    type: set_config_parameter
-    endpoint: 0
-    parameter: 18
-    bitmask:
-    subtype: 18 (Custom Brightness Level) on endpoint 0
-    value: 99
-  - device_id: 9e06f1a6ff79ebbe2460d7c938cf3f3a
-    domain: zwave_js
-    type: set_config_parameter
-    endpoint: 0
-    parameter: 23
-    bitmask:
-    subtype: 23 (Default Brightness Level On for Dimmer) on endpoint 0
-    value: 99
-  mode: single
-- id: '1655056424197'
-  alias: At 10:45a
-  description: ''
-  trigger:
-  - platform: time
-    at: '10:45:00'
-  condition: []
-  action:
-  - device_id: 17b2d7297d2644b202347231fd6a26d6
-    domain: zwave_js
-    type: set_config_parameter
-    endpoint: 0
-    parameter: 3
-    bitmask:
-    subtype: 3 (Auto Turn-Off Timer) on endpoint 0
-    value: 30
-    alias: Set Bathroom Fan Auto-off 30min
-  mode: single
 - id: CommitAndPushConfig
   alias: Commit & push config to GitHub
   trigger:
@@ -869,4 +714,95 @@
     metadata: {}
     data:
       title: test2
+  mode: single
+- id: '1738744348919'
+  alias: 'Bath Fans - Auto Off Timers '
+  description: ''
+  triggers:
+  - trigger: time
+    at: '10:45:00'
+    id: Mid morning
+  - trigger: time
+    at: 04:45:00
+    id: Early morning
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - Early morning
+      - condition: state
+        entity_id: input_boolean.automation_bath_fans_auto_off_timers
+        state: 'on'
+      sequence:
+      - device_id: 2e2825f3046234899bd9a7f1115983d3
+        domain: zwave_js
+        type: set_config_parameter
+        endpoint: 0
+        parameter: 3
+        bitmask:
+        subtype: 3 (Auto Turn-Off Timer) on endpoint 0
+        value: 180
+    - conditions:
+      - condition: trigger
+        id:
+        - Mid morning
+      sequence:
+      - device_id: 2e2825f3046234899bd9a7f1115983d3
+        domain: zwave_js
+        type: set_config_parameter
+        endpoint: 0
+        parameter: 3
+        bitmask:
+        subtype: 3 (Auto Turn-Off Timer) on endpoint 0
+        value: 30
+  mode: single
+- id: '1738803435819'
+  alias: Spaceship Lights
+  description: ''
+  triggers:
+  - device_id: fa4b274699e6805a0c458bc63e9304eb
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    trigger: device
+    value: 3
+    id: Up KeyPressed2x
+  - device_id: fa4b274699e6805a0c458bc63e9304eb
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    trigger: device
+    value: 3
+    id: Down KeyPressed2x
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - Up KeyPressed2x
+      sequence:
+      - type: turn_on
+        device_id: 241b64b71a7c975218025610de8f4e0d
+        entity_id: ed84b1a4568e03d4c0e0f3dd9ad46f9d
+        domain: light
+    - conditions:
+      - condition: trigger
+        id:
+        - Down KeyPressed2x
+      sequence:
+      - type: turn_off
+        device_id: 378d2b4226517b68cc6f989df5528258
+        entity_id: 7c733cade8b06f00216d5a9e9770fa73
+        domain: light
   mode: single
