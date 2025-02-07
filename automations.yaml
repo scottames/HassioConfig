@@ -801,8 +801,57 @@
         id:
         - Down KeyPressed2x
       sequence:
-      - type: turn_off
-        device_id: 378d2b4226517b68cc6f989df5528258
-        entity_id: 7c733cade8b06f00216d5a9e9770fa73
+      - action: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          area_id: baby
+  mode: single
+- id: '1738845186258'
+  alias: Guest Lights
+  description: ''
+  triggers:
+  - device_id: 1235ec5551883d92b24eaa903c0b6ecc
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    trigger: device
+    value: 3
+    id: Up KeyPressed2x
+  - device_id: 1235ec5551883d92b24eaa903c0b6ecc
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    trigger: device
+    id: Down KeyPressed2x
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - Up KeyPressed2x
+      sequence:
+      - type: turn_on
+        device_id: f0ab274fee444b5f97bf70ce4d4c7513
+        entity_id: ebaa9f13363629394758b27d60139446
         domain: light
+    - conditions:
+      - condition: trigger
+        id:
+        - Down KeyPressed2x
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          area_id: guest_room
   mode: single
