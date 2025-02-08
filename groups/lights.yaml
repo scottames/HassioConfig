@@ -23,34 +23,36 @@
 
 - platform: group
   name: "Kitchen"
+  unique_id: kitchen
   entities:
     - light.kitchen_backsplash  # Kitchen Backsplash
     - light.kitchen_island_3    # Kitchen Island
     - light.kitchen_overhead_2  # Kitchen Overhead
 
 - platform: group
-  name: "Bedroom"
+  name: "Primary Bed"
+  unique_id: primary_bed
   entities:
     - light.hue_white_lamp_1    # Toad
     - light.hue_white_lamp_1_3  # Block
-    # - light.z_wave_plus_700_series_s2_dimmer_switch_2  # Hallway
 
 - platform: group
-  name: "Bathroom"
+  name: "Primary Bath"
+  unique_id: primary_bath
   entities:
     - light.bathroom                                       # Under Cabinet
     - light.dimmer_dry_contact_relay                       # Mirror / Vanity
     - light.z_wave_plus_700_series_s2_on_off_switch  # Shower
 
 - platform: group
-  name: "Living Room"
+  name: "Living"
+  unique_id: living
   entities:
-    - light.tv                  # Big Desk
-    - light.cb2                 # CB2
-    - light.hue_color_lamp_1    # Bookshelf
-    - light.hue_white_lamp_1_2  # Targét
+    - light.hue_color_lamp_living_1
+    - light.hue_color_lamp_living_2
 
 - platform: group
-  name: "Entry"
+  name: "Entryway"
+  unique_id: entryway
   entities:
     - light.hallway  # Hallway

@@ -147,3 +147,23 @@ spaceship_closet_on:
         brightness_pct: 100
   alias: Spaceship Closet On
   description: ''
+open_shades:
+  sequence:
+  - action: cover.set_cover_position
+    metadata: {}
+    data:
+      position: 35
+    target:
+      entity_id:
+      - cover.shade_patio_door
+  - action: cover.open_cover
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - cover.shade_living_room_left
+      - cover.shade_living_room_right
+      - cover.shade_kitchen_window
+  mode: single
+  alias: Open Shades
+  description: ''

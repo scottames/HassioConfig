@@ -521,16 +521,12 @@
   conditions:
   - condition: and
     conditions:
-    - condition: device
-      type: is_off
-      device_id: e40586f7262fe6856ab91a844da8fd6f
-      entity_id: 3a56612821d823cb8e4484697d7ff516
-      domain: light
-    - condition: device
-      type: is_off
-      device_id: 641aec2de478db9b2924d2b8f6230c16
-      entity_id: 8e2381f3aaacff89286a28147838f98b
-      domain: light
+    - condition: state
+      entity_id: light.hue_lightstrip_1
+      state: 'off'
+    - condition: state
+      entity_id: light.hue_lightstrip_spaceship_closet_overhead
+      state: 'off'
   actions:
   - choose:
     - conditions:
@@ -588,7 +584,7 @@
     domain: light
   mode: single
 - id: '1738048118852'
-  alias: Sunset - Close Shades
+  alias: Sunset
   description: ''
   triggers:
   - trigger: sun
@@ -596,20 +592,9 @@
     offset: 0
   conditions: []
   actions:
-  - action: cover.close_cover
+  - action: script.close_shades
     metadata: {}
     data: {}
-    target:
-      entity_id:
-      - cover.shade_living_room_left
-      - cover.shade_kitchen_window
-      - cover.shade_patio_door
-  - action: cover.set_cover_position
-    metadata: {}
-    data:
-      position: 25
-    target:
-      entity_id: cover.shade_living_room_right
   mode: single
 - id: '1738048776318'
   alias: In Bed
@@ -643,7 +628,7 @@
       title: Goodnight!
   mode: single
 - id: '1738276537475'
-  alias: Kitchen Motion
+  alias: Kitchen Lights - Motion
   description: ''
   triggers:
   - trigger: state
@@ -854,4 +839,17 @@
         data: {}
         target:
           area_id: guest_room
+  mode: single
+- id: '1738962844206'
+  alias: Sunrise
+  description: ''
+  triggers:
+  - trigger: sun
+    event: sunrise
+    offset: 0
+  conditions: []
+  actions:
+  - action: script.open_shades
+    metadata: {}
+    data: {}
   mode: single
