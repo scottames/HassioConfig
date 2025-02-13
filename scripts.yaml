@@ -83,20 +83,27 @@ notify_cleanup_litter_box:
   description: ''
 close_shades:
   sequence:
-  - action: cover.close_cover
-    metadata: {}
-    data: {}
-    target:
-      entity_id:
-      - cover.shade_living_room_left
-      - cover.shade_kitchen_window
-      - cover.shade_patio_door
-  - action: cover.set_cover_position
-    metadata: {}
-    data:
-      position: 25
-    target:
-      entity_id: cover.shade_living_room_right
+  - if:
+    - condition: state
+      entity_id: input_boolean.automation_shades
+      state: 'on'
+    then:
+    - action: cover.close_cover
+      metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - cover.shade_living_room_left
+        - cover.shade_kitchen_window
+        - cover.kitchen_shade_patio
+        - cover.shade_living_room_right
+    - action: cover.set_cover_position
+      metadata: {}
+      data:
+        position: 25
+      target:
+        entity_id: cover.shade_living_room_right
+      enabled: false
   mode: single
   alias: Close Shades
   description: ''
@@ -149,21 +156,57 @@ spaceship_closet_on:
   description: ''
 open_shades:
   sequence:
-  - action: cover.set_cover_position
-    metadata: {}
-    data:
-      position: 35
-    target:
-      entity_id:
-      - cover.shade_patio_door
-  - action: cover.open_cover
-    metadata: {}
-    data: {}
-    target:
-      entity_id:
-      - cover.shade_living_room_left
-      - cover.shade_living_room_right
-      - cover.shade_kitchen_window
+  - if:
+    - condition: state
+      entity_id: input_boolean.automation_shades
+      state: 'on'
+    then:
+    - action: cover.set_cover_position
+      metadata: {}
+      data:
+        position: 35
+      target:
+        entity_id:
+        - cover.kitchen_shade_patio
+    - action: cover.open_cover
+      metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - cover.shade_living_room_left
+        - cover.shade_living_room_right
+        - cover.shade_kitchen_window
   mode: single
   alias: Open Shades
   description: ''
+wip_cans_lower_custom_brightness:
+  sequence:
+  - if:
+    - condition: state
+      entity_id: input_boolean.automation_cans_brightness_dimming
+      state: 'on'
+    then:
+    - action: number.set_value
+      target:
+        entity_id:
+        - number.spaceship_cans_custom_brightness_level
+        - number.guest_cans_custom_brightness_level
+        - number.laundry_can_custom_brightness_level
+        - number.kitchen_stairs_custom_brightness_level
+        - number.guest_bath_vanity_custom_brightness_level
+        - number.kitchen_cans_patio_custom_brightness_level
+        - number.3rd_floor_hallway_cans_custom_brightness_level
+      data:
+        value: '{{ brightness }}'
+  alias: Can Lights | Custom Brightness
+  description: Can Lights | Set Custom Brightness
+  fields:
+    brightness:
+      selector:
+        number:
+          min: 1
+          max: 100
+      name: Brightness
+      default: 100
+      required: false
+      description: 'Brightness level to be set. '

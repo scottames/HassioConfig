@@ -327,7 +327,10 @@
       minutes: 10
       seconds: 0
     id: door closed for 10 min
-  conditions: []
+  conditions:
+  - condition: state
+    entity_id: input_boolean.automation_patio
+    state: 'on'
   actions:
   - choose:
     - conditions:
@@ -419,6 +422,12 @@
     action: input_select.select_option
     target:
       entity_id: input_select.dishwasher_state
+  - data:
+      option: Clean
+    action: input_select.select_option
+    target:
+      entity_id:
+      - input_select.dishwasher_clean_status
   mode: single
 - id: '1737921360730'
   alias: Dishwasher Off
@@ -527,18 +536,21 @@
     - condition: state
       entity_id: light.hue_lightstrip_spaceship_closet_overhead
       state: 'off'
+  - condition: state
+    entity_id: input_boolean.automation_spaceship_lights
+    state: 'on'
   actions:
   - choose:
     - conditions:
       - condition: sun
-        before: sunrise
         after: sunset
+        before: sunrise
       sequence:
       - type: turn_on
         device_id: 641aec2de478db9b2924d2b8f6230c16
         entity_id: 8e2381f3aaacff89286a28147838f98b
         domain: light
-        brightness_pct: 15
+        brightness_pct: 25
       - type: turn_on
         device_id: e40586f7262fe6856ab91a844da8fd6f
         entity_id: 3a56612821d823cb8e4484697d7ff516
@@ -572,7 +584,10 @@
       hours: 0
       minutes: 5
       seconds: 0
-  conditions: []
+  conditions:
+  - condition: state
+    entity_id: input_boolean.automation_spaceship_lights
+    state: 'on'
   actions:
   - type: turn_off
     device_id: 641aec2de478db9b2924d2b8f6230c16
@@ -595,6 +610,10 @@
   - action: script.close_shades
     metadata: {}
     data: {}
+  - action: script.wip_cans_lower_custom_brightness
+    metadata: {}
+    data:
+      brightness: 50
   mode: single
 - id: '1738048776318'
   alias: In Bed
@@ -852,4 +871,46 @@
   - action: script.open_shades
     metadata: {}
     data: {}
+  - action: script.wip_cans_lower_custom_brightness
+    metadata: {}
+    data:
+      brightness: 100
+  mode: single
+- id: '1739395693533'
+  alias: Dishwasher
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.dishwasher_door_window_door_is_open
+    to: 'on'
+    from: 'off'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    id: Dishwasher Door Open
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - Dishwasher Door Open
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: input_select.dishwasher_clean_status
+          state: Clean
+      sequence:
+      - action: input_select.select_option
+        metadata: {}
+        data:
+          option: Dirty
+        target:
+          entity_id: input_select.dishwasher_clean_status
+      - action: notify.mobile_app_pixel_9_pro
+        metadata: {}
+        data:
+          message: Dishwasher Emptied!
   mode: single
