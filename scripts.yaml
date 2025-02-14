@@ -181,10 +181,7 @@ open_shades:
   description: ''
 wip_cans_lower_custom_brightness:
   sequence:
-  - if:
-    - condition: state
-      entity_id: input_boolean.automation_cans_brightness_dimming
-      state: 'on'
+  - if: []
     then:
     - action: number.set_value
       target:
