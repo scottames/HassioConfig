@@ -1,36 +1,10 @@
-- platform: min_max
-  entity_ids:
-    - sensor.kitchen_temperature
-    - sensor.bedroom_temperature
-    ## omitting as it is omitted from ecobee calculations
-    # - sensor.spire_temperature  # entry (ecobee)
-    - sensor.smartsensor_temperature  # living room
-    - sensor.bathroom_motion_sensor_temperature
-  type: mean
-  name: home_temp_avg
-
 - platform: template
   sensors:
       lights_on:
         friendly_name: Lights on
         unit_of_measurement: 'on'
         value_template: >
-            {% set lights = [
-                states.light.bathroom,
-                states.light.dimmer_dry_contact_relay,
-                states.light.cb2,
-                states.light.hue_color_lamp_1,
-                states.light.hue_white_lamp_1_3,
-                states.light.tv,
-                states.light.hue_white_lamp_1,
-                states.light.hue_white_lamp_1_2,
-                states.light.z_wave_plus_700_series_s2_dimmer_switch,
-                states.light.kitchen_backsplash,
-                states.light.kitchen_island_3,
-                states.light.kitchen_overhead_2,
-                states.light.z_wave_plus_700_series_s2_dimmer_switch_2
-              ] %}
-            {{ lights | selectattr('state','eq','on') | list | count }}
+          {{ states.light | selectattr("state","eq","on") | map(attribute="entity_id") | list | count }}
 
 ## --------------------- ##
 # Switchbot

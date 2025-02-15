@@ -304,7 +304,7 @@
     from: 'off'
   conditions: []
   actions:
-  - action: script.notify_cleanup_litter_box
+  - action: script.neato_clean_kitty_zone
     metadata: {}
     data: {}
   mode: single
@@ -618,7 +618,7 @@
     - action: script.wip_cans_lower_custom_brightness
       metadata: {}
       data:
-        brightness: 30
+        brightness: 15
   mode: single
 - id: '1738048776318'
   alias: In Bed
@@ -923,4 +923,31 @@
         metadata: {}
         data:
           message: Dishwasher Emptied!
+  mode: single
+- id: '1739598160085'
+  alias: Night Mode
+  description: ''
+  triggers:
+  - trigger: time
+    at: input_datetime.night_mode
+  conditions: []
+  actions:
+  - if:
+    - condition: state
+      entity_id: input_boolean.automation_cans_brightness_dimming
+      state: 'on'
+    then:
+    - action: script.wip_cans_lower_custom_brightness
+      metadata: {}
+      data:
+        brightness: 5
+  - if:
+    - condition: numeric_state
+      entity_id: number.lights_on
+      above: 0
+    then:
+    - action: notify.mobile_app_pixel_9_pro
+      metadata: {}
+      data:
+        message: 'Lights on '
   mode: single
