@@ -884,7 +884,7 @@
     - action: script.wip_cans_lower_custom_brightness
       metadata: {}
       data:
-        brightness: 100
+        brightness: 87
   mode: single
 - id: '1739395693533'
   alias: Dishwasher
