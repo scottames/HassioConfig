@@ -185,18 +185,12 @@ wip_cans_lower_custom_brightness:
     then:
     - action: number.set_value
       target:
-        entity_id:
-        - number.spaceship_cans_custom_brightness_level
-        - number.guest_cans_custom_brightness_level
-        - number.laundry_can_custom_brightness_level
-        - number.kitchen_stairs_custom_brightness_level
-        - number.guest_bath_vanity_custom_brightness_level
-        - number.kitchen_cans_patio_custom_brightness_level
-        - number.3rd_floor_hallway_cans_custom_brightness_level
+        label_id:
+        - lights_dimmers
       data:
         value: '{{ brightness }}'
-  alias: Can Lights | Custom Brightness
-  description: Can Lights | Set Custom Brightness
+  alias: Lights Dimmable | Custom Brightness
+  description: Lights Dimmable | Set Custom Brightness
   fields:
     brightness:
       selector:

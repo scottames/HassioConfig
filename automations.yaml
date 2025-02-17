@@ -951,3 +951,170 @@
       data:
         message: 'Lights on '
   mode: single
+- id: '1739761719195'
+  alias: Kitchen Island Remote
+  description: Controls for the Kitchen Island Remote
+  triggers:
+  - device_id: 006559e27aaa6d37ba4bdf204ba3df92
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    trigger: device
+    value: 0
+    id: 001 KeyPressed
+    alias: 001 KeyPressed | Top Button Pressed
+  - device_id: 006559e27aaa6d37ba4bdf204ba3df92
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    trigger: device
+    id: 002 KeyPressed
+    value: 0
+    alias: 002 KeyPressed | Middle Button Pressed
+  - device_id: 006559e27aaa6d37ba4bdf204ba3df92
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    trigger: device
+    value: 3
+    id: 001 KeyPressed2x
+    alias: ' 001 KeyPressed2x | Top Button Pressed 2x'
+  - device_id: 006559e27aaa6d37ba4bdf204ba3df92
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    trigger: device
+    id: 002 KeyPressed2x
+    value: 3
+    alias: 002 KeyPressed2x | Middle Button Pressed 2x
+  - device_id: 006559e27aaa6d37ba4bdf204ba3df92
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '003'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 003
+    trigger: device
+    value: 0
+    id: 003 KeyPressed
+    alias: 003 KeyPressed | Bottom Left Button Pressed
+  - device_id: 006559e27aaa6d37ba4bdf204ba3df92
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '004'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 004
+    trigger: device
+    id: 004 KeyPressed
+    value: 0
+    alias: 004 KeyPressed | Bottom Right Button Pressed
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - 001 KeyPressed
+    then:
+    - type: turn_on
+      device_id: f80c8b31d66db385539ad8a9fa780f41
+      entity_id: a36f135d999c1cd1fb6f212494e99173
+      domain: light
+    alias: 001 KeyPressed | Top Button Pressed
+  - if:
+    - condition: trigger
+      id:
+      - 002 KeyPressed
+    then:
+    - type: turn_off
+      device_id: f80c8b31d66db385539ad8a9fa780f41
+      entity_id: a36f135d999c1cd1fb6f212494e99173
+      domain: light
+    alias: 002 KeyPressed | Middle Button Pressed
+  - if:
+    - condition: trigger
+      id:
+      - 001 KeyPressed2x
+    then:
+    - type: turn_on
+      device_id: f80c8b31d66db385539ad8a9fa780f41
+      entity_id: a36f135d999c1cd1fb6f212494e99173
+      domain: light
+      brightness_pct: 89
+    alias: 001 KeyPressed2x | Top Button Pressed 2x
+  - if:
+    - condition: trigger
+      id:
+      - 002 KeyPressed2x
+    then:
+    - type: turn_on
+      device_id: f80c8b31d66db385539ad8a9fa780f41
+      entity_id: a36f135d999c1cd1fb6f212494e99173
+      domain: light
+      brightness_pct: 20
+    alias: 002 KeyPressed2x | Middle Button Pressed 2x
+  - if:
+    - condition: trigger
+      id:
+      - 003 KeyPressed
+    then:
+    - if:
+      - condition: device
+        device_id: cd8a0a5723c962b06bc6600a762e53cc
+        domain: cover
+        entity_id: b88ca0ee8c9e25e347504fb0386cf46a
+        type: is_position
+        above: 0
+      then:
+      - device_id: cd8a0a5723c962b06bc6600a762e53cc
+        domain: cover
+        entity_id: b88ca0ee8c9e25e347504fb0386cf46a
+        type: close
+      else:
+      - device_id: cd8a0a5723c962b06bc6600a762e53cc
+        domain: cover
+        entity_id: b88ca0ee8c9e25e347504fb0386cf46a
+        type: open
+    alias: 003 KeyPressed | Bottom Left Button Pressed
+  - if:
+    - condition: trigger
+      id:
+      - 004 KeyPressed
+    then:
+    - if:
+      - condition: device
+        device_id: 125c74586b53196718c3530e63911798
+        domain: cover
+        entity_id: b2d5c04aa39bebd0e932e3d926216318
+        type: is_position
+        above: 0
+      then:
+      - device_id: 125c74586b53196718c3530e63911798
+        domain: cover
+        entity_id: b2d5c04aa39bebd0e932e3d926216318
+        type: close
+      else:
+      - device_id: 125c74586b53196718c3530e63911798
+        domain: cover
+        entity_id: b2d5c04aa39bebd0e932e3d926216318
+        type: open
+    alias: 004 KeyPressed | Bottom Right Button Pressed
+  mode: single
