@@ -181,14 +181,32 @@ open_shades:
   description: ''
 wip_cans_lower_custom_brightness:
   sequence:
-  - if: []
+  - if:
+    - condition: state
+      entity_id: input_boolean.automation_cans_brightness_dimming
+      state: 'on'
     then:
     - action: number.set_value
       target:
         label_id:
         - lights_dimmers
       data:
-        value: '{{ brightness }}'
+        service: zwave_js.set_config_parameter
+        endpoint: 0
+        parameter: 18
+        bitmask:
+        subtype: 18 (Custom Brightness Level) on endpoint 0
+        value: 26
+    - sequence:
+      - repeat:
+          sequence:
+          - action: zwave_js.set_config_parameter
+            metadata: {}
+            data:
+              endpoint: '0'
+              parameter: '18'
+              value: '16'
+          for_each: '{{ label_entities(''lights_dimmers'') }}'
   alias: Lights Dimmable | Custom Brightness
   description: Lights Dimmable | Set Custom Brightness
   fields:
