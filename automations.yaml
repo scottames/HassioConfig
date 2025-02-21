@@ -912,6 +912,16 @@
     from: Clean
     to: Dirty
     id: Dishwasher Clean to Dirty
+  - trigger: state
+    entity_id:
+    - input_select.dishwasher_clean_status
+    to: unknown
+    id: Dishwasher Unknown
+  - trigger: state
+    entity_id:
+    - input_select.dishwasher_clean_status
+    id: Dishwasher Unavailable
+    to: unavailable
   conditions: []
   actions:
   - choose:
@@ -961,6 +971,17 @@
         bitmask:
         subtype: 23 (LED Indicator Color) on endpoint 0
         value: 0
+    - conditions:
+      - condition: trigger
+        id:
+        - Dishwasher Unknown
+        - Dishwasher Unavailable
+      sequence:
+      - action: notify.mobile_app_pixel_9_pro
+        metadata: {}
+        data:
+          title: Dishwasher State Unknown or Unavailable
+          message: Plug unplugged?
   mode: single
 - id: '1739598160085'
   alias: Night Mode
