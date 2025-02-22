@@ -619,6 +619,7 @@
       metadata: {}
       data:
         brightness: 10
+    alias: Dim Lights
   mode: single
 - id: '1738048776318'
   alias: In Bed
@@ -958,6 +959,14 @@
         bitmask:
         subtype: 4 (LED Indicator Color for Relay) on endpoint 0
         value: 3
+      - device_id: 08a9d9067c0616f564e45e9fe02a35a3
+        domain: zwave_js
+        type: set_config_parameter
+        endpoint: 0
+        parameter: 2
+        bitmask:
+        subtype: 2 (LED Indicator Mode for Relay) on endpoint 0
+        value: 3
     - conditions:
       - condition: trigger
         id:
@@ -970,6 +979,14 @@
         parameter: 23
         bitmask:
         subtype: 23 (LED Indicator Color) on endpoint 0
+        value: 0
+      - device_id: 08a9d9067c0616f564e45e9fe02a35a3
+        domain: zwave_js
+        type: set_config_parameter
+        endpoint: 0
+        parameter: 2
+        bitmask:
+        subtype: 2 (LED Indicator Mode for Relay) on endpoint 0
         value: 0
     - conditions:
       - condition: trigger
@@ -1000,6 +1017,7 @@
       metadata: {}
       data:
         brightness: 5
+    alias: Dim Lights Low
   - if:
     - condition: numeric_state
       entity_id: number.lights_on
@@ -1009,6 +1027,7 @@
       metadata: {}
       data:
         message: 'Lights on '
+    alias: Lights Still On?
   mode: single
 - id: '1739761719195'
   alias: Kitchen Island Remote
@@ -1289,7 +1308,7 @@
         metadata: {}
         data: {}
         target:
-          area_id: living_room
+          entity_id: light.living
     - conditions:
       - condition: trigger
         id:
@@ -1343,4 +1362,188 @@
           brightness_pct: 100
         target:
           area_id: living_room
+  mode: single
+- id: '1740197361617'
+  alias: Kitchen Stairs | Lights
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.kitchen_stairs_motion_motion_detection
+    from: 'off'
+    to: 'on'
+    id: Motion Detected
+  - trigger: state
+    entity_id:
+    - binary_sensor.kitchen_stairs_motion_motion_detection
+    to: 'off'
+    id: Motion Clear
+    from: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  conditions: []
+  actions:
+  - if:
+    - condition: state
+      state: 'on'
+      entity_id: input_boolean.automation_kitchen_stairs_lights
+    then:
+    - alias: Triggered by Motion Detected
+      if:
+      - condition: trigger
+        id:
+        - Motion Detected
+      - condition: device
+        type: is_off
+        device_id: 698ad32d17e57dd9a7048ef3137cdfec
+        entity_id: 6b7bbffd6db21b8b1a3073f6c169be58
+        domain: light
+      then:
+      - type: turn_on
+        device_id: 698ad32d17e57dd9a7048ef3137cdfec
+        entity_id: 6b7bbffd6db21b8b1a3073f6c169be58
+        domain: light
+    - alias: Triggered by Motion Clear
+      if:
+      - condition: trigger
+        id:
+        - Motion Clear
+      then:
+      - type: turn_off
+        device_id: 698ad32d17e57dd9a7048ef3137cdfec
+        entity_id: 6b7bbffd6db21b8b1a3073f6c169be58
+        domain: light
+  mode: single
+- id: '1740198944141'
+  alias: 3rd Floor Hallway | Lights
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.3rd_floor_hallway_motion_detection
+    from: 'off'
+    to: 'on'
+    id: Motion Detected
+  - trigger: state
+    entity_id:
+    - binary_sensor.3rd_floor_hallway_motion_detection
+    to: 'off'
+    id: Motion Clear
+    from: 'on'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  conditions: []
+  actions:
+  - if:
+    - condition: state
+      state: 'on'
+      entity_id: input_boolean.automation_3rd_floor_hallway_lights
+    then:
+    - alias: Triggered by Motion Detected
+      if:
+      - condition: trigger
+        id:
+        - Motion Detected
+      - condition: device
+        type: is_off
+        device_id: 23bf4615744bff701289d9164ef91133
+        entity_id: e08074f4d46be134259db72a4c66ff08
+        domain: light
+      then:
+      - type: turn_on
+        device_id: 23bf4615744bff701289d9164ef91133
+        entity_id: e08074f4d46be134259db72a4c66ff08
+        domain: light
+    - alias: Triggered by Motion Clear
+      if:
+      - condition: trigger
+        id:
+        - Motion Clear
+      then:
+      - type: turn_off
+        device_id: 23bf4615744bff701289d9164ef91133
+        entity_id: e08074f4d46be134259db72a4c66ff08
+        domain: light
+  mode: single
+- id: '1740204300029'
+  alias: Lights | Dimmers Custom Brightness
+  description: ''
+  triggers:
+  - trigger: sun
+    event: sunrise
+    offset: 0
+    id: Sunrise
+  - trigger: sun
+    event: sunset
+    offset: 0
+    id: Sunset
+  - trigger: time
+    at: input_datetime.night_mode
+    id: Night Mode
+    alias: When night mode
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - Sunrise
+    then:
+    - alias: Sunset, Night, or Day
+      if:
+      - condition: sun
+        before: sunrise
+        after: sunset
+      then: []
+      else:
+      - alias: Night or Day
+        if:
+        - condition: time
+          before: input_datetime.night_mode
+          weekday:
+          - sun
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+          - sat
+        then:
+        - variables:
+            can_bulbs_brightness: '{{ states(input_number.can_bulbs_sunset_custom_brightness)
+              | int }}'
+            can_bulbles_brightness: '{{ states(input_number.can_bulbless_sunset_custom_brightness)
+              | int }}'
+          alias: Variables Night
+    - variables:
+        can_bulbs_brightness: '{{ states(input_number.can_bulbs_sunset_custom_brightness)
+          | int }}'
+        can_bulbles_brightness: '{{ states(input_number.can_bulbless_sunset_custom_brightness)
+          | int }}'
+      alias: Variables Day
+    alias: Sunrise
+  - if:
+    - condition: trigger
+      id:
+      - Sunset
+    then:
+    - variables:
+        can_bulbs_brightness: '{{ states(input_number.can_bulbs_sunset_custom_brightness)
+          | int }}'
+        can_bulbless_brightness: '{{ states(input_number.can_bulbless_sunset_custom_brightness)
+          | int }}'
+      alias: Variables Sunset
+    alias: Sunset
+  - action: zwave_js.set_config_parameter
+    metadata: {}
+    data:
+      endpoint: '0'
+      parameter: '18'
+      value: 12
+      device_id:
+      - 0c149a2147c5bcbec04e0efff52efb8c
+    enabled: false
   mode: single

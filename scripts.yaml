@@ -198,6 +198,7 @@ wip_cans_lower_custom_brightness:
 
         '
     alias: Set Brightness on ZEN72 & ZEN77 Dimmers
+    enabled: true
   - alias: Set Brightness on ZEN30 Dimmers
     repeat:
       sequence:
@@ -227,3 +228,55 @@ wip_cans_lower_custom_brightness:
       default: 87
       required: false
       description: 'Brightness level to be set. '
+lights_custom_brightness:
+  sequence:
+  - alias: Sunset, Night, or Day
+    if:
+    - condition: sun
+      before: sunrise
+      after: sunset
+    then:
+    - variables:
+        can_bulbs_brightness: '{{ states(input_number.can_bulbs_sunset_custom_brightness)
+          | int }}'
+        can_bulbless_brightness: '{{ states(input_number.can_bulbless_sunset_custom_brightness)
+          | int }}'
+      alias: Variables Sunset
+    else:
+    - alias: Night or Day
+      if:
+      - condition: time
+        before: input_datetime.night_mode
+        weekday:
+        - sun
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+        - sat
+      then:
+      - variables:
+          can_bulbs_brightness: '{{ states(input_number.can_bulbs_sunset_custom_brightness)
+            | int }}'
+          can_bulbles_brightness: '{{ states(input_number.can_bulbless_sunset_custom_brightness)
+            | int }}'
+        alias: Variables Night
+      else:
+      - variables:
+          can_bulbs_brightness: '{{ states(input_number.can_bulbs_sunset_custom_brightness)
+            | int }}'
+          can_bulbles_brightness: '{{ states(input_number.can_bulbless_sunset_custom_brightness)
+            | int }}'
+        alias: Variables Day
+  - action: zwave_js.set_config_parameter
+    metadata: {}
+    data:
+      endpoint: '0'
+      parameter: '18'
+      value: 12
+      device_id:
+      - 0c149a2147c5bcbec04e0efff52efb8c
+  fields: {}
+  alias: Lights | Custom Brightness
+  description: ''
