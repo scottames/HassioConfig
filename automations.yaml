@@ -598,29 +598,6 @@
     entity_id: 3a56612821d823cb8e4484697d7ff516
     domain: light
   mode: single
-- id: '1738048118852'
-  alias: Sunset
-  description: ''
-  triggers:
-  - trigger: sun
-    event: sunset
-    offset: 0
-  conditions: []
-  actions:
-  - action: script.close_shades
-    metadata: {}
-    data: {}
-  - if:
-    - condition: state
-      entity_id: input_boolean.automation_cans_brightness_dimming
-      state: 'on'
-    then:
-    - action: script.wip_cans_lower_custom_brightness
-      metadata: {}
-      data:
-        brightness: 10
-    alias: Dim Lights
-  mode: single
 - id: '1738048776318'
   alias: In Bed
   description: ''
@@ -686,15 +663,9 @@
       - condition: trigger
         id:
         - kitchen_motion_detected
-      - condition: device
-        type: is_off
-        device_id: 08a9d9067c0616f564e45e9fe02a35a3
-        entity_id: ed3dde7110acc5f8bf1a1bf3abeff341
-        domain: switch
-        for:
-          hours: 0
-          minutes: 1
-          seconds: 0
+      - condition: state
+        entity_id: light.kitchen
+        state: 'off'
       sequence:
       - type: turn_on
         device_id: 08a9d9067c0616f564e45e9fe02a35a3
@@ -866,26 +837,37 @@
           area_id: guest_room
   mode: single
 - id: '1738962844206'
-  alias: Sunrise
+  alias: Shades
   description: ''
   triggers:
   - trigger: sun
     event: sunrise
     offset: 0
+    id: Sunrise
+  - trigger: sun
+    event: sunset
+    offset: 0
+    id: Sunset
   conditions: []
   actions:
-  - action: script.open_shades
-    metadata: {}
-    data: {}
   - if:
-    - condition: state
-      entity_id: input_boolean.automation_cans_brightness_dimming
-      state: 'on'
+    - condition: trigger
+      id:
+      - Sunrise
     then:
-    - action: script.wip_cans_lower_custom_brightness
+    - action: script.open_shades
       metadata: {}
-      data:
-        brightness: 87
+      data: {}
+    alias: Sunrise
+  - if:
+    - condition: trigger
+      id:
+      - Sunset
+    then:
+    - action: script.close_shades
+      metadata: {}
+      data: {}
+    alias: Sunset
   mode: single
 - id: '1739395693533'
   alias: Dishwasher
@@ -923,6 +905,15 @@
     - input_select.dishwasher_clean_status
     id: Dishwasher Unavailable
     to: unavailable
+  - trigger: state
+    entity_id:
+    - input_select.dishwasher_state
+    to: Running
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    id: Dishwasher Running
   conditions: []
   actions:
   - choose:
@@ -958,7 +949,8 @@
         parameter: 4
         bitmask:
         subtype: 4 (LED Indicator Color for Relay) on endpoint 0
-        value: 3
+        value: 2
+        alias: Set Patio Cans Relay LED Indicator Green
       - device_id: 08a9d9067c0616f564e45e9fe02a35a3
         domain: zwave_js
         type: set_config_parameter
@@ -967,6 +959,7 @@
         bitmask:
         subtype: 2 (LED Indicator Mode for Relay) on endpoint 0
         value: 3
+        alias: 'Set Patio Cans Relay LED Indicator Always On '
     - conditions:
       - condition: trigger
         id:
@@ -980,6 +973,7 @@
         bitmask:
         subtype: 23 (LED Indicator Color) on endpoint 0
         value: 0
+        alias: 'Set Patio Cans Relay LED Indicator White '
       - device_id: 08a9d9067c0616f564e45e9fe02a35a3
         domain: zwave_js
         type: set_config_parameter
@@ -988,6 +982,7 @@
         bitmask:
         subtype: 2 (LED Indicator Mode for Relay) on endpoint 0
         value: 0
+        alias: Set Patio Cans Relay LED Indicator On when load is off
     - conditions:
       - condition: trigger
         id:
@@ -999,35 +994,47 @@
         data:
           title: Dishwasher State Unknown or Unavailable
           message: Plug unplugged?
-  mode: single
-- id: '1739598160085'
-  alias: Night Mode
-  description: ''
-  triggers:
-  - trigger: time
-    at: input_datetime.night_mode
-  conditions: []
-  actions:
-  - if:
-    - condition: state
-      entity_id: input_boolean.automation_cans_brightness_dimming
-      state: 'on'
-    then:
-    - action: script.wip_cans_lower_custom_brightness
-      metadata: {}
-      data:
-        brightness: 5
-    alias: Dim Lights Low
-  - if:
-    - condition: numeric_state
-      entity_id: number.lights_on
-      above: 0
-    then:
-    - action: notify.mobile_app_pixel_9_pro
-      metadata: {}
-      data:
-        message: 'Lights on '
-    alias: Lights Still On?
+      - alias: 'Set Patio Cans Relay LED Indicator White '
+        device_id: 726ad63d3cb69c6fda02fdc289fc9de2
+        domain: zwave_js
+        type: set_config_parameter
+        endpoint: 0
+        parameter: 23
+        bitmask:
+        subtype: 23 (LED Indicator Color) on endpoint 0
+        value: 1
+      - alias: Set Patio Cans Relay LED Indicator Always On
+        device_id: 08a9d9067c0616f564e45e9fe02a35a3
+        domain: zwave_js
+        type: set_config_parameter
+        endpoint: 0
+        parameter: 2
+        bitmask:
+        subtype: 2 (LED Indicator Mode for Relay) on endpoint 0
+        value: 3
+    - conditions:
+      - condition: trigger
+        id:
+        - Dishwasher Running
+      sequence:
+      - alias: Set Patio Cans Relay LED Indicator Green
+        device_id: 08a9d9067c0616f564e45e9fe02a35a3
+        domain: zwave_js
+        type: set_config_parameter
+        endpoint: 0
+        parameter: 4
+        bitmask:
+        subtype: 4 (LED Indicator Color for Relay) on endpoint 0
+        value: 3
+      - device_id: 08a9d9067c0616f564e45e9fe02a35a3
+        domain: zwave_js
+        type: set_config_parameter
+        endpoint: 0
+        parameter: 2
+        bitmask:
+        subtype: 2 (LED Indicator Mode for Relay) on endpoint 0
+        value: 3
+        alias: 'Set Patio Cans Relay LED Indicator Always On '
   mode: single
 - id: '1739761719195'
   alias: Kitchen Island Remote
@@ -1487,63 +1494,128 @@
     alias: When night mode
   conditions: []
   actions:
-  - if:
-    - condition: trigger
-      id:
-      - Sunrise
-    then:
-    - alias: Sunset, Night, or Day
-      if:
-      - condition: sun
-        before: sunrise
-        after: sunset
-      then: []
-      else:
-      - alias: Night or Day
-        if:
-        - condition: time
-          before: input_datetime.night_mode
-          weekday:
-          - sun
-          - mon
-          - tue
-          - wed
-          - thu
-          - fri
-          - sat
-        then:
-        - variables:
-            can_bulbs_brightness: '{{ states(input_number.can_bulbs_sunset_custom_brightness)
-              | int }}'
-            can_bulbles_brightness: '{{ states(input_number.can_bulbless_sunset_custom_brightness)
-              | int }}'
-          alias: Variables Night
-    - variables:
-        can_bulbs_brightness: '{{ states(input_number.can_bulbs_sunset_custom_brightness)
-          | int }}'
-        can_bulbles_brightness: '{{ states(input_number.can_bulbless_sunset_custom_brightness)
-          | int }}'
-      alias: Variables Day
-    alias: Sunrise
-  - if:
-    - condition: trigger
-      id:
-      - Sunset
-    then:
-    - variables:
-        can_bulbs_brightness: '{{ states(input_number.can_bulbs_sunset_custom_brightness)
-          | int }}'
-        can_bulbless_brightness: '{{ states(input_number.can_bulbless_sunset_custom_brightness)
-          | int }}'
-      alias: Variables Sunset
-    alias: Sunset
-  - action: zwave_js.set_config_parameter
+  - alias: Set Custom Brightness | Can Bulbs ZEN77/ZEN72
+    action: zwave_js.set_config_parameter
     metadata: {}
     data:
       endpoint: '0'
       parameter: '18'
-      value: 12
+      value: '{% if trigger.id == "Sunrise" %} {{ states.input_number.can_bulbs_sunrise_custom_brightness.state
+        | int }} {% elif trigger.id == "Sunset" %} {{ states.input_number.can_bulbs_sunset_custom_brightness.state
+        | int }} {% elif trigger.id == "Night Mode" %} {{ states.input_number.can_bulbs_night_custom_brightness.state
+        | int }} {% else %} {{ states.input_number.can_bulbs_night_custom_brightness.state
+        | int }} {% endif %}
+
+        '
       device_id:
       - 0c149a2147c5bcbec04e0efff52efb8c
+      - 66b252e55a90b83a69301bbbf53ffa24
+      - ea6a0a3fe28385e4a63fd0b75fa20ed9
+      - 1235ec5551883d92b24eaa903c0b6ecc
+      - fa4b274699e6805a0c458bc63e9304eb
+      - 698ad32d17e57dd9a7048ef3137cdfec
+    enabled: true
+  - alias: Set Custom Brightness | Can Bulbs ZEN30
+    action: zwave_js.set_config_parameter
+    metadata: {}
+    data:
+      endpoint: '0'
+      value: '{% if trigger.id == "Sunrise" %} {{ states.input_number.can_bulbs_sunrise_custom_brightness.state
+        | int }} {% elif trigger.id == "Sunset" %} {{ states.input_number.can_bulbs_sunset_custom_brightness.state
+        | int }} {% elif trigger.id == "Night Mode" %} {{ states.input_number.can_bulbs_night_custom_brightness.state
+        | int }} {% else %} {{ states.input_number.can_bulbs_night_custom_brightness.state
+        | int }} {% endif %}
+
+        '
+      device_id:
+      - 08a9d9067c0616f564e45e9fe02a35a3
+      - f80c8b31d66db385539ad8a9fa780f41
+      parameter: '23'
+    enabled: true
+  - alias: Set Custom Brightness | Can Bulbless ZEN77/ZEN72
+    action: zwave_js.set_config_parameter
+    metadata: {}
+    data:
+      endpoint: '0'
+      parameter: '18'
+      value: '{% if trigger.id == "Sunrise" %} {{ states.input_number.can_bulbless_sunrise_custom_brightness.state
+        | int }} {% elif trigger.id == "Sunset" %} {{ states.input_number.can_bulbless_sunset_custom_brightness.state
+        | int }} {% elif trigger.id == "Night Mode" %} {{ states.input_number.can_bulbless_night_custom_brightness.state
+        | int }} {% else %} {{ states.input_number.can_bulbless_night_custom_brightness.state
+        | int }} {% endif %}
+
+        '
+      device_id:
+      - 23bf4615744bff701289d9164ef91133
+    enabled: true
+  - alias: '[helper] Set Custom Brightness | Can Bulbs ZEN77/ZEN72'
+    action: zwave_js.set_config_parameter
+    metadata: {}
+    data:
+      endpoint: '0'
+      parameter: '18'
+      value: 42
+      device_id:
+      - 0c149a2147c5bcbec04e0efff52efb8c
+      - 66b252e55a90b83a69301bbbf53ffa24
+      - ea6a0a3fe28385e4a63fd0b75fa20ed9
+      - 1235ec5551883d92b24eaa903c0b6ecc
+      - fa4b274699e6805a0c458bc63e9304eb
+      - 698ad32d17e57dd9a7048ef3137cdfec
     enabled: false
+  - alias: '[helper] Set Custom Brightness | Can Bulbs ZEN30'
+    action: zwave_js.set_config_parameter
+    metadata: {}
+    data:
+      endpoint: '0'
+      value: 42
+      device_id:
+      - 08a9d9067c0616f564e45e9fe02a35a3
+      - f80c8b31d66db385539ad8a9fa780f41
+      parameter: '23'
+    enabled: false
+  variables:
+    can_bulbs_brightness: 100
+    can_bulbless_brightness: 100
+  mode: single
+- id: '1740290049963'
+  alias: Guest Mode
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.guest_mode
+    from: 'off'
+    to: 'on'
+    id: Guest Mode Turned On
+  - trigger: state
+    entity_id:
+    - input_boolean.guest_mode
+    from: 'on'
+    to: 'off'
+    id: Guest Mode Turned Off
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - Guest Mode Turned On
+    then:
+    - action: input_boolean.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: input_boolean.automation_3rd_floor_hallway_lights
+    alias: Turn On Helpers
+  - if:
+    - condition: trigger
+      id:
+      - Guest Mode Turned Off
+    then:
+    - action: input_boolean.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: input_boolean.automation_3rd_floor_hallway_lights
+    alias: Turn Off Helpers
   mode: single
