@@ -81,6 +81,11 @@
     - binary_sensor.entryway_lock_garage_window_door_is_open
     from: 'off'
     to: 'on'
+  - trigger: state
+    entity_id:
+    - binary_sensor.dishwasher_door_window_door_is_open_4
+    from: 'off'
+    to: 'on'
   conditions: []
   actions:
   - data:
@@ -959,21 +964,21 @@
         bitmask:
         subtype: 2 (LED Indicator Mode for Relay) on endpoint 0
         value: 3
-        alias: 'Set Patio Cans Relay LED Indicator Always On '
+        alias: Set Patio Cans Relay LED Indicator Always On
     - conditions:
       - condition: trigger
         id:
         - Dishwasher Clean to Dirty
       sequence:
-      - device_id: 726ad63d3cb69c6fda02fdc289fc9de2
+      - alias: Set Patio Cans Relay LED Indicator White
+        device_id: 08a9d9067c0616f564e45e9fe02a35a3
         domain: zwave_js
         type: set_config_parameter
         endpoint: 0
-        parameter: 23
+        parameter: 4
         bitmask:
-        subtype: 23 (LED Indicator Color) on endpoint 0
+        subtype: 4 (LED Indicator Color for Relay) on endpoint 0
         value: 0
-        alias: 'Set Patio Cans Relay LED Indicator White '
       - device_id: 08a9d9067c0616f564e45e9fe02a35a3
         domain: zwave_js
         type: set_config_parameter
@@ -994,14 +999,14 @@
         data:
           title: Dishwasher State Unknown or Unavailable
           message: Plug unplugged?
-      - alias: 'Set Patio Cans Relay LED Indicator White '
-        device_id: 726ad63d3cb69c6fda02fdc289fc9de2
+      - alias: Set Patio Cans Relay LED Indicator Blue
+        device_id: 08a9d9067c0616f564e45e9fe02a35a3
         domain: zwave_js
         type: set_config_parameter
         endpoint: 0
-        parameter: 23
+        parameter: 4
         bitmask:
-        subtype: 23 (LED Indicator Color) on endpoint 0
+        subtype: 4 (LED Indicator Color for Relay) on endpoint 0
         value: 1
       - alias: Set Patio Cans Relay LED Indicator Always On
         device_id: 08a9d9067c0616f564e45e9fe02a35a3
@@ -1017,8 +1022,7 @@
         id:
         - Dishwasher Running
       sequence:
-      - alias: Set Patio Cans Relay LED Indicator Green
-        device_id: 08a9d9067c0616f564e45e9fe02a35a3
+      - device_id: 08a9d9067c0616f564e45e9fe02a35a3
         domain: zwave_js
         type: set_config_parameter
         endpoint: 0
@@ -1026,6 +1030,7 @@
         bitmask:
         subtype: 4 (LED Indicator Color for Relay) on endpoint 0
         value: 3
+        alias: Set Patio Cans LED Indicator Red
       - device_id: 08a9d9067c0616f564e45e9fe02a35a3
         domain: zwave_js
         type: set_config_parameter
@@ -1034,7 +1039,7 @@
         bitmask:
         subtype: 2 (LED Indicator Mode for Relay) on endpoint 0
         value: 3
-        alias: 'Set Patio Cans Relay LED Indicator Always On '
+        alias: Set Patio Cans Relay LED Indicator Always On
   mode: single
 - id: '1739761719195'
   alias: Kitchen Island Remote
@@ -1392,7 +1397,8 @@
       seconds: 10
   conditions: []
   actions:
-  - if:
+  - alias: Toggle Lights
+    if:
     - condition: state
       state: 'on'
       entity_id: input_boolean.automation_kitchen_stairs_lights
@@ -1407,6 +1413,9 @@
         device_id: 698ad32d17e57dd9a7048ef3137cdfec
         entity_id: 6b7bbffd6db21b8b1a3073f6c169be58
         domain: light
+      - condition: state
+        entity_id: input_boolean.dark_outside
+        state: 'on'
       then:
       - type: turn_on
         device_id: 698ad32d17e57dd9a7048ef3137cdfec
@@ -1417,6 +1426,11 @@
       - condition: trigger
         id:
         - Motion Clear
+      - condition: device
+        type: is_on
+        device_id: 698ad32d17e57dd9a7048ef3137cdfec
+        entity_id: 6b7bbffd6db21b8b1a3073f6c169be58
+        domain: light
       then:
       - type: turn_off
         device_id: 698ad32d17e57dd9a7048ef3137cdfec
@@ -1445,7 +1459,8 @@
       seconds: 0
   conditions: []
   actions:
-  - if:
+  - alias: Toggle Lights
+    if:
     - condition: state
       state: 'on'
       entity_id: input_boolean.automation_3rd_floor_hallway_lights
@@ -1460,6 +1475,9 @@
         device_id: 23bf4615744bff701289d9164ef91133
         entity_id: e08074f4d46be134259db72a4c66ff08
         domain: light
+      - condition: state
+        entity_id: input_boolean.dark_outside
+        state: 'on'
       then:
       - type: turn_on
         device_id: 23bf4615744bff701289d9164ef91133
@@ -1470,6 +1488,11 @@
       - condition: trigger
         id:
         - Motion Clear
+      - condition: device
+        type: is_on
+        device_id: 23bf4615744bff701289d9164ef91133
+        entity_id: e08074f4d46be134259db72a4c66ff08
+        domain: light
       then:
       - type: turn_off
         device_id: 23bf4615744bff701289d9164ef91133
@@ -1492,6 +1515,28 @@
     at: input_datetime.night_mode
     id: Night Mode
     alias: When night mode
+  - trigger: state
+    entity_id:
+    - input_boolean.dark_outside
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    id: Dark Outside
+    alias: Dark Outside
+  - alias: Light Outside
+    trigger: state
+    entity_id:
+    - input_boolean.dark_outside
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    id: Light Outside
+    from: 'on'
+    to: 'off'
   conditions: []
   actions:
   - alias: Set Custom Brightness | Can Bulbs ZEN77/ZEN72
@@ -1514,6 +1559,7 @@
       - 1235ec5551883d92b24eaa903c0b6ecc
       - fa4b274699e6805a0c458bc63e9304eb
       - 698ad32d17e57dd9a7048ef3137cdfec
+      - 0388db92484a03812280969a82b7184a
     enabled: true
   - alias: Set Custom Brightness | Can Bulbs ZEN30
     action: zwave_js.set_config_parameter
@@ -1562,6 +1608,7 @@
       - 1235ec5551883d92b24eaa903c0b6ecc
       - fa4b274699e6805a0c458bc63e9304eb
       - 698ad32d17e57dd9a7048ef3137cdfec
+      - 0388db92484a03812280969a82b7184a
     enabled: false
   - alias: '[helper] Set Custom Brightness | Can Bulbs ZEN30'
     action: zwave_js.set_config_parameter
@@ -1618,4 +1665,45 @@
       target:
         entity_id: input_boolean.automation_3rd_floor_hallway_lights
     alias: Turn Off Helpers
+  mode: single
+- id: '1740337694250'
+  alias: Illuminance
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.illuminance
+    below: input_number.illuminance_dark_outside_threshold
+    alias: When Illuminance is below Dark Outside Threshold
+    id: Illuminance | Dark
+  - trigger: numeric_state
+    entity_id:
+    - sensor.illuminance
+    above: input_number.illuminance_dark_outside_threshold
+    alias: When Illuminance is above Dark Outside Threshold
+    id: Illuminance | Light
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - Illuminance | Dark
+    then:
+    - action: input_boolean.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: input_boolean.dark_outside
+    alias: Turn on dark outside helper
+  - alias: Turn off dark outside helper
+    if:
+    - condition: trigger
+      id:
+      - Illuminance | Light
+    then:
+    - action: input_boolean.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: input_boolean.dark_outside
   mode: single
