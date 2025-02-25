@@ -314,7 +314,7 @@
     data: {}
   mode: single
 - id: '1736569620949'
-  alias: Patio Lights
+  alias: Patio
   description: ''
   triggers:
   - trigger: state
@@ -410,8 +410,8 @@
   triggers:
   - entity_id:
     - sensor.kitchen_plug_dishwasher_electric_consumption_w
-    above: 2
-    below: 4
+    above: 1
+    below: 3
     for:
       hours: 0
       minutes: 1
@@ -524,7 +524,7 @@
     action: notify.pushover
   mode: single
 - id: '1737948905959'
-  alias: Spaceship -  Closet Motion Lights On
+  alias: Spaceship | Closet
   description: ''
   triggers:
   - trigger: state
@@ -532,55 +532,8 @@
     - binary_sensor.hue_motion_sensor_spaceship_closet_motion
     to: 'on'
     from: 'off'
-  conditions:
-  - condition: and
-    conditions:
-    - condition: state
-      entity_id: light.hue_lightstrip_1
-      state: 'off'
-    - condition: state
-      entity_id: light.hue_lightstrip_spaceship_closet_overhead
-      state: 'off'
-  - condition: state
-    entity_id: input_boolean.automation_spaceship_lights
-    state: 'on'
-  actions:
-  - choose:
-    - conditions:
-      - condition: sun
-        after: sunset
-        before: sunrise
-      sequence:
-      - type: turn_on
-        device_id: 641aec2de478db9b2924d2b8f6230c16
-        entity_id: 8e2381f3aaacff89286a28147838f98b
-        domain: light
-        brightness_pct: 25
-      - type: turn_on
-        device_id: e40586f7262fe6856ab91a844da8fd6f
-        entity_id: 3a56612821d823cb8e4484697d7ff516
-        domain: light
-        brightness_pct: 50
-    - conditions:
-      - condition: sun
-        before: sunset
-        after: sunrise
-      sequence:
-      - type: turn_on
-        device_id: 641aec2de478db9b2924d2b8f6230c16
-        entity_id: 8e2381f3aaacff89286a28147838f98b
-        domain: light
-        brightness_pct: 100
-      - type: turn_on
-        device_id: e40586f7262fe6856ab91a844da8fd6f
-        entity_id: 3a56612821d823cb8e4484697d7ff516
-        domain: light
-        brightness_pct: 100
-  mode: single
-- id: '1737958665121'
-  alias: Spaceship - Closet No Motion Lights Off
-  description: ''
-  triggers:
+    id: Motion Detected
+    alias: Motion Detected
   - trigger: state
     entity_id:
     - binary_sensor.hue_motion_sensor_spaceship_closet_motion
@@ -589,19 +542,76 @@
       hours: 0
       minutes: 5
       seconds: 0
-  conditions:
-  - condition: state
-    entity_id: input_boolean.automation_spaceship_lights
-    state: 'on'
+    id: Motion Cleared
+    alias: Motion Cleared
+  conditions: []
   actions:
-  - type: turn_off
-    device_id: 641aec2de478db9b2924d2b8f6230c16
-    entity_id: 8e2381f3aaacff89286a28147838f98b
-    domain: light
-  - type: turn_off
-    device_id: e40586f7262fe6856ab91a844da8fd6f
-    entity_id: 3a56612821d823cb8e4484697d7ff516
-    domain: light
+  - if:
+    - condition: trigger
+      id:
+      - Motion Detected
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: light.hue_lightstrip_1
+        state: 'off'
+      - condition: state
+        entity_id: light.hue_lightstrip_spaceship_closet_overhead
+        state: 'off'
+    - condition: state
+      entity_id: input_boolean.automation_spaceship_lights
+      state: 'on'
+    then:
+    - choose:
+      - conditions:
+        - condition: sun
+          after: sunset
+          before: sunrise
+        sequence:
+        - type: turn_on
+          device_id: 641aec2de478db9b2924d2b8f6230c16
+          entity_id: 8e2381f3aaacff89286a28147838f98b
+          domain: light
+          brightness_pct: 25
+        - type: turn_on
+          device_id: e40586f7262fe6856ab91a844da8fd6f
+          entity_id: 3a56612821d823cb8e4484697d7ff516
+          domain: light
+          brightness_pct: 50
+      - conditions:
+        - condition: sun
+          before: sunset
+          after: sunrise
+        sequence:
+        - type: turn_on
+          device_id: 641aec2de478db9b2924d2b8f6230c16
+          entity_id: 8e2381f3aaacff89286a28147838f98b
+          domain: light
+          brightness_pct: 100
+        - type: turn_on
+          device_id: e40586f7262fe6856ab91a844da8fd6f
+          entity_id: 3a56612821d823cb8e4484697d7ff516
+          domain: light
+          brightness_pct: 100
+      alias: Sunrise or Sunset
+    alias: Motion Detected
+  - alias: Motion Cleared
+    if:
+    - condition: trigger
+      id:
+      - Motion Cleared
+    - condition: state
+      entity_id: input_boolean.automation_spaceship_lights
+      state: 'on'
+    then:
+    - type: turn_off
+      device_id: e40586f7262fe6856ab91a844da8fd6f
+      entity_id: 3a56612821d823cb8e4484697d7ff516
+      domain: light
+    - type: turn_off
+      device_id: 641aec2de478db9b2924d2b8f6230c16
+      entity_id: 8e2381f3aaacff89286a28147838f98b
+      domain: light
   mode: single
 - id: '1738048776318'
   alias: In Bed
@@ -635,7 +645,7 @@
       title: Goodnight!
   mode: single
 - id: '1738276537475'
-  alias: Kitchen Lights - Motion
+  alias: Kitchen
   description: ''
   triggers:
   - trigger: state
@@ -745,7 +755,7 @@
         value: 30
   mode: single
 - id: '1738803435819'
-  alias: Spaceship Lights
+  alias: Spaceship | Cans
   description: ''
   triggers:
   - device_id: fa4b274699e6805a0c458bc63e9304eb
@@ -794,7 +804,7 @@
           area_id: baby
   mode: single
 - id: '1738845186258'
-  alias: Guest Lights
+  alias: Guest
   description: ''
   triggers:
   - device_id: 1235ec5551883d92b24eaa903c0b6ecc
@@ -1042,7 +1052,7 @@
         alias: Set Patio Cans Relay LED Indicator Always On
   mode: single
 - id: '1739761719195'
-  alias: Kitchen Island Remote
+  alias: Kitchen | Island Remote
   description: Controls for the Kitchen Island Remote
   triggers:
   - device_id: 006559e27aaa6d37ba4bdf204ba3df92
@@ -1209,7 +1219,7 @@
     alias: 004 KeyPressed | Bottom Right Button Pressed
   mode: single
 - id: '1740000310301'
-  alias: Living Cans
+  alias: Living
   description: ''
   triggers:
   - device_id: 66b252e55a90b83a69301bbbf53ffa24
@@ -1376,7 +1386,7 @@
           area_id: living_room
   mode: single
 - id: '1740197361617'
-  alias: Kitchen Stairs | Lights
+  alias: Kitchen Stairs
   description: ''
   triggers:
   - trigger: state
@@ -1438,7 +1448,7 @@
         domain: light
   mode: single
 - id: '1740198944141'
-  alias: 3rd Floor Hallway | Lights
+  alias: 3rd Floor Hallway
   description: ''
   triggers:
   - trigger: state
@@ -1500,7 +1510,7 @@
         domain: light
   mode: single
 - id: '1740204300029'
-  alias: Lights | Dimmers Custom Brightness
+  alias: Dimmers Custom Brightness
   description: ''
   triggers:
   - trigger: sun
@@ -1545,8 +1555,9 @@
     data:
       endpoint: '0'
       parameter: '18'
-      value: '{% if trigger.id == "Sunrise" %} {{ states.input_number.can_bulbs_sunrise_custom_brightness.state
-        | int }} {% elif trigger.id == "Sunset" %} {{ states.input_number.can_bulbs_sunset_custom_brightness.state
+      value: '{% if trigger.id == "Sunrise" or trigger.id == "Light Outside" %} {{
+        states.input_number.can_bulbs_sunrise_custom_brightness.state | int }} {%
+        elif trigger.id == "Sunset" or trigger.id == "Dark Outside" %} {{ states.input_number.can_bulbs_sunset_custom_brightness.state
         | int }} {% elif trigger.id == "Night Mode" %} {{ states.input_number.can_bulbs_night_custom_brightness.state
         | int }} {% else %} {{ states.input_number.can_bulbs_night_custom_brightness.state
         | int }} {% endif %}
@@ -1560,14 +1571,20 @@
       - fa4b274699e6805a0c458bc63e9304eb
       - 698ad32d17e57dd9a7048ef3137cdfec
       - 0388db92484a03812280969a82b7184a
+      - 7a2d522f0443d49d17afe97b931e96b6
+      - 59c6d222b52da65b0b0d070aeec0851c
+      - 72f86c9d1dc065838b8f7f44ceeeb9dc
+      - aac1cd3ddfbeb5d783fae275db46d3cd
+      - 567f3cb57f130d801114ccdebb21b109
     enabled: true
   - alias: Set Custom Brightness | Can Bulbs ZEN30
     action: zwave_js.set_config_parameter
     metadata: {}
     data:
       endpoint: '0'
-      value: '{% if trigger.id == "Sunrise" %} {{ states.input_number.can_bulbs_sunrise_custom_brightness.state
-        | int }} {% elif trigger.id == "Sunset" %} {{ states.input_number.can_bulbs_sunset_custom_brightness.state
+      value: '{% if trigger.id == "Sunrise" or trigger.id == "Light Outside" %} {{
+        states.input_number.can_bulbs_sunrise_custom_brightness.state | int }} {%
+        elif trigger.id == "Sunset" or trigger.id == "Dark Outside" %} {{ states.input_number.can_bulbs_sunset_custom_brightness.state
         | int }} {% elif trigger.id == "Night Mode" %} {{ states.input_number.can_bulbs_night_custom_brightness.state
         | int }} {% else %} {{ states.input_number.can_bulbs_night_custom_brightness.state
         | int }} {% endif %}
@@ -1584,8 +1601,9 @@
     data:
       endpoint: '0'
       parameter: '18'
-      value: '{% if trigger.id == "Sunrise" %} {{ states.input_number.can_bulbless_sunrise_custom_brightness.state
-        | int }} {% elif trigger.id == "Sunset" %} {{ states.input_number.can_bulbless_sunset_custom_brightness.state
+      value: '{% if trigger.id == "Sunrise" or trigger.id == "Light Outside"  %} {{
+        states.input_number.can_bulbless_sunrise_custom_brightness.state | int }}
+        {% elif trigger.id == "Sunset" or trigger.id == "Dark Outside"  %} {{ states.input_number.can_bulbless_sunset_custom_brightness.state
         | int }} {% elif trigger.id == "Night Mode" %} {{ states.input_number.can_bulbless_night_custom_brightness.state
         | int }} {% else %} {{ states.input_number.can_bulbless_night_custom_brightness.state
         | int }} {% endif %}
@@ -1609,7 +1627,12 @@
       - fa4b274699e6805a0c458bc63e9304eb
       - 698ad32d17e57dd9a7048ef3137cdfec
       - 0388db92484a03812280969a82b7184a
-    enabled: false
+      - 7a2d522f0443d49d17afe97b931e96b6
+      - 59c6d222b52da65b0b0d070aeec0851c
+      - 72f86c9d1dc065838b8f7f44ceeeb9dc
+      - aac1cd3ddfbeb5d783fae275db46d3cd
+      - 567f3cb57f130d801114ccdebb21b109
+    enabled: true
   - alias: '[helper] Set Custom Brightness | Can Bulbs ZEN30'
     action: zwave_js.set_config_parameter
     metadata: {}
@@ -1706,4 +1729,89 @@
       data: {}
       target:
         entity_id: input_boolean.dark_outside
+  mode: single
+- id: '1740416178203'
+  alias: Primary Bath | Remote
+  description: ''
+  triggers:
+  - device_id: 948810e3d468d8782ccf8c215f4f39ee
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    trigger: device
+    value: 0
+    id: Top KeyPressed
+    alias: Top KeyPressed
+  - alias: Top KeyPressed
+    device_id: 948810e3d468d8782ccf8c215f4f39ee
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    trigger: device
+    id: Bottom KeyPressed
+    value: 0
+  conditions: []
+  actions:
+  - alias: Top KeyPressed
+    if:
+    - condition: trigger
+      id:
+      - Top KeyPressed
+    then:
+    - type: turn_on
+      device_id: aac1cd3ddfbeb5d783fae275db46d3cd
+      entity_id: 8499391e5cd9be73a28a20ada4b02b27
+      domain: light
+    - type: turn_on
+      device_id: 97ac1453ee3415baa5667d1694884d0d
+      entity_id: 731aa2deac00ebf62cf25db0c880e03d
+      domain: switch
+    - device_id: 0b7f0aff6014da28c045bf4c15c17c2f
+      domain: zwave_js
+      type: set_config_parameter
+      endpoint: 0
+      parameter: 3
+      bitmask:
+      subtype: 3 (Auto Turn-Off Timer) on endpoint 0
+      value: 180
+    - type: turn_on
+      device_id: 0b7f0aff6014da28c045bf4c15c17c2f
+      entity_id: e7b0125e9c008418f48aff313378ea39
+      domain: switch
+  - alias: Bottom KeyPressed
+    if:
+    - condition: trigger
+      id:
+      - Bottom KeyPressed
+    then:
+    - type: turn_off
+      device_id: aac1cd3ddfbeb5d783fae275db46d3cd
+      entity_id: 8499391e5cd9be73a28a20ada4b02b27
+      domain: light
+    - type: turn_off
+      device_id: 97ac1453ee3415baa5667d1694884d0d
+      entity_id: 731aa2deac00ebf62cf25db0c880e03d
+      domain: switch
+    - delay:
+        hours: 3
+        minutes: 0
+        seconds: 0
+        milliseconds: 0
+    - alias: Decrease Auto-off Timer on Fan
+      device_id: 0b7f0aff6014da28c045bf4c15c17c2f
+      domain: zwave_js
+      type: set_config_parameter
+      endpoint: 0
+      parameter: 3
+      bitmask:
+      subtype: 3 (Auto Turn-Off Timer) on endpoint 0
+      value: 30
   mode: single
